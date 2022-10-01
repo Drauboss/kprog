@@ -14,9 +14,10 @@ public class SimplePalindromeChecker implements PalindromeChecker {
     int arrayLength = chars.length;
     boolean p = true;
 
-    //compare first with last char, then second with second last,  etc until half of string is compared
+    //compare first with last char, then second with second last,
+    // etc until half of string is compared
     //if a two compared chars arent equal
-    for (int i = 0; i < arrayLengthHalf; i++){
+    for (int i = 0; i < arrayLengthHalf; i++) {
       if (chars[i] != chars[arrayLength - 1 - i]) {
         p = false;
         //System.out.println(chars[i] + " ist ungleich " + chars[arrayLength - 1 - i]);
@@ -31,7 +32,9 @@ public class SimplePalindromeChecker implements PalindromeChecker {
   @Override
   public char[] normalizeLine(String line) {
 
-    // ersetze alle charactere im String die keine Buchstaben(sowohl große als auch kleine) oder Ziffern sind mit dem leeren String ""
+    // ersetze alle charactere im String die keine
+    // Buchstaben(sowohl große als auch kleine)
+    // oder Ziffern sind mit dem leeren String ""
     line = line.replaceAll("[^A-Za-z0-9]", "");
     //ersetze alle großbuschstaben mit kleinbuchstaben
     line = line.toLowerCase();
