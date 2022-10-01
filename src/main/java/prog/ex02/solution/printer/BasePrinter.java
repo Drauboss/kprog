@@ -19,20 +19,6 @@ public abstract class BasePrinter  implements Printer {
     int paperUsed = 0;
 
 
-    //if document is duplex and printer can print duplex
-    //and pages of document is even
-    //remove only half of document pages from paper tray
-    //else if document is duplex and printer can print duplex
-    //and pages of document is odd
-    // remove only half of document pages from paper tray
-    //and add 1
-    //if (duplex && hasDuplex() && document.getPages() % 2 == 0) {
-    //  paperUsed = document.getPages() / 2;
-    //  paper = paper - paperUsed;
-    //} else if (duplex && hasDuplex() && document.getPages() % 2 != 0) {
-    //  paperUsed = document.getPages() / 2 + 1;
-    //  paper = paper - paperUsed;
-    //}
 
     //calculate amount of paper required for duplex printing
     if (duplex && hasDuplex()) {
@@ -51,23 +37,6 @@ public abstract class BasePrinter  implements Printer {
     }
 
 
-    //if (getNumberOfSheetsOfPaper() < paperUsed) {
-    //  returnValue = false;
-    //  System.out.println("bla");
-    //  System.out.println(getNumberOfSheetsOfPaper());
-    //  System.out.println(paperUsed);
-    //} else {
-    //  paper = paper - paperUsed;
-    //}
-
-    //if (duplex && !hasDuplex()) {
-    //  returnValue = false;
-    //  //System.out.println("bla");
-    //}
-    //if (document.isColor() && !hasColor()) {
-    //  returnValue = false;
-    //  //System.out.println("bla");
-    //}
 
     if ((getNumberOfSheetsOfPaper() < paperUsed) //not enough paper OR
         || (duplex && !hasDuplex()) // printer cant print duplex, but document is OR
