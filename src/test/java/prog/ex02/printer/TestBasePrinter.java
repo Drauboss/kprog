@@ -33,7 +33,7 @@ public class TestBasePrinter {
     document23color = new Document(23, true);
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testPaperManagement() {
     assertEquals(0, baseSimplexPrinter.getNumberOfSheetsOfPaper());
     assertEquals(0, baseDuplexPrinter.getNumberOfSheetsOfPaper());
@@ -48,13 +48,13 @@ public class TestBasePrinter {
     assertTrue(baseDuplexPrinter.addPaper(0));
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void addNegativeNumberOfSheetsOfPaper() {
     assertFalse(baseSimplexPrinter.addPaper(-100));
     assertFalse(baseDuplexPrinter.addPaper(-100));
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testPrintingSimplex() {
     assertTrue(baseSimplexPrinter.addPaper(100));
     assertTrue(baseSimplexPrinter.print(document23bw, false));
@@ -62,7 +62,7 @@ public class TestBasePrinter {
     assertEquals(77, baseSimplexPrinter.getNumberOfSheetsOfPaper());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testPrintingDuplex() {
     assertTrue(baseDuplexPrinter.addPaper(12));
     assertTrue(baseDuplexPrinter.print(document23bw, true));
