@@ -7,6 +7,7 @@ public class ColorPrinter extends BasePrinter {
 
   public ColorPrinter(String string, boolean b) {
     this.printerDuplex = b;
+    this.printerName = string;
   }
 
   @Override
