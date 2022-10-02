@@ -7,6 +7,7 @@ public class BwPrinter extends BasePrinter {
 
   public BwPrinter(final String string, final boolean b) {
     this.printerDuplex = b;
+    this.printerName = string;
   }
 
   @Override
