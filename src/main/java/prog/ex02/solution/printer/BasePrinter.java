@@ -19,33 +19,41 @@ public abstract class BasePrinter  implements Printer {
     boolean returnValue = true;
     int paperUsed = 0;
 
-
-
-    //calculate amount of paper required for duplex printing
-    if (duplex && hasDuplex()) {
-      if (document.getPages() % 2 == 0) {
-        paperUsed = document.getPages() / 2;
-      }
-      if (document.getPages() % 2 != 0) {
-        paperUsed = document.getPages() / 2 + 1;
-      }
-
-    }
-
-    //calculate amount of paper required for simplex printing
-    if (!duplex) {
-      paperUsed = document.getPages();
-    }
-
-
-
-    if ((getNumberOfSheetsOfPaper() < paperUsed) //not enough paper OR
-        || (duplex && !hasDuplex()) // printer cant print duplex, but document is OR
-        || (document.isColor() && !hasColor())) { //document is color, printer cant print color
+    //if document is null, set returnValue to false
+    //if not continue
+    if (document == null) {
       returnValue = false;
     } else {
-      paper = paper - paperUsed; //if printer is able to print, remove used paper from paper tray
+
+      //calculate amount of paper required for duplex printing
+      if (duplex && hasDuplex()) {
+        if (document.getPages() % 2 == 0) {
+          paperUsed = document.getPages() / 2;
+        }
+        if (document.getPages() % 2 != 0) {
+          paperUsed = document.getPages() / 2 + 1;
+        }
+
+      }
+
+      //calculate amount of paper required for simplex printing
+      if (!duplex) {
+        paperUsed = document.getPages();
+      }
+
+
+
+      if ((getNumberOfSheetsOfPaper() < paperUsed) //not enough paper OR
+          || (duplex && !hasDuplex()) // printer cant print duplex, but document is OR
+          || (document.isColor() && !hasColor())) { //document is color, printer cant print color
+        returnValue = false;
+      } else {
+        paper = paper - paperUsed; //if printer is able to print, remove used paper from paper tray
+      }
+
     }
+
+
 
     return returnValue;
   }
