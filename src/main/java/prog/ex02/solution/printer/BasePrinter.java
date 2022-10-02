@@ -11,6 +11,7 @@ public abstract class BasePrinter  implements Printer {
 
   int paper = 0;
   boolean printerDuplex;
+  String printerName;
 
   @Override
   public boolean print(final Document document, final boolean duplex) {
@@ -56,7 +57,8 @@ public abstract class BasePrinter  implements Printer {
 
   @Override
   public String getName() {
-    return null;
+
+    return printerName;
   }
 
   @Override

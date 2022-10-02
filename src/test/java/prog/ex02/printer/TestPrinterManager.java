@@ -12,7 +12,9 @@ import prog.ex02.solution.printer.SimplePrinterManager;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class TestPrinterManager {
 
@@ -33,7 +35,7 @@ public class TestPrinterManager {
     colorDuplexPrinter1 = new ColorPrinter(COLOR_DUPLEX_1, true);
   }
 
-  @Test  @Ignore
+  @Test  //@Ignore
   public void testPrintManagerIsEmpty() {
     assertEquals(0, printerManager.getNumberOfBwPrinters());
     assertEquals(0, printerManager.getNumberOfColorPrinters());
@@ -41,7 +43,7 @@ public class TestPrinterManager {
     assertEquals(0, printerManager.getAllPrinters().size());
   }
 
-  @Test  @Ignore
+  @Test  //@Ignore
   public void testAddGoodBwPrinter(){
     printerManager.addPrinter(bwSimplexPrinter1);
     assertEquals(0, printerManager.getNumberOfColorPrinters());
@@ -52,4 +54,5 @@ public class TestPrinterManager {
     Printer tmpPrinter = printerList.get(0);
     assertEquals(BW_SIMPLEX_1, tmpPrinter.getName());
   }
+
 }
