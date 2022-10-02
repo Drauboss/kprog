@@ -50,6 +50,7 @@ public class SimplePrinterManager implements PrinterManager {
     //if param printer is null reference or the name contains
     //non-printable characters set returnValue to false
     if (printer == null
+        || printer.getName().isBlank()
         || printer.getName().contains("[^\\x00-\\xFF]")) { // try with "\\p{C}"
       returnValue = false;
     }
@@ -66,6 +67,9 @@ public class SimplePrinterManager implements PrinterManager {
 
     boolean returnValue = true;
 
+    //Iterate trough printerList.
+    //If to be removed printer does not exist in list
+    //set returnValue to false
     for (Printer printer : printerList) {
       if (!(printer.getName().equals(name))) {
         returnValue = false;
@@ -76,6 +80,7 @@ public class SimplePrinterManager implements PrinterManager {
       returnValue = false;
     }
 
+    //if object printer is removable, remove object with name name from list
     if (returnValue) {
       printerList.remove(getPrinter(name));
     }

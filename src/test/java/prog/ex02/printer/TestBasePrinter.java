@@ -23,6 +23,8 @@ public class TestBasePrinter {
   private Document document23bw;
   private Document document23color;
 
+  private Document testDocument;
+
   @Before
   public void setup() {
     baseSimplexPrinter = new BwPrinter(SIMPLEX_PRINTER, false);
@@ -32,6 +34,8 @@ public class TestBasePrinter {
     document23bw = new Document(23, false);
     document23color = new Document(23, true);
   }
+
+
 
   @Test //@Ignore
   public void testPaperManagement() {
