@@ -6,7 +6,9 @@ package prog.ex03.solution.printer;
 public class BwPrinter extends BasePrinter {
 
   public BwPrinter(final String string, final boolean b) {
-    super();
+    this.printerDuplex = b;
+    this.printerName = string;
+    //super();
   }
 
   @Override
