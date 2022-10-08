@@ -24,61 +24,48 @@ public abstract class BasePrinter implements Printer {
           NoDuplexPrinterException, NoColorPrinterException {
 
     int paperUsed = 0;
-    boolean error = false;
 
-    //if document is null, set returnValue to false
-    //if not continue
+
+    //if document is null, throw IllegalArgumentException
     if (document == null) {
-      throw  new IllegalArgumentException();
-    } else {
-
-      //calculate amount of paper required for duplex printing
-      if (duplex && hasDuplex()) {
-        if (document.getPages() % 2 == 0) {
-          paperUsed = document.getPages() / 2;
-        }
-        if (document.getPages() % 2 != 0) {
-          paperUsed = document.getPages() / 2 + 1;
-        }
-
-      }
-
-      //calculate amount of paper required for simplex printing
-      if (!duplex) {
-        paperUsed = document.getPages();
-      }
-
-
-      if ((getNumberOfSheetsOfPaper() < paperUsed)) {
-        throw new NotEnoughPaperException("Not enough Paper", paperUsed - getNumberOfSheetsOfPaper());
-      }else{
-        error = true;
-      }
-      if ((duplex && !hasDuplex())) {
-        throw new NoDuplexPrinterException("Printer cant print duplex");
-      }else{
-        error = true;
-      }
-      if ((document.isColor() && !hasColor())) {
-        throw new NoColorPrinterException("Printer cant print color");
-      }else{
-        error = true;
-      }
-
-
-      //if ((getNumberOfSheetsOfPaper() < paperUsed) //not enough paper OR
-      //        || (duplex && !hasDuplex()) // printer cant print duplex, but document is OR
-      //        || (document.isColor() && !hasColor())) { //document is color, printer cant print color
-      //  returnValue = false;
-      //} else {
-      //  paper = paper - paperUsed; //if printer is able to print, remove used paper from paper tray
-      //}
-
-      if (!error) {
-        paper = paper - paperUsed; //if printer is able to print, remove used paper from paper tray
-      }
-
+      throw  new IllegalArgumentException("Document object is null");
     }
+
+    //calculate amount of paper required for duplex printing
+    if (duplex && hasDuplex()) {
+      if (document.getPages() % 2 == 0) {
+        paperUsed = document.getPages() / 2;
+      }
+      if (document.getPages() % 2 != 0) {
+        paperUsed = document.getPages() / 2 + 1;
+      }
+    }
+
+    //calculate amount of paper required for simplex printing
+    if (!duplex) {
+      paperUsed = document.getPages();
+    }
+
+    //not enough paper, throw NotEnoughPaperException
+    if ((getNumberOfSheetsOfPaper() < paperUsed)) {
+      throw new NotEnoughPaperException("Not enough Paper", paperUsed - getNumberOfSheetsOfPaper());
+    }
+
+    // printer cant print duplex, but document is
+    //throw NoDuplexPrinterException
+    if ((duplex && !hasDuplex())) {
+      throw new NoDuplexPrinterException("Printer cant print duplex");
+    }
+
+    //document is color, printer cant print color
+    //throw NoColorPrinterException
+    if ((document.isColor() && !hasColor())) {
+      throw new NoColorPrinterException("Printer cant print color");
+    }
+
+    // when printing is possible, no exception is thrown so this code is executed
+    paper = paper - paperUsed; //remove used paper from paper tray
+
   }
 
   @Override
@@ -97,11 +84,8 @@ public abstract class BasePrinter implements Printer {
     if (numberOfSheets >= 0) {
       paper = paper + numberOfSheets;
     } else {
-      throw new IllegalArgumentException("Illegal Argument!!!");
+      throw new IllegalArgumentException("Cant add less paper than 0");
     }
-
-
-
   }
 
   @Override
