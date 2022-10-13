@@ -12,17 +12,23 @@ public class SimpleWorker implements Worker {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimpleWorker.class);
 
+  ConcurrentLinkedQueue<Task> tasks;
+  String name;
+
   public SimpleWorker(String name) {
+    this.name = name;
   }
 
   @Override
   public void setQueue(final ConcurrentLinkedQueue<Task> queue) {
 
+    tasks = queue;
+
   }
 
   @Override
   public String getName() {
-    return null;
+    return name;
   }
 
   @Override
