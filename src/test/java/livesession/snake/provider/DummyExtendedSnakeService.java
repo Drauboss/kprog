@@ -4,21 +4,13 @@ import livesession.snake.Board;
 import livesession.snake.BoardState;
 import livesession.snake.Coordinate;
 import livesession.snake.GameConfiguration;
-import livesession.snake.IllegalConfigurationException;
 import livesession.snake.Reason;
 import livesession.snake.Snake;
 import livesession.snake.SnakeListener;
-import livesession.snake.SnakeService;
 
-public class SimpleSnakeService implements ExtendedSnakeService {
+public class DummyExtendedSnakeService implements ExtendedSnakeService {
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(SimpleSnakeService.class);
-
-  SimpleSnake snake;
-
-  public SimpleSnakeService() {
-    this.snake = new SimpleSnake(this);
-  }
+      org.slf4j.LoggerFactory.getLogger(DummyExtendedSnakeService.class);
 
   @Override
   public void reset() {
@@ -66,17 +58,13 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   }
 
   @Override
-  public void configure(final GameConfiguration configuration) throws
-      IllegalConfigurationException {
+  public void configure(final GameConfiguration configuration) {
 
   }
 
-  void triggeredByGameLoop() {
-    try {
-      advanceSnake();
-    } catch (IllegalPositionException e) {
-      failed(new Reason(e.getCoordinate(), e.getState()));
-    }
+  @Override
+  public Snake getSnake() {
+    return null;
   }
 
   @Override
@@ -89,8 +77,9 @@ public class SimpleSnakeService implements ExtendedSnakeService {
 
   }
 
+  @Override
   public void advanceSnake() throws IllegalPositionException {
-    snake.advance();
+
   }
 
   @Override
@@ -99,21 +88,17 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   }
 
   @Override
-  public Snake getSnake() {
-    return null;
-  }
-
-  public InternalBoard getInternalBoard() {
-    return null;
-  }
-
-  @Override
-  public void foodEaten(Coordinate coordinate) {
+  public void foodEaten(final Coordinate coordinate) {
 
   }
 
   @Override
   public void updateScore(final BoardState state) {
 
+  }
+
+  @Override
+  public InternalBoard getInternalBoard() {
+    return null;
   }
 }
