@@ -12,11 +12,15 @@ public class SimpleMaster implements Master {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimpleMaster.class);
 
+
+
   public SimpleMaster(int numberOfWorkers) {
   }
 
   @Override
   public Task addTask(final Runnable runnable) throws IllegalArgumentException {
+
+
     return null;
   }
 
@@ -27,7 +31,7 @@ public class SimpleMaster implements Master {
 
   @Override
   public Task getTask(final int taskId) throws IllegalArgumentException {
-    return null;
+    return ;
   }
 
   @Override
