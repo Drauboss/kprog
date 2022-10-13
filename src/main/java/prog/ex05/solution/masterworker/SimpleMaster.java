@@ -14,7 +14,7 @@ public class SimpleMaster implements Master {
 
   public SimpleMaster(int numberOfWorkers) {
   }
-//test
+
   @Override
   public Task addTask(final Runnable runnable) throws IllegalArgumentException {
     return null;
