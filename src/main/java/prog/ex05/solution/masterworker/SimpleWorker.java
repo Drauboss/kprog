@@ -16,6 +16,7 @@ public class SimpleWorker implements Worker {
   String name;
 
   public SimpleWorker(String name) {
+
     this.name = name;
   }
 
