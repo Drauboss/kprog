@@ -12,7 +12,7 @@ public class SimpleWorker extends Thread implements Worker {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimpleWorker.class);
 
-  ConcurrentLinkedQueue<Task> tasks;
+
   String name;
 
   public SimpleWorker(String name) {
@@ -23,7 +23,7 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void setQueue(final ConcurrentLinkedQueue<Task> queue) {
 
-    tasks = queue;
+    //tasks = queue;
 
   }
 

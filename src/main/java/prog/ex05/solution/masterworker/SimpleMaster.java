@@ -1,6 +1,8 @@
 package prog.ex05.solution.masterworker;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import prog.ex05.exercise.masterworker.Master;
 import prog.ex05.exercise.masterworker.Task;
 import prog.ex05.exercise.masterworker.TaskState;
@@ -14,6 +16,8 @@ public class SimpleMaster implements Master {
 
 
   int numberOfWorkers = 0;
+
+  ConcurrentLinkedQueue<Task> tasks;
   Task t;
 
   public SimpleMaster(int numberOfWorkers) {
