@@ -17,6 +17,7 @@ public class SimpleWorker extends Thread implements Worker {
 
   public SimpleWorker(String name) {
 
+
     this.name = name;
   }
 

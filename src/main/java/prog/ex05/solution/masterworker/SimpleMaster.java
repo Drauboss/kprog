@@ -22,6 +22,9 @@ public class SimpleMaster implements Master {
 
   public SimpleMaster(int numberOfWorkers) {
     //TODO: hier worker anlegen
+    for (int i = 0; i < numberOfWorkers; i++) {
+      SimpleWorker worker = new SimpleWorker("worker" + (i + 1));
+    }
     this.numberOfWorkers = numberOfWorkers;
   }
 
