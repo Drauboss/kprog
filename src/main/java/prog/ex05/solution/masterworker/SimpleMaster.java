@@ -1,6 +1,8 @@
 package prog.ex05.solution.masterworker;
 
 import java.util.List;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import prog.ex05.exercise.masterworker.Master;
 import prog.ex05.exercise.masterworker.Task;
 import prog.ex05.exercise.masterworker.TaskState;
@@ -13,30 +15,38 @@ public class SimpleMaster implements Master {
           org.slf4j.LoggerFactory.getLogger(SimpleMaster.class);
 
 
+  int numberOfWorkers = 0;
+
+  ConcurrentLinkedQueue<Task> tasks;
+  Task t;
 
   public SimpleMaster(int numberOfWorkers) {
+    //TODO: hier worker anlegen
+    this.numberOfWorkers = numberOfWorkers;
   }
 
   @Override
   public Task addTask(final Runnable runnable) throws IllegalArgumentException {
 
+    t = new Task(runnable);
 
-    return null;
+
+    return t;
   }
 
   @Override
   public TaskState getTaskState(final int taskId) throws IllegalArgumentException {
-    return null;
+    return getTask(taskId).getState();
   }
 
   @Override
   public Task getTask(final int taskId) throws IllegalArgumentException {
-    return ;
+    return null;
   }
 
   @Override
   public int getNumberOfWorkers() {
-    return 0;
+    return numberOfWorkers;
   }
 
   @Override
