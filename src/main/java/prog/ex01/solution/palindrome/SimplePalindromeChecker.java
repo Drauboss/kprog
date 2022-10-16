@@ -1,6 +1,8 @@
 package prog.ex01.solution.palindrome;
 
 
+import java.text.Normalizer;
+import java.text.Normalizer.Form;
 import prog.ex01.exercise.palindrome.PalindromeChecker;
 
 /**
@@ -9,6 +11,8 @@ import prog.ex01.exercise.palindrome.PalindromeChecker;
 public class SimplePalindromeChecker implements PalindromeChecker {
   @Override
   public boolean isPalindrome(final String line) {
+
+
     char[] chars = normalizeLine(line); //string to normalized char array
     int arrayLengthHalf = chars.length / 2;
     int arrayLength = chars.length;
@@ -32,12 +36,16 @@ public class SimplePalindromeChecker implements PalindromeChecker {
   @Override
   public char[] normalizeLine(String line) {
 
-    // ersetze alle charactere im String die keine
-    // Buchstaben(sowohl große als auch kleine)
-    // oder Ziffern sind mit dem leeren String ""
-    line = line.replaceAll("[^A-Za-z0-9]", "");
-    //ersetze alle großbuschstaben mit kleinbuchstaben
+
+
+    line = line.replaceAll("[\\-\\+\\.\\^:,!–]","");
+    line = line.replaceAll(" ", "");
+    line = Normalizer.normalize(line, Form.NFD);
+    line = line.replaceAll("\\p{M}", "");
     line = line.toLowerCase();
+
+
+
     //wandle den String in einen array aus chars um
     char[] chars = line.toCharArray();
 

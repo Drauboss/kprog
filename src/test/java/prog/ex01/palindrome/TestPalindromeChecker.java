@@ -1,6 +1,7 @@
 package prog.ex01.palindrome;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -49,6 +50,16 @@ public class TestPalindromeChecker {
   @Test //@Ignore
   public void testIsPalindrome03() {
     assertTrue(palindromeChecker.isPalindrome("A man, a plan, a canal – Panama"));
+  }
+
+  @Test //@Ignore
+  public void testIsPalindrome04() {
+    assertFalse(palindromeChecker.isPalindrome("Товарищ, это не палиндром."));
+  }
+
+  @Test //@Ignore
+  public void testIsPalindrome05() {
+    assertTrue(palindromeChecker.isPalindrome("Кулина́р, храни́ лук"));
   }
 
 }
