@@ -38,7 +38,8 @@ public class SimpleMaster implements Master {
     for (int i = 0; i < numberOfWorkers; i++) {
       SimpleWorker worker = new SimpleWorker("worker" + (i + 1));
       workerMap.put(worker.getName(), worker);
-      //worker.run();
+      //worker.setQueue(tasks);
+      worker.start();
     }
     this.numberOfWorkers = numberOfWorkers;
   }
@@ -52,11 +53,17 @@ public class SimpleMaster implements Master {
 
 
     Task t;
-
     t = new Task(runnable);
+
     tasks.add(t);
 
+
+    //t.setState(TaskState.SUCCEEDED);
+
+
     return t;
+
+
   }
 
   @Override

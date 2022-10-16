@@ -32,13 +32,23 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void run() {
 
+    if (currentTask == null) {
+      try {
+        Thread.sleep(WAIT_EMPTY_QUEUE);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+      }
+      run();
+    }
 
-    currentTask.setState(TaskState.SUCCEEDED);
+
 
     try {
       currentTask.getRunnable().run();
-    } catch (Exception e) {
-      currentTask.setState(TaskState.CRASHED);
+      currentTask.setState(TaskState.SUCCEEDED);
+    } catch (RuntimeException e) {
+      currentTask.crashed(e);
+      currentTask.setState(TaskState.SUCCEEDED);
     }
 
     //System.out.println(Thread.currentThread());
@@ -56,11 +66,11 @@ public class SimpleWorker extends Thread implements Worker {
         Thread.currentThread().interrupt();
       }
 
-      setQueue(queue);
+      //setQueue(queue);
     }
 
 
-    currentTask = queue.element();
+    currentTask = queue.poll();
     currentTask.setState(TaskState.RUNNING);
 
 
