@@ -48,7 +48,7 @@ public class SimpleWorker extends Thread implements Worker {
 
         try {
           t.getRunnable().run();
-          t.setState(TaskState.RUNNING);
+          t.setState(TaskState.SUCCEEDED);
         } catch (RuntimeException e) {
           t.setState(TaskState.CRASHED);
           t.crashed(e);
