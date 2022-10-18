@@ -16,6 +16,7 @@ public class SimpleWorker extends Thread implements Worker {
 
 
 
+  ConcurrentLinkedQueue<Task> tasks;
   Task currentTask;
   //String name;
 
@@ -32,24 +33,46 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void run() {
 
-    if (currentTask == null) {
-      try {
-        Thread.sleep(WAIT_EMPTY_QUEUE);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
+    while (!isInterrupted()) {
+
+      Task t = tasks.poll();
+
+      if (t == null) {
+        try {
+          Thread.sleep(WAIT_EMPTY_QUEUE);
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+        }
+
+      } else {
+
+        try {
+          t.getRunnable().run();
+          t.setState(TaskState.RUNNING);
+        } catch (RuntimeException e) {
+          t.setState(TaskState.CRASHED);
+          t.crashed(e);
+        }
       }
-      run();
+
+
+
+
     }
 
 
+  //TODO: while(bool soll icch noch laufen?
 
-    try {
-      currentTask.getRunnable().run();
-      currentTask.setState(TaskState.SUCCEEDED);
-    } catch (RuntimeException e) {
-      currentTask.crashed(e);
-      currentTask.setState(TaskState.SUCCEEDED);
-    }
+
+
+
+    //try {
+    //  currentTask.getRunnable().run();
+    //  currentTask.setState(TaskState.SUCCEEDED);
+    //} catch (RuntimeException e) {
+    //  currentTask.crashed(e);
+    //  currentTask.setState(TaskState.SUCCEEDED);
+    //}
 
     //System.out.println(Thread.currentThread());
     //System.out.println("running from simpleworker class");
@@ -58,20 +81,20 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void setQueue(final ConcurrentLinkedQueue<Task> queue) {
 
-    if (queue.isEmpty()) {
-
-      try {
-        Thread.sleep(WAIT_EMPTY_QUEUE);
-      } catch (InterruptedException e) {
-        Thread.currentThread().interrupt();
-      }
-
-      //setQueue(queue);
-    }
+    //if (queue.isEmpty()) {
+    //  try {
+    //    Thread.sleep(WAIT_EMPTY_QUEUE);
+    //  } catch (InterruptedException e) {
+    //    Thread.currentThread().interrupt();
+    //  }
+    //  setQueue(queue);
+    //}
 
 
-    currentTask = queue.poll();
-    currentTask.setState(TaskState.RUNNING);
+    this.tasks = queue;
+
+    //currentTask = queue.element();
+    //currentTask.setState(TaskState.RUNNING);
 
 
     //tasks = queue;
