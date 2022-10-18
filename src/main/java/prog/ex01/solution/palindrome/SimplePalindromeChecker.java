@@ -38,7 +38,7 @@ public class SimplePalindromeChecker implements PalindromeChecker {
 
 
 
-    line = line.replaceAll("[\\-\\+\\.\\^:,!–]","");
+    line = line.replaceAll("[\\-\\+\\.\\^:,!–]", "");
     line = line.replaceAll(" ", "");
     line = Normalizer.normalize(line, Form.NFD);
     line = line.replaceAll("\\p{M}", "");
