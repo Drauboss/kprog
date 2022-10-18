@@ -61,7 +61,6 @@ public class SimpleWorker extends Thread implements Worker {
     }
 
 
-  //TODO: while(bool soll icch noch laufen?
 
 
 

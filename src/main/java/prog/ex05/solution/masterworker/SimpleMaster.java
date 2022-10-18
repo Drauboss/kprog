@@ -19,6 +19,7 @@ public class SimpleMaster implements Master {
   int numberOfWorkers;
 
   ConcurrentLinkedQueue<Task> tasks = new ConcurrentLinkedQueue<>();
+  ConcurrentLinkedQueue<Task> allTasks = new ConcurrentLinkedQueue<>();
 
   HashMap<String, SimpleWorker> workerMap = new HashMap<>();
 
@@ -57,6 +58,7 @@ public class SimpleMaster implements Master {
     t = new Task(runnable);
 
     tasks.add(t);
+    allTasks.add(t);
 
 
     //t.setState(TaskState.SUCCEEDED);
@@ -76,7 +78,7 @@ public class SimpleMaster implements Master {
 
 
 
-    for (Task value : tasks) {
+    for (Task value : allTasks) {
       if (value.getId() == taskId) {
         return value.getState();
       }
@@ -96,7 +98,7 @@ public class SimpleMaster implements Master {
       throw new IllegalArgumentException("task id has to be greater than or equal to 1");
     }
 
-    for (Task value : tasks) {
+    for (Task value : allTasks) {
       if (value.getId() == taskId) {
         return value;
       }
