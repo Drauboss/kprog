@@ -13,7 +13,7 @@ public class SimplePizza implements Pizza {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
 
-  private int price;
+  int price;
   private int id;
   private static int idCounter = 0;
   PizzaSize size;
@@ -22,6 +22,7 @@ public class SimplePizza implements Pizza {
   public SimplePizza(PizzaSize size) {
     this.size = size;
     id = ++idCounter;
+    //TODO: add price of pizza size to price attribute
   }
 
   @Override
@@ -41,6 +42,10 @@ public class SimplePizza implements Pizza {
 
   @Override
   public int getPrice() {
+    //TODO: go trough toppinglist and add prices of toppings to price, use switch case
     return price;
   }
+
+
 }
+
