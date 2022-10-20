@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import prog.ex05.exercise.masterworker.Task;
 import prog.ex05.solution.masterworker.SimpleWorker;
 import prog.ex06.exercise.pizzadelivery.Order;
@@ -95,7 +96,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
 
       } else {
         //if order Id is not found throw new exception
-        throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
+        throw new IllegalArgumentException("orderId: " + orderId + " is not valid");
       }
     }
 
@@ -106,7 +107,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
           throws IllegalArgumentException, TooManyToppingsException {
 
     //iterate trough order map
-    for (Map.Entry<Integer, SimpleOrder> entry : orders.entrySet()) {
+    for (Entry<Integer, SimpleOrder> entry : orders.entrySet()) {
 
         //get pizza list from current order
         List<Pizza> pizzaTmpList = entry.getValue().getPizzaList();
@@ -118,6 +119,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
               throw new TooManyToppingsException("too many toppings on Pizza: " + pizzaId);
             } else {
               p.getToppings().add(topping);
+
             }
           } else {
             //if PizzaId not found throw new exception
@@ -141,6 +143,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
       for (Pizza p : pizzaTmpList) {
         if (p.getPizzaId() == pizzaId) {
           p.getToppings().remove(topping);
+
         } else {
           //if PizzaId not found throw new exception
           throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
