@@ -52,6 +52,8 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
   public int addPizza(final int orderId, final PizzaSize size) throws IllegalArgumentException {
 
     SimplePizza pizza = new SimplePizza(size);
+    pizza.pizzaSizeCostMap = pizzaSizeCostMap;
+    pizza.pizzaToppingsCostMap = pizzaToppingsCostMap;
 
     //for (SimpleOrder order : orders.values()) {
     //  if (order.getOrderId() == orderId) {

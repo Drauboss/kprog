@@ -1,7 +1,10 @@
 package prog.ex06.solution.pizzadelivery;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import prog.ex06.exercise.pizzadelivery.Pizza;
 import prog.ex06.exercise.pizzadelivery.PizzaSize;
 import prog.ex06.exercise.pizzadelivery.Topping;
@@ -18,6 +21,8 @@ public class SimplePizza implements Pizza {
   private static int idCounter = 0;
   PizzaSize size;
   List<Topping> toppings = new ArrayList<>();
+  Map<PizzaSize, Integer> pizzaSizeCostMap;
+  Map<Topping, Integer> pizzaToppingsCostMap;
 
   public SimplePizza(PizzaSize size) {
     this.size = size;
@@ -42,6 +47,7 @@ public class SimplePizza implements Pizza {
 
   @Override
   public int getPrice() {
+
     //TODO: go trough toppinglist and add prices of toppings to price, use switch case
     return price;
   }
