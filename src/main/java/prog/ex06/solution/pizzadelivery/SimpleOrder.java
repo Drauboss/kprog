@@ -33,7 +33,10 @@ public class SimpleOrder implements Order {
 
   @Override
   public int getValue() {
-    //TODO: iterate trough pizza list, get prices of each pizza add to value
-    return 0;
+    int value = 0;
+    for (Pizza p : pizzaList) {
+      value = value + p.getPrice();
+    }
+    return value;
   }
 }

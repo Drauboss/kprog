@@ -27,7 +27,23 @@ public class SimplePizza implements Pizza {
   public SimplePizza(PizzaSize size) {
     this.size = size;
     id = ++idCounter;
-    //TODO: add price of pizza size to price attribute
+
+    switch (size) {
+      case SMALL:
+        price = price + pizzaSizeCostMap.get(PizzaSize.SMALL);
+        break;
+      case MEDIUM:
+        price = price + pizzaSizeCostMap.get(PizzaSize.MEDIUM);
+        break;
+      case LARGE:
+        price = price + pizzaSizeCostMap.get(PizzaSize.LARGE);
+        break;
+      case EXTRA_LARGE:
+        price = price + pizzaSizeCostMap.get(PizzaSize.EXTRA_LARGE);
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + size);
+    }
   }
 
   @Override
@@ -47,6 +63,36 @@ public class SimplePizza implements Pizza {
 
   @Override
   public int getPrice() {
+
+    for (Topping t : toppings) {
+
+      switch (t) {
+
+        case TOMATO:
+          price = price + pizzaToppingsCostMap.get(Topping.TOMATO);
+          break;
+        case CHEESE:
+          price = price + pizzaToppingsCostMap.get(Topping.CHEESE);
+          break;
+        case SALAMI:
+          price = price + pizzaToppingsCostMap.get(Topping.SALAMI);
+          break;
+        case HAM:
+          price = price + pizzaToppingsCostMap.get(Topping.HAM);
+          break;
+        case PINEAPPLE:
+          price = price + pizzaToppingsCostMap.get(Topping.PINEAPPLE);
+          break;
+        case VEGETABLES:
+          price = price + pizzaToppingsCostMap.get(Topping.VEGETABLES);
+          break;
+        case SEAFOOD:
+          price = price + pizzaToppingsCostMap.get(Topping.SEAFOOD);
+          break;
+
+      }
+
+    }
 
     //TODO: go trough toppinglist and add prices of toppings to price, use switch case
     return price;
