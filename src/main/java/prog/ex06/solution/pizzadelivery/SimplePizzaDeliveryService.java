@@ -117,7 +117,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
         //iterate trough pizza list, if pizza with pizzaId is found, remove it
         for (Pizza p : pizzaTmpList) {
           if (p.getPizzaId() == pizzaId) {
-            if (p.getToppings().size() > MAX_TOPPINGS_PER_PIZZA) {
+            if (p.getToppings().size() >= MAX_TOPPINGS_PER_PIZZA) {
               throw new TooManyToppingsException("too many toppings on Pizza: " + pizzaId);
             } else {
               p.getToppings().add(topping);

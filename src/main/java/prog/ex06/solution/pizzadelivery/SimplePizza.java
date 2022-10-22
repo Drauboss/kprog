@@ -16,7 +16,7 @@ public class SimplePizza implements Pizza {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
 
-  int price;
+  int price = 0;
   private int id;
   private static int idCounter = 0;
   PizzaSize size;
@@ -28,22 +28,8 @@ public class SimplePizza implements Pizza {
     this.size = size;
     id = ++idCounter;
 
-    switch (size) {
-      case SMALL:
-        price = price + pizzaSizeCostMap.get(PizzaSize.SMALL);
-        break;
-      case MEDIUM:
-        price = price + pizzaSizeCostMap.get(PizzaSize.MEDIUM);
-        break;
-      case LARGE:
-        price = price + pizzaSizeCostMap.get(PizzaSize.LARGE);
-        break;
-      case EXTRA_LARGE:
-        price = price + pizzaSizeCostMap.get(PizzaSize.EXTRA_LARGE);
-        break;
-      default:
-        throw new IllegalStateException("Unexpected value: " + size);
-    }
+
+
   }
 
   @Override
@@ -64,37 +50,57 @@ public class SimplePizza implements Pizza {
   @Override
   public int getPrice() {
 
+    int pizzaSizeCost = 0;
+
+    switch (size) {
+      case SMALL:
+        pizzaSizeCost = pizzaSizeCostMap.get(PizzaSize.SMALL);
+        break;
+      case MEDIUM:
+        pizzaSizeCost = pizzaSizeCostMap.get(PizzaSize.MEDIUM);
+        break;
+      case LARGE:
+        pizzaSizeCost = pizzaSizeCostMap.get(PizzaSize.LARGE);
+        break;
+      case EXTRA_LARGE:
+        pizzaSizeCost = pizzaSizeCostMap.get(PizzaSize.EXTRA_LARGE);
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + size);
+    }
+
+
+    int pizzaToppingsCost = 0;
+
     for (Topping t : toppings) {
 
       switch (t) {
 
         case TOMATO:
-          price = price + pizzaToppingsCostMap.get(Topping.TOMATO);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.TOMATO);
           break;
         case CHEESE:
-          price = price + pizzaToppingsCostMap.get(Topping.CHEESE);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.CHEESE);
           break;
         case SALAMI:
-          price = price + pizzaToppingsCostMap.get(Topping.SALAMI);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.SALAMI);
           break;
         case HAM:
-          price = price + pizzaToppingsCostMap.get(Topping.HAM);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.HAM);
           break;
         case PINEAPPLE:
-          price = price + pizzaToppingsCostMap.get(Topping.PINEAPPLE);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.PINEAPPLE);
           break;
         case VEGETABLES:
-          price = price + pizzaToppingsCostMap.get(Topping.VEGETABLES);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.VEGETABLES);
           break;
         case SEAFOOD:
-          price = price + pizzaToppingsCostMap.get(Topping.SEAFOOD);
+          pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.SEAFOOD);
           break;
 
       }
-
     }
-
-    //TODO: adadgasdajdsadadsago bdfggbftrough toppinglist and add prices of toppings to price, use switch case
+    price = pizzaSizeCost + pizzaToppingsCost;
     return price;
   }
 
