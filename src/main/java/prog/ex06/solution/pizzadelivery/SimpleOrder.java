@@ -16,7 +16,6 @@ public class SimpleOrder implements Order {
   private static int idCounter = 0;
   List<Pizza> pizzaList = new ArrayList<>();
 
-
   public SimpleOrder() {
     id = ++idCounter;
   }
