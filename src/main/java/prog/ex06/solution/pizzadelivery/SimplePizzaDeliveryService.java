@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import prog.ex05.exercise.masterworker.Task;
-import prog.ex05.solution.masterworker.SimpleWorker;
 import prog.ex06.exercise.pizzadelivery.Order;
 import prog.ex06.exercise.pizzadelivery.Pizza;
 import prog.ex06.exercise.pizzadelivery.PizzaDeliveryService;
@@ -148,9 +146,9 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
           }
         }
       }
-      //if PizzaId not found throw new exception
-      throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not found");
     }
+    //if PizzaId not found in any order throw new exception
+    throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not found");
   }
 
   @Override
@@ -176,11 +174,9 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
           return;
         }
       }
-      //if PizzaId not found throw new exception
-      throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
-
     }
-
+    //if PizzaId not found throw new exception
+    throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
   }
 
   @Override

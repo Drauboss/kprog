@@ -99,7 +99,19 @@ public class TestPizzaDeliveryBadCases {
   public void testWhetherTooManyToppingsAreAdded() {
 
     int id = PizzaDeliveryService.createOrder();
-    int pizzaId = PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    int id2 = PizzaDeliveryService.createOrder();
+    int pizzaId = PizzaDeliveryService.addPizza(id2, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
     try {
       PizzaDeliveryService.addTopping(pizzaId, Topping.CHEESE);
       PizzaDeliveryService.addTopping(pizzaId, Topping.TOMATO);
