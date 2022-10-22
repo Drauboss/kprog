@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import prog.ex06.exercise.pizzadelivery.Pizza;
 import prog.ex06.exercise.pizzadelivery.PizzaSize;
 import prog.ex06.exercise.pizzadelivery.Topping;
@@ -27,9 +26,6 @@ public class SimplePizza implements Pizza {
   public SimplePizza(PizzaSize size) {
     this.size = size;
     id = ++idCounter;
-
-
-
   }
 
   @Override
@@ -52,6 +48,9 @@ public class SimplePizza implements Pizza {
 
     int pizzaSizeCost = 0;
 
+    //switch trough size variable. If case is found,
+    //set pizzaSizeCost to corresponding price of size
+    //if no case found, throw IllegalStateException
     switch (size) {
       case SMALL:
         pizzaSizeCost = pizzaSizeCostMap.get(PizzaSize.SMALL);
@@ -72,6 +71,7 @@ public class SimplePizza implements Pizza {
 
     int pizzaToppingsCost = 0;
 
+    //Iterate trough toppings list, add topping price to pizzaToppingsCost
     for (Topping t : toppings) {
 
       switch (t) {
@@ -96,6 +96,8 @@ public class SimplePizza implements Pizza {
           break;
         case SEAFOOD:
           pizzaToppingsCost = pizzaToppingsCost + pizzaToppingsCostMap.get(Topping.SEAFOOD);
+          break;
+        default:
           break;
 
       }

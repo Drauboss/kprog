@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import prog.ex06.exercise.pizzadelivery.Pizza;
 import prog.ex06.exercise.pizzadelivery.PizzaSize;
+import prog.ex06.exercise.pizzadelivery.TooManyToppingsException;
 import prog.ex06.exercise.pizzadelivery.Topping;
 import prog.ex06.solution.pizzadelivery.SimplePizzaDeliveryService;
 import org.junit.Test;
@@ -121,16 +122,102 @@ public class TestPizzaDeliveryGoodCases {
 
   @Test //@Ignore
   public void testWhetherAddingToppingAddsToToppingsList() {
+    int id = PizzaDeliveryService.createOrder();
+    int pizzaId = PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
 
+    //Expected toppings
+    Topping topping1 = Topping.CHEESE;
+    Topping topping2 = Topping.HAM;
+
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.CHEESE);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.HAM);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+
+    assertEquals("Topping should be Cheese", topping1,
+        PizzaDeliveryService.getOrder(id).getPizzaList().get(0).getToppings().get(0)
+    );
+    assertEquals("Topping should be Ham", topping2,
+        PizzaDeliveryService.getOrder(id).getPizzaList().get(0).getToppings().get(1)
+    );
   }
 
   @Test //@Ignore
   public void testWhetherRemovingToppingRemovesFromToppingsList() {
+    int id = PizzaDeliveryService.createOrder();
+    int pizzaId = PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+
+    //Expected toppings
+    Topping topping1 = Topping.CHEESE;
+    Topping topping2 = Topping.HAM;
+
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.CHEESE);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.HAM);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+
+    try {
+      PizzaDeliveryService.removeTopping(pizzaId, Topping.HAM);
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+
+    assertEquals("Topping should be Cheese", topping1,
+        PizzaDeliveryService.getOrder(id).getPizzaList().get(0).getToppings().get(0));
+
+    try {
+      assertEquals("Topping should be Ham", topping2,
+          PizzaDeliveryService.getOrder(id).getPizzaList().get(0).getToppings().get(1));
+      fail("When ham is removed accessing index 1 should throw a indexOutOfBound Exception");
+
+    } catch (IndexOutOfBoundsException e) {
+      assertTrue(true);
+      //success
+    }
+
 
   }
 
   @Test //@Ignore
   public void testCorrectTotalPriceOfOrder() {
+    int id = PizzaDeliveryService.createOrder();
+    int pizzaId = PizzaDeliveryService.addPizza(id, PizzaSize.LARGE);
+    int pizzaId2 = PizzaDeliveryService.addPizza(id, PizzaSize.SMALL);
 
+
+    int expectedPrice = 900 + 500 + 60 + 30 + 60;
+    //add cheese to pizza 1
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.CHEESE);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+    //add tomato to pizza 1
+    try {
+      PizzaDeliveryService.addTopping(pizzaId, Topping.TOMATO);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+    //add cheese to pizza 2
+    try {
+      PizzaDeliveryService.addTopping(pizzaId2, Topping.CHEESE);
+    } catch (TooManyToppingsException e) {
+      System.out.println(e.getMessage());
+    }
+
+    assertEquals("Total price of order should be: " + expectedPrice, expectedPrice,
+        PizzaDeliveryService.getOrder(id).getValue());
   }
 }
