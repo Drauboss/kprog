@@ -33,6 +33,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
     pizzaToppingsCostMap.put(Topping.SEAFOOD, 150);
     pizzaToppingsCostMap.put(Topping.HAM, 70);
     pizzaToppingsCostMap.put(Topping.VEGETABLES, 20);
+    pizzaToppingsCostMap.put(Topping.SALAMI, 50);
   }
 
   Map<PizzaSize, Integer> pizzaSizeCostMap = new HashMap<>();
@@ -86,8 +87,10 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
         //get pizza list from current order
         List<Pizza> pizzaTmpList = entry.getValue().getPizzaList();
 
+
         //iterate trough pizza list, if pizza with pizzaId is found, remove it
-        for (Pizza p : pizzaTmpList) {
+        for (int i = 0; i < pizzaTmpList.size(); i++) {
+          Pizza p = pizzaTmpList.get(i);
           if (p.getPizzaId() == pizzaId) {
             pizzaTmpList.remove(p);
           } else {
@@ -115,19 +118,20 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
         List<Pizza> pizzaTmpList = entry.getValue().getPizzaList();
 
         //iterate trough pizza list, if pizza with pizzaId is found, remove it
-        for (Pizza p : pizzaTmpList) {
-          if (p.getPizzaId() == pizzaId) {
-            if (p.getToppings().size() >= MAX_TOPPINGS_PER_PIZZA) {
-              throw new TooManyToppingsException("too many toppings on Pizza: " + pizzaId);
-            } else {
-              p.getToppings().add(topping);
-
-            }
+      for (int i = 0; i < pizzaTmpList.size(); i++) {
+        Pizza p = pizzaTmpList.get(i);
+        if (p.getPizzaId() == pizzaId) {
+          if (p.getToppings().size() >= MAX_TOPPINGS_PER_PIZZA) {
+            throw new TooManyToppingsException("too many toppings on Pizza: " + pizzaId);
           } else {
-            //if PizzaId not found throw new exception
-            throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
+            p.getToppings().add(topping);
+
           }
+        } else {
+          //if PizzaId not found throw new exception
+          throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not valid");
         }
+      }
     }
   }
 
@@ -142,7 +146,8 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
       List<Pizza> pizzaTmpList = entry.getValue().getPizzaList();
 
       //iterate trough pizza list, if pizza with pizzaId is found, remove it
-      for (Pizza p : pizzaTmpList) {
+      for (int i = 0; i < pizzaTmpList.size(); i++) {
+        Pizza p = pizzaTmpList.get(i);
         if (p.getPizzaId() == pizzaId) {
           p.getToppings().remove(topping);
 
