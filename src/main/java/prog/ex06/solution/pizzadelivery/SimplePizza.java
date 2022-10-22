@@ -94,7 +94,7 @@ public class SimplePizza implements Pizza {
 
     }
 
-    //TODO: go trough toppinglist and add prices of toppings to price, use switch case
+    //TODO: go bdfggbftrough toppinglist and add prices of toppings to price, use switch case
     return price;
   }
 
