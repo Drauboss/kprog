@@ -40,14 +40,45 @@ public class SimpleSnake implements Snake {
    * @throws IllegalPositionException if the position is not allowed
    */
   public Coordinate advance() throws IllegalPositionException {
-    // TODO: advance the snake
-    return null;
+    // TODO: CHECKED advance the snake
+
+    Coordinate newHead = null;
+    switch (direction) {
+
+      case NORTH:
+        newHead = new Coordinate(position.get(0).getRow() + 1, position.get(0).getColumn());
+        break;
+      case EAST:
+        newHead = new Coordinate(position.get(0).getRow(), position.get(0).getColumn() + 1);
+        break;
+      case SOUTH:
+        newHead = new Coordinate(position.get(0).getRow() - 1, position.get(0).getColumn());
+        break;
+      case WEST:
+        newHead = new Coordinate(position.get(0).getRow(), position.get(0).getColumn() - 1);
+        break;
+    }
+
+    assertNewPositionIsPossible(newHead);
+    position.add(newHead);
+    position.removeLast();
+
+
+    return newHead;
   }
 
   private BoardState assertNewPositionIsPossible(final Coordinate newHead)
       throws IllegalPositionException {
-    // TODO: Check if the position is valid
-    return null;
+    // TODO: CHECKED Check if the position is valid
+    //state at the new Head position
+    BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
+
+    //if new head position is on position with a wall or a part of the snake
+    //throw new IllegalPositionException
+    if (headState.equals(BoardState.WALL) || headState.equals(BoardState.SNAKE)) {
+      throw new IllegalPositionException(newHead, headState);
+    }
+    return headState;
   }
 
   @Override
