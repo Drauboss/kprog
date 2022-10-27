@@ -18,7 +18,10 @@ public class FoodGenerator {
 
   Coordinate placeFood() {
     Coordinate coordinate = null;
-    // TODO: place the food randomly.
+    // TODO: CHECKED place the food randomly.
+
+
+    coordinate = getRandomCoordinate();
 
     // TODO: end.
     return coordinate;

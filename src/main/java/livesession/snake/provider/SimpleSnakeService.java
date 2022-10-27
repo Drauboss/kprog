@@ -33,6 +33,10 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
+    board = new InternalBoard(DEFAULT_SIZE);
+    GameConfiguration gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY, DEFAULT_NUMBER_OF_FOOD);
+
+
   }
 
   @Override
