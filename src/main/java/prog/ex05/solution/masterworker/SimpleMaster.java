@@ -57,7 +57,12 @@ public class SimpleMaster implements Master {
     Task t;
     t = new Task(runnable);
 
-    tasks.add(t);
+    synchronized (tasks) {
+      tasks.add(t);
+    }
+
+    tasks.notify();
+
     allTasks.add(t);
 
 
