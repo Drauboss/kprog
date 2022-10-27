@@ -20,6 +20,12 @@ public class SimpleWorker extends Thread implements Worker {
   Task currentTask;
   //String name;
 
+
+
+
+
+  boolean isShutdown = false;
+
   /**
    * A Worker receives tasks to be executed using a queue. Since it is a non-blocking queue a
    * waiting time is defined to be used when the queue is empty.
@@ -33,13 +39,17 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void run() {
 
-    while (!isInterrupted()) {
+    while (!isShutdown) {
 
-      Task t = tasks.poll();
+      Task t;
+      synchronized (tasks) {
+        t = tasks.poll();
+      }
 
       if (t == null) {
         try {
-          Thread.sleep(WAIT_EMPTY_QUEUE);
+          this.wait();
+          //Thread.sleep(WAIT_EMPTY_QUEUE);
         } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
         }
@@ -54,8 +64,6 @@ public class SimpleWorker extends Thread implements Worker {
           t.crashed(e);
         }
       }
-
-
 
 
     }
@@ -105,7 +113,15 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void terminate() {
 
-    interrupt();
+    try {
+      join();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+
+    isShutdown = true;
+
+    //interrupt();
 
   }
 }
