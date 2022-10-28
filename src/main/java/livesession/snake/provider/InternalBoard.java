@@ -27,7 +27,7 @@ public class InternalBoard extends BaseBoard {
      *  x = wall
      *  g = grass
      *  size = 4
-     *
+     *  TODO:nullpunkt oben links setzten
      *  3 x x x x
      *  2 x g g x
      *  1 x g g x

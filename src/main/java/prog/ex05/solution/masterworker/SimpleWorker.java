@@ -48,7 +48,11 @@ public class SimpleWorker extends Thread implements Worker {
 
       if (t == null) {
         try {
-          this.wait();
+          //hier sync um wait
+          synchronized (tasks) {
+            tasks.wait();
+
+          }
           //Thread.sleep(WAIT_EMPTY_QUEUE);
         } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
@@ -64,8 +68,6 @@ public class SimpleWorker extends Thread implements Worker {
           t.crashed(e);
         }
       }
-
-
     }
 
 

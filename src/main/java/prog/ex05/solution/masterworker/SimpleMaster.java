@@ -32,7 +32,7 @@ public class SimpleMaster implements Master {
    */
   public SimpleMaster(int numberOfWorkers) {
 
-    //speichere die task zwischen
+
     if (numberOfWorkers < 1) {
       throw new IllegalArgumentException("numberOfWorkers has to be at min 1");
     }
@@ -59,9 +59,9 @@ public class SimpleMaster implements Master {
 
     synchronized (tasks) {
       tasks.add(t);
+      tasks.notifyAll();
     }
 
-    tasks.notify();
 
     allTasks.add(t);
 
