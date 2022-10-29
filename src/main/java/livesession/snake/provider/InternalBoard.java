@@ -28,11 +28,14 @@ public class InternalBoard extends BaseBoard {
      *  g = grass
      *  size = 4
      *
-     *  3 x x x x
-     *  2 x g g x
-     *  1 x g g x
+     *    0 1 2 3  j = column
      *  0 x x x x
-     *    0 1 2 3
+     *  1 x g g x
+     *  2 x g g x
+     *  3 x x x x
+     *  i
+     *  =
+     *  row
      */
     // place grass on the complete field
     for (int i = 0; i < size; i++) {    // i = row
@@ -41,12 +44,12 @@ public class InternalBoard extends BaseBoard {
       }
     }
 
-    // place walls on the bottom row of the field
+    // place walls on the top row of the field
     for (int j = 0; j < size; j++) {  // j = column
       board[0][j] = BoardState.WALL;
     }
 
-    // place walls on the top row of the field
+    // place walls on the bottom row of the field
     for (int j = 0; j < size; j++) {  // j = column
       board[size - 1][j] = BoardState.WALL;
     }

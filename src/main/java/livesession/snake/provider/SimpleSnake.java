@@ -42,6 +42,7 @@ public class SimpleSnake implements Snake {
   public Coordinate advance() throws IllegalPositionException {
     // TODO: CHECKED advance the snake
 
+
     Coordinate newHead = null;
     switch (direction) {
 
