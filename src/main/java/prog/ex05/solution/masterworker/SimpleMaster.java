@@ -59,9 +59,9 @@ public class SimpleMaster implements Master {
 
     synchronized (tasks) {
       tasks.add(t);
+      tasks.notifyAll();
     }
 
-    tasks.notify();
 
     allTasks.add(t);
 
