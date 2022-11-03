@@ -192,11 +192,12 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
-    // TODO: CHECKED what has to be done when one food has been eaten?
-    // snake has to grow by 1
+    //TODO: CHECKED what has to be done when one food has been eaten?
+    //snake has to grow by 1
 
     //add coordinate to the end of the snake list
-    snake.getPosition().add(coordinate);
+    //snake.getPosition().add(coordinate);
+
 
   }
 

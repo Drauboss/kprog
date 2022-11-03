@@ -30,7 +30,7 @@ public class TestSimpleSnake {
     snake = new SimpleSnake(fakeService);
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkStartingPosition(){
     Coordinate startPosition = fakeBoard.getStartPosition();
     List<Coordinate> snakePosition = snake.getPosition();
@@ -38,7 +38,7 @@ public class TestSimpleSnake {
     assertEquals( Direction.EAST, snake.getDirection());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkAdvanceOnGrass() throws IllegalPositionException {
     // prepare test data
     int snakeLength = snake.getPosition().size();
@@ -51,9 +51,11 @@ public class TestSimpleSnake {
     // check expected values
     assertEquals(expectedNewPosition, snakeHead);
     assertEquals(snakeLength, snake.getPosition().size());
+
+
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkAdvanceOnFood() throws IllegalPositionException {
     // prepare food position
     Coordinate startPosition = fakeBoard.getStartPosition();
@@ -70,7 +72,7 @@ public class TestSimpleSnake {
     assertTrue(fakeService.isEaten());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkAdvanceToWall() {
     // prepare wall position
     Coordinate startPosition = fakeBoard.getStartPosition();
@@ -88,7 +90,7 @@ public class TestSimpleSnake {
     }
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkAdvanceToSnake() throws IllegalPositionException {
     // prepare food position
     Coordinate startPosition = fakeBoard.getStartPosition();
@@ -96,13 +98,22 @@ public class TestSimpleSnake {
     Coordinate foodPosition = startPosition.getNeighbor(Direction.EAST);
     fakeBoard.setPosition(foodPosition, BoardState.FOOD);
 
+    System.out.println(fakeBoard.getStateFromPosition(5,5));
     // let the snake go one step (wiggle)
     Coordinate snakeHead = snake.advance();
+
+    System.out.println(snake.getPosition());
+    System.out.println(fakeBoard.getStateFromPosition(5,6));
+    System.out.println(fakeBoard.getStateFromPosition(5,5));
 
     // Now lets turn the snake 180 degrees
     snake.goLeft();
     snake.goLeft();
 
+    //System.out.println(snake.getDirection());
+    //System.out.println(snake.getPosition().get());
+
+    System.out.println("#########################");
     try {
       snake.advance();
       fail("Snake should hit itself and throw an IllegalPositionException.");
