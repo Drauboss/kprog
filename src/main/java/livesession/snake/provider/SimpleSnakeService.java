@@ -68,6 +68,11 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   }
 
   @Override
+  public GameConfiguration getConfiguration() {
+    return gameConfiguration;
+  }
+
+  @Override
   public void reset() {
     // TODO: reset for a new game
     score = 0;
