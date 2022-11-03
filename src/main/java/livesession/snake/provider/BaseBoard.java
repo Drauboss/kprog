@@ -62,8 +62,11 @@ public class BaseBoard implements Board {
 
   protected void assertPositionIsOnBoard(int row, int column) {
 
-    if (row < 0 || column < 0 || row > size || column > size) {
-      throw new IllegalArgumentException();
+
+    if (row < 0 || column < 0 || row >= size || column >= size) {
+      System.out.println(row);
+      System.out.println(column);
+      throw new IllegalArgumentException("Position: " + row + " " + column + " is not valid");
     }
     // TODO CHECKED implement it throwing an IllegalArgumentException with the position.
   }

@@ -40,7 +40,8 @@ public class SimpleSnake implements Snake {
    * @throws IllegalPositionException if the position is not allowed
    */
   public Coordinate advance() throws IllegalPositionException {
-    // TODO: CHECKED advance the snake
+    //TODO: CHECKED advance the snake
+
 
     Coordinate newHead = null;
     switch (direction) {
@@ -58,10 +59,27 @@ public class SimpleSnake implements Snake {
         newHead = new Coordinate(position.get(0).getRow(), position.get(0).getColumn() - 1);
         break;
     }
+    System.out.println("new head:");
+    System.out.println(newHead.toString());
+    System.out.println("state at head");
+    BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
+    System.out.println(headState);
 
     assertNewPositionIsPossible(newHead);
-    position.add(newHead);
-    position.removeLast();
+    //BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
+    position.addFirst(newHead);
+
+    //board[1][2] = BoardState.GRASS;
+    //board.
+    if (!headState.equals(BoardState.FOOD)) {
+      position.removeLast();
+      //board[position.get(position.size()).getRow()][position.get(position.size()).getColumn()] = BoardState.GRASS;
+      System.out.println("removed");
+    } else {
+      service.foodEaten(newHead);
+    }
+
+
 
 
     return newHead;
@@ -69,13 +87,15 @@ public class SimpleSnake implements Snake {
 
   private BoardState assertNewPositionIsPossible(final Coordinate newHead)
       throws IllegalPositionException {
-    // TODO: CHECKED Check if the position is valid
+    //TODO: CHECKED Check if the position is valid
     //state at the new Head position
     BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
 
     //if new head position is on position with a wall or a part of the snake
     //throw new IllegalPositionException
+    //System.out.println(headState);
     if (headState.equals(BoardState.WALL) || headState.equals(BoardState.SNAKE)) {
+      System.out.println("falsche pos");
       throw new IllegalPositionException(newHead, headState);
     }
     return headState;

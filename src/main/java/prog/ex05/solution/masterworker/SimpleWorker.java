@@ -39,6 +39,7 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void run() {
 
+    //while (!isInterrupted()) {
     while (!isShutdown) {
 
       Task t;
@@ -48,10 +49,9 @@ public class SimpleWorker extends Thread implements Worker {
 
       if (t == null) {
         try {
-          //hier sync um wait
           synchronized (tasks) {
-            tasks.wait();
 
+            tasks.wait();
           }
           //Thread.sleep(WAIT_EMPTY_QUEUE);
         } catch (InterruptedException e) {
@@ -69,44 +69,12 @@ public class SimpleWorker extends Thread implements Worker {
         }
       }
     }
-
-
-
-
-
-
-    //try {
-    //  currentTask.getRunnable().run();
-    //  currentTask.setState(TaskState.SUCCEEDED);
-    //} catch (RuntimeException e) {
-    //  currentTask.crashed(e);
-    //  currentTask.setState(TaskState.SUCCEEDED);
-    //}
-
-    //System.out.println(Thread.currentThread());
-    //System.out.println("running from simpleworker class");
   }
 
   @Override
   public void setQueue(final ConcurrentLinkedQueue<Task> queue) {
 
-    //if (queue.isEmpty()) {
-    //  try {
-    //    Thread.sleep(WAIT_EMPTY_QUEUE);
-    //  } catch (InterruptedException e) {
-    //    Thread.currentThread().interrupt();
-    //  }
-    //  setQueue(queue);
-    //}
-
-
     this.tasks = queue;
-
-    //currentTask = queue.element();
-    //currentTask.setState(TaskState.RUNNING);
-
-
-    //tasks = queue;
 
   }
 
@@ -115,11 +83,10 @@ public class SimpleWorker extends Thread implements Worker {
   @Override
   public void terminate() {
 
-    try {
-      join();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
+    synchronized (tasks) {
+      tasks.notifyAll();
     }
+
 
     isShutdown = true;
 

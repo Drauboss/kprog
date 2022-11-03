@@ -1,5 +1,7 @@
 package livesession.snake.provider;
 
+import static livesession.snake.Board.MINIMAL_BOARD_SIZE;
+
 import java.util.List;
 import java.util.function.Consumer;
 import livesession.snake.Board;
@@ -33,9 +35,15 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
-    board = new InternalBoard(DEFAULT_SIZE);
-    GameConfiguration gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY, DEFAULT_NUMBER_OF_FOOD);
+    reset();
+    GameConfiguration gameConfig = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY, DEFAULT_NUMBER_OF_FOOD);
+    try {
+      configure(gameConfig);
+    } catch (IllegalConfigurationException e) {
+      throw new RuntimeException(e);
+    }
 
+    board = new InternalBoard(gameConfiguration.getSize());
 
   }
 
@@ -43,11 +51,32 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void configure(final GameConfiguration configuration) throws
       IllegalConfigurationException {
     // TODO: check and save the configuration info.
+
+    if (configuration.getNumberOfFood() < 1) {
+      throw new IllegalConfigurationException("number of food has to be 1 at minimum");
+    }
+
+    if (configuration.getSize() < MINIMAL_BOARD_SIZE) {
+      throw new IllegalConfigurationException("size has to be 4 at minimum");
+    }
+
+    if (configuration.getVelocityInMilliSeconds() < 1) {
+      throw new IllegalConfigurationException("velocity has to be 1 at minimum");
+    }
+
+    this.gameConfiguration = configuration;
+  }
+
+  @Override
+  public GameConfiguration getConfiguration() {
+    return gameConfiguration;
   }
 
   @Override
   public void reset() {
     // TODO: reset for a new game
+    score = 0;
+    gameState = GameState.PREPARED;
   }
 
   @Override
@@ -163,7 +192,13 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
-    // TODO: what has to be done when one food has been eaten?
+    //TODO: CHECKED what has to be done when one food has been eaten?
+    //snake has to grow by 1
+
+    //add coordinate to the end of the snake list
+    //snake.getPosition().add(coordinate);
+
+
   }
 
   @Override
