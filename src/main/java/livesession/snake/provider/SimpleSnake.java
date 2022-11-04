@@ -69,16 +69,23 @@ public class SimpleSnake implements Snake {
     //BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
     position.addFirst(newHead);
 
-    //board[1][2] = BoardState.GRASS;
+
     //board.
     if (!headState.equals(BoardState.FOOD)) {
-      position.removeLast();
+
+      Coordinate removedCoord = position.removeLast();
+
+      board.board[removedCoord.getRow()][removedCoord.getColumn()] = BoardState.GRASS;
+
+
       //board[position.get(position.size()).getRow()][position.get(position.size()).getColumn()] = BoardState.GRASS;
       System.out.println("removed");
     } else {
       service.foodEaten(newHead);
     }
 
+
+    board.board[newHead.getRow()][newHead.getColumn()] = BoardState.SNAKE;
 
 
 
@@ -94,10 +101,17 @@ public class SimpleSnake implements Snake {
     //if new head position is on position with a wall or a part of the snake
     //throw new IllegalPositionException
     //System.out.println(headState);
-    if (headState.equals(BoardState.WALL) || headState.equals(BoardState.SNAKE)) {
-      System.out.println("falsche pos");
-      throw new IllegalPositionException(newHead, headState);
+     //TODO: prüfe ob newHead in position enthalten ist
+    if (headState.equals(BoardState.WALL)) {
+      System.out.println("falsche pos: Wand");
+      throw new IllegalPositionException(newHead, BoardState.WALL);
     }
+    //TODO: mache 2 ifs setzte bei exception headsate auf fehlerstate
+    if (this.position.contains(newHead) ) {
+      System.out.println("falsche pos: Snake");
+      throw new IllegalPositionException(newHead, BoardState.SNAKE);
+    }
+
     return headState;
   }
 

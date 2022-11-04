@@ -66,6 +66,9 @@ public class TestSimpleSnake {
     // let the snake go one step (wiggle)
     Coordinate snakeHead = snake.advance();
 
+    System.out.println(fakeBoard.getStateFromPosition(5,6));
+    System.out.println(fakeBoard.getStateFromPosition(5,5));
+
     // check expected values
     assertEquals(foodPosition, snakeHead);
     assertEquals(snakeLength+1, snake.getPosition().size());
