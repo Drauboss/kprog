@@ -59,27 +59,21 @@ public class SimpleSnake implements Snake {
         newHead = new Coordinate(position.get(0).getRow(), position.get(0).getColumn() - 1);
         break;
     }
-    System.out.println("new head:");
-    System.out.println(newHead.toString());
-    System.out.println("state at head");
+
     BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
-    System.out.println(headState);
+
 
     assertNewPositionIsPossible(newHead);
-    //BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
+
     position.addFirst(newHead);
 
 
-    //board.
     if (!headState.equals(BoardState.FOOD)) {
 
       Coordinate removedCoord = position.removeLast();
 
       board.board[removedCoord.getRow()][removedCoord.getColumn()] = BoardState.GRASS;
 
-
-      //board[position.get(position.size()).getRow()][position.get(position.size()).getColumn()] = BoardState.GRASS;
-      System.out.println("removed");
     } else {
       service.foodEaten(newHead);
     }
@@ -98,17 +92,17 @@ public class SimpleSnake implements Snake {
     //state at the new Head position
     BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
 
-    //if new head position is on position with a wall or a part of the snake
+    //if new head position is on position with a wall
     //throw new IllegalPositionException
-    //System.out.println(headState);
-     //TODO: prüfe ob newHead in position enthalten ist
     if (headState.equals(BoardState.WALL)) {
-      System.out.println("falsche pos: Wand");
+
       throw new IllegalPositionException(newHead, BoardState.WALL);
     }
-    //TODO: mache 2 ifs setzte bei exception headsate auf fehlerstate
-    if (this.position.contains(newHead) ) {
-      System.out.println("falsche pos: Snake");
+
+    //if new head position is on position with a part of the snake
+    //throw new IllegalPositionException
+    if (this.position.contains(newHead)) {
+
       throw new IllegalPositionException(newHead, BoardState.SNAKE);
     }
 

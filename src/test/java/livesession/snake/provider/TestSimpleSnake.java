@@ -66,8 +66,6 @@ public class TestSimpleSnake {
     // let the snake go one step (wiggle)
     Coordinate snakeHead = snake.advance();
 
-    System.out.println(fakeBoard.getStateFromPosition(5,6));
-    System.out.println(fakeBoard.getStateFromPosition(5,5));
 
     // check expected values
     assertEquals(foodPosition, snakeHead);
@@ -101,22 +99,18 @@ public class TestSimpleSnake {
     Coordinate foodPosition = startPosition.getNeighbor(Direction.EAST);
     fakeBoard.setPosition(foodPosition, BoardState.FOOD);
 
-    System.out.println(fakeBoard.getStateFromPosition(5,5));
+
     // let the snake go one step (wiggle)
     Coordinate snakeHead = snake.advance();
 
-    System.out.println(snake.getPosition());
-    System.out.println(fakeBoard.getStateFromPosition(5,6));
-    System.out.println(fakeBoard.getStateFromPosition(5,5));
+
 
     // Now lets turn the snake 180 degrees
     snake.goLeft();
     snake.goLeft();
 
-    //System.out.println(snake.getDirection());
-    //System.out.println(snake.getPosition().get());
 
-    System.out.println("#########################");
+
     try {
       snake.advance();
       fail("Snake should hit itself and throw an IllegalPositionException.");

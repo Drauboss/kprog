@@ -17,11 +17,10 @@ public class FoodGenerator {
   }
 
   Coordinate placeFood() {
-    Coordinate coordinate = null;
     // TODO: CHECKED place the food randomly.
 
-
-    coordinate = getRandomCoordinate();
+    Coordinate coordinate = getRandomCoordinate();
+    service.addFood(coordinate);
 
     // TODO: end.
     return coordinate;
