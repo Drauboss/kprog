@@ -36,7 +36,8 @@ public class PalindromeCheckerGui extends FlowPane {
 
     label = new Label();
 
-    txtField.setOnKeyPressed( event -> {
+    //wenn textfield fokussiert ist und enter gedrückt wird
+    txtField.setOnKeyPressed(event -> {
       if( event.getCode() == KeyCode.ENTER ) {
         logger.info(txtField.getText());
 
@@ -47,10 +48,28 @@ public class PalindromeCheckerGui extends FlowPane {
         } else {
           label.setText(Constants.FAILURE);
         }
-      }} );
+      }
+      event.consume();
+    } );
 
+    //wenn button fokussiert ist und enter gedrückt wird
+    btn.setOnKeyPressed(event -> {
+      if( event.getCode() == KeyCode.ENTER ) {
+        logger.info(txtField.getText());
 
-    btn.setOnAction((event) -> {
+        palindrom = txtField.getText();
+
+        if (palindromeChecker.isPalindrome(palindrom)) {
+          label.setText(Constants.SUCCESS);
+        } else {
+          label.setText(Constants.FAILURE);
+        }
+      }
+      event.consume();
+    } );
+
+    //wenn button gedrückt wird
+    btn.setOnAction(event -> {
       logger.info(txtField.getText());
 
       palindrom = txtField.getText();
