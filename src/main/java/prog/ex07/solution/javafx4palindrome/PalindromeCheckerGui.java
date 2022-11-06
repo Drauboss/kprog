@@ -23,16 +23,18 @@ public class PalindromeCheckerGui extends FlowPane {
 
   private Label label;
   private String palindrom;
-  TextField txtField;
+
 
   public PalindromeCheckerGui(PalindromeChecker palindromeChecker) {
 
-    //TODO: bei drücken der enter taste soll auch geprüft werden
+
     Button btn = new Button();
     TextField txtField = new TextField();
 
     btn.setText("Prüfe Palindrom");
-    //btn.setOnAction(new ButtonClickHandler());
+
+
+    label = new Label();
 
     txtField.setOnKeyPressed( event -> {
       if( event.getCode() == KeyCode.ENTER ) {
@@ -63,7 +65,7 @@ public class PalindromeCheckerGui extends FlowPane {
     });
 
 
-    label = new Label();
+
 
 
 

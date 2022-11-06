@@ -12,6 +12,9 @@ public class SimplePalindromeChecker implements PalindromeChecker {
   @Override
   public boolean isPalindrome(final String line) {
 
+    if (line.isEmpty()) {
+      return false;
+    }
 
     char[] chars = normalizeLine(line); //string to normalized char array
     int arrayLengthHalf = chars.length / 2;
