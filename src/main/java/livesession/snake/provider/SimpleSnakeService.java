@@ -39,16 +39,16 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
-    reset();
-    GameConfiguration gameConfig = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
+
+    gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
         DEFAULT_NUMBER_OF_FOOD);
     try {
-      configure(gameConfig);
+      configure(gameConfiguration);
     } catch (IllegalConfigurationException e) {
       throw new RuntimeException(e);
     }
 
-    board = new InternalBoard(gameConfiguration.getSize());
+    reset();
 
   }
 
@@ -57,7 +57,9 @@ public class SimpleSnakeService implements ExtendedSnakeService {
       IllegalConfigurationException {
     // TODO: check and save the configuration info.
 
-    if (configuration.equals(null)) {
+    board = new InternalBoard(gameConfiguration.getSize());
+
+    if (configuration == null) {
       throw new IllegalConfigurationException("Config is null");
     }
 
@@ -73,6 +75,11 @@ public class SimpleSnakeService implements ExtendedSnakeService {
       throw new IllegalConfigurationException("velocity has to be 1 at minimum");
     }
 
+    //foodGenerator = new FoodGenerator(this);
+    //for (int i = 0; i < configuration.getNumberOfFood(); i++) {
+      foodGenerator.placeFood();
+    //}
+
     this.gameConfiguration = configuration;
   }
 
@@ -84,6 +91,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void reset() {
     // TODO: reset for a new game
+    snake = new SimpleSnake(this);
     score = 0;
     gameState = GameState.PREPARED;
   }
