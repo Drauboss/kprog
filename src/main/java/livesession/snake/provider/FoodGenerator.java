@@ -3,6 +3,9 @@ package livesession.snake.provider;
 import java.util.Random;
 import livesession.snake.Coordinate;
 
+/**
+ * Generate Food at random position.
+ */
 public class FoodGenerator {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(FoodGenerator.class);
@@ -10,6 +13,9 @@ public class FoodGenerator {
   private SimpleSnakeService service;
   private Random random;
 
+  /**
+   * Generate random number.
+   */
   public FoodGenerator(final SimpleSnakeService service) {
     this.service = service;
     // Use a seed to make the series of "random" coordinates deterministic. Helps with tests.

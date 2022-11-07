@@ -22,21 +22,22 @@ public class InternalBoard extends BaseBoard {
 
     // TODO: CHECKED Init board with GRASS and WALLs
 
-    /**
-     *  grid layout:
-     *  x = wall
-     *  g = grass
-     *  size = 4
-     *
-     *    0 1 2 3  j = column
-     *  0 x x x x
-     *  1 x g g x
-     *  2 x g g x
-     *  3 x x x x
-     *  i
-     *  =
-     *  row
+    /*
+       grid layout:
+       x = wall
+       g = grass
+       size = 4
+
+         0 1 2 3  j = column
+       0 x x x x
+       1 x g g x
+       2 x g g x
+       3 x x x x
+       i
+       =
+       row
      */
+
     // place grass on the complete field
     for (int i = 0; i < size; i++) {    // i = row
       for (int j = 0; j < size; j++) {  // j = column

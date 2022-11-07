@@ -8,6 +8,7 @@ import livesession.snake.Coordinate;
  * Simple and straight-forward implementation of the Board interface.
  */
 public class BaseBoard implements Board {
+
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(BaseBoard.class);
 
@@ -15,11 +16,15 @@ public class BaseBoard implements Board {
   protected int size;
   protected BoardState[][] board;
 
+
   /**
    * Creates a board with the given size.
-   * @param size size of the board to be created
+   *
+   * @param size size of the board to be created.
    * @throws IllegalArgumentException if the size is smaller than the minimal board size.
    */
+
+
   public BaseBoard(final int size) {
     assertSizeIsGreaterThan(size, MINIMAL_BOARD_SIZE);
     this.size = size;
@@ -29,7 +34,7 @@ public class BaseBoard implements Board {
   /**
    * Checks if the requested size of the board is valid.
    *
-   * @param size requested size
+   * @param size             requested size
    * @param minimalBoardSize official minimal size
    */
   protected void assertSizeIsGreaterThan(final int size, final int minimalBoardSize) {
@@ -61,7 +66,6 @@ public class BaseBoard implements Board {
   }
 
   protected void assertPositionIsOnBoard(int row, int column) {
-
 
     if (row < 0 || column < 0 || row >= size || column >= size) {
       throw new IllegalArgumentException("Position: " + row + " or " + column + " is not valid");

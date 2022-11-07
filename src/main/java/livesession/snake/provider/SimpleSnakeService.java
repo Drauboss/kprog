@@ -15,7 +15,11 @@ import livesession.snake.Snake;
 import livesession.snake.SnakeListener;
 import livesession.snake.SnakeService;
 
+/**
+ * SimpleSnakeService.
+ */
 public class SimpleSnakeService implements ExtendedSnakeService {
+
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleSnakeService.class);
   private GameConfiguration gameConfiguration;
@@ -30,13 +34,14 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   private List<SnakeListener> listeners;
 
   /**
-   * Default constructor. The game uses then default values for configuration.
-   * The default values are defined in the SnakeService interface.
+   * Default constructor. The game uses then default values for configuration. The default values
+   * are defined in the SnakeService interface.
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
     reset();
-    GameConfiguration gameConfig = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY, DEFAULT_NUMBER_OF_FOOD);
+    GameConfiguration gameConfig = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
+        DEFAULT_NUMBER_OF_FOOD);
     try {
       configure(gameConfig);
     } catch (IllegalConfigurationException e) {
@@ -51,6 +56,10 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void configure(final GameConfiguration configuration) throws
       IllegalConfigurationException {
     // TODO: check and save the configuration info.
+
+    if (configuration.equals(null)) {
+      throw new IllegalConfigurationException("Config is null");
+    }
 
     if (configuration.getNumberOfFood() < 1) {
       throw new IllegalConfigurationException("number of food has to be 1 at minimum");
@@ -193,9 +202,6 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
     //TODO: CHECKED what has to be done when one food has been eaten?
-
-
-
 
   }
 

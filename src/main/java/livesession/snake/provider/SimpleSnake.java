@@ -58,6 +58,8 @@ public class SimpleSnake implements Snake {
       case WEST:
         newHead = new Coordinate(position.get(0).getRow(), position.get(0).getColumn() - 1);
         break;
+      default:
+        break;
     }
 
     BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());

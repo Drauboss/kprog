@@ -7,10 +7,11 @@ import livesession.snake.Reason;
 import livesession.snake.SnakeService;
 
 /**
- * Models the capabilities of an internal SnakeService implementation. This interface supports
- * the creation of mock implementations for testing purposes.
+ * Models the capabilities of an internal SnakeService implementation. This interface supports the
+ * creation of mock implementations for testing purposes.
  */
 public interface ExtendedSnakeService extends SnakeService {
+
   /**
    * Returns the external board including the snake position. Ready to be visualized. <b>This board
    * doesn't  get updated</b>. To get an updated external board another call of this method is
@@ -35,15 +36,17 @@ public interface ExtendedSnakeService extends SnakeService {
   void triggeredByGameLoop() throws IllegalStateException;
 
   /**
-   * Triggers the movement of the snake. This method may only be called if the GameState is RUNNING.
+   * Triggers the movement of the snake. This method may only be called if the GameState is
+   * RUNNING.
    *
    * @throws IllegalPositionException if the snake reaches an invalid position, e.g. WALL or SNAKE
-   * @throws IllegalStateException is the GameState is not appropriate
+   * @throws IllegalStateException    is the GameState is not appropriate
    */
   void advanceSnake() throws IllegalPositionException, IllegalStateException;
 
   /**
    * Adds food to the given position.
+   *
    * @param coordinate coordinate to add food to.
    * @throws IllegalArgumentException if there is already food or the position is not allowed.
    */
