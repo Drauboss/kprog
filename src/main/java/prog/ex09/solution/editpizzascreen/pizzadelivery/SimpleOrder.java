@@ -1,5 +1,6 @@
 package prog.ex09.solution.editpizzascreen.pizzadelivery;
 
+import java.util.ArrayList;
 import java.util.List;
 import prog.ex09.exercise.editpizzascreen.pizzadelivery.Order;
 import prog.ex09.exercise.editpizzascreen.pizzadelivery.Pizza;
@@ -11,18 +12,31 @@ public class SimpleOrder implements Order {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
 
+  private int id;
+  private static int idCounter = 0;
+  List<Pizza> pizzaList = new ArrayList<>();
+
+  public SimpleOrder() {
+    id = ++idCounter;
+  }
+
   @Override
   public int getOrderId() {
-    return 0;
+    return id;
   }
 
   @Override
   public List<Pizza> getPizzaList() {
-    return null;
+    return pizzaList;
   }
 
   @Override
   public int getValue() {
-    return 0;
+    int value = 0;
+    for (Pizza p : pizzaList) {
+      value = value + p.getPrice();
+    }
+    return value;
   }
+
 }
