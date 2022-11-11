@@ -54,13 +54,13 @@ public class TestPalindromeCheckerGui extends ApplicationTest {
     initializeComponents();
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkBaseClass() {
     Class superClass = gui.getClass().getSuperclass();
     assertTrue("Your class is no direct successor from the class FlowPane",superClass.getName().contains("FlowPane"));
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkChildren() {
     Button button = null;
     Label label = null;
@@ -85,7 +85,7 @@ public class TestPalindromeCheckerGui extends ApplicationTest {
     assertNotNull("The mandatory textField component could not be found",textField);
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void successfulEnteredPalindromeCheck() {
     Platform.runLater(() -> textField.setText("O Genie, der Herr ehre dein Ego!"));
     clickOn(button);
@@ -95,7 +95,7 @@ public class TestPalindromeCheckerGui extends ApplicationTest {
             textField.getText()), SUCCESS, label.getText());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void failurePalindromeCheck() {
     Platform.runLater(() -> textField.setText("This is not a palindrome!"));
     clickOn(button);
@@ -105,7 +105,7 @@ public class TestPalindromeCheckerGui extends ApplicationTest {
             textField.getText()), Constants.FAILURE, label.getText());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkWithEmptyTextField() {
     Platform.runLater(() -> textField.setText(""));
     clickOn(button);
@@ -113,13 +113,13 @@ public class TestPalindromeCheckerGui extends ApplicationTest {
         "An empty string is no palindrome", Constants.FAILURE, label.getText());
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void checkButtonText() {
     boolean hasText = button.getText().trim().length() > 0;
     assertTrue("The button should have a displayed text", hasText);
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testEnterKeystroke() {
     Platform.runLater(() -> textField.setText("--"));
     Platform.runLater(() -> textField.setText("O Genie, der Herr ehre dein Ego!"));

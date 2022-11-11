@@ -30,6 +30,9 @@ public class EditPizzaScreen extends VBox {
 
   static SimpleIntegerProperty simplePizzaPrice;
   static Pizza p;
+  ListView<Topping> toppingOnPizzaListView;
+  ObservableList<Topping> myToppingObservableToppingsList;
+
 
   public EditPizzaScreen(PizzaDeliveryService service, final int orderId, int pizzaId) {
     p = getPizza(service.getOrder(orderId).getPizzaList(), pizzaId);
@@ -37,7 +40,7 @@ public class EditPizzaScreen extends VBox {
     Label pizzaSizeLabel = new Label();
     Label priceLabel = new Label();
     Button addToppingButton = new Button();
-    ListView<Topping> toppingOnPizzaListView = new ListView<>();
+    toppingOnPizzaListView = new ListView<>();
     Button finishButton = new Button();
 
     //set pizzaSizeLabel
@@ -53,6 +56,7 @@ public class EditPizzaScreen extends VBox {
     ObservableList<Topping> myObservableAvailableToppingsList = FXCollections.observableList(
         availableToppings);
     ChoiceBox<Topping> toppingChoiceBox = new ChoiceBox<>(myObservableAvailableToppingsList);
+    toppingChoiceBox.getSelectionModel().selectFirst();
 
     //addToppingButton
     addToppingButton.setText("Add selected Topping");
@@ -68,7 +72,7 @@ public class EditPizzaScreen extends VBox {
     }));
 
     //Listview für toppings mit cell
-    ObservableList<Topping> myToppingObservableToppingsList = FXCollections.observableList(
+    myToppingObservableToppingsList = FXCollections.observableList(
         p.getToppings());
     toppingOnPizzaListView.setItems(myToppingObservableToppingsList);
     toppingOnPizzaListView.setCellFactory(

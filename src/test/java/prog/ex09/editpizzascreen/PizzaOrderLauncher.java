@@ -7,6 +7,7 @@ import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import prog.ex09.exercise.editpizzascreen.pizzadelivery.PizzaDeliveryService;
 import prog.ex09.exercise.editpizzascreen.pizzadelivery.PizzaSize;
+import prog.ex09.exercise.editpizzascreen.pizzadelivery.Topping;
 import prog.ex09.solution.editpizzascreen.gui.EditPizzaScreen;
 import prog.ex09.solution.editpizzascreen.pizzadelivery.SimplePizzaDeliveryService;
 
@@ -25,6 +26,8 @@ public class PizzaOrderLauncher extends Application {
     logger.info("Orderid = {}", orderId);
     int pizzaId = service.addPizza(orderId, PizzaSize.EXTRA_LARGE);
     logger.info("PizzaId = {}", pizzaId);
+
+    service.addTopping(pizzaId, Topping.PINEAPPLE);
 
     // The pizza can now be edited
     Tab pizzaDeliveryTab = new Tab("EditPizzaScreen",
