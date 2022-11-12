@@ -30,25 +30,34 @@ public class EditPizzaScreen extends VBox {
 
   static SimpleIntegerProperty simplePizzaPrice;
   static Pizza p;
-  ListView<Topping> toppingOnPizzaListView;
+  List<Topping> toppings;
   ObservableList<Topping> myToppingObservableToppingsList;
 
+  //create gui nodes
+  Label pizzaSizeLabel = new Label();
+  Button addToppingButton = new Button();
+  ListView<Topping> toppingsOnPizzaListView = new ListView<>();
+  Button finishButton = new Button();
+  Label priceLabel = new Label();
 
+
+  /**
+   * {@link EditPizzaScreen} constructor.
+   *
+   * @param service pizzaservice
+   * @param orderId requested order
+   * @param pizzaId requested pizza
+   */
   public EditPizzaScreen(PizzaDeliveryService service, final int orderId, int pizzaId) {
+    //get the pizza object with id=pizzaId
     p = getPizza(service.getOrder(orderId).getPizzaList(), pizzaId);
-
-    Label pizzaSizeLabel = new Label();
-    Label priceLabel = new Label();
-    Button addToppingButton = new Button();
-    toppingOnPizzaListView = new ListView<>();
-    Button finishButton = new Button();
+    toppings = p.getToppings();
 
     //set pizzaSizeLabel
     pizzaSizeLabel.setText(p.getSize().toString());
 
     //set priceLabel
     simplePizzaPrice = new SimpleIntegerProperty(p.getPrice());
-    //to change it: simplePizzaPrice.set(value)
     priceLabel.textProperty().bind(simplePizzaPrice.asString());
 
     //available Toppings for choice-box
@@ -58,12 +67,21 @@ public class EditPizzaScreen extends VBox {
     ChoiceBox<Topping> toppingChoiceBox = new ChoiceBox<>(myObservableAvailableToppingsList);
     toppingChoiceBox.getSelectionModel().selectFirst();
 
+    //Listview für toppings mit cell
+    myToppingObservableToppingsList = FXCollections.observableList(
+        toppings);
+    toppingsOnPizzaListView.setItems(myToppingObservableToppingsList);
+    toppingsOnPizzaListView.setCellFactory(
+        list -> new ToppingsListCell(myToppingObservableToppingsList));
+
     //addToppingButton
     addToppingButton.setText("Add selected Topping");
     addToppingButton.setOnAction((event -> {
       try {
-        toppingOnPizzaListView.refresh();
         service.addTopping(pizzaId, toppingChoiceBox.getSelectionModel().getSelectedItem());
+        myToppingObservableToppingsList = FXCollections.observableList(
+            toppings);
+        toppingsOnPizzaListView.setItems(myToppingObservableToppingsList);
         simplePizzaPrice.set(p.getPrice());
       } catch (TooManyToppingsException e) {
         //throw new RuntimeException(e);
@@ -71,28 +89,23 @@ public class EditPizzaScreen extends VBox {
       }
     }));
 
-    //Listview für toppings mit cell
-    myToppingObservableToppingsList = FXCollections.observableList(
-        p.getToppings());
-    toppingOnPizzaListView.setItems(myToppingObservableToppingsList);
-    toppingOnPizzaListView.setCellFactory(
-        list -> new ToppingsListCell(myToppingObservableToppingsList));
-
     //finishButton
     finishButton.setText("Finish Order");
 
+    //set IDs
     pizzaSizeLabel.setId("pizzaSizeLabel");
     priceLabel.setId("priceLabel");
     toppingChoiceBox.setId("toppingChoiceBox");
     addToppingButton.setId("addToppingButton");
-    toppingOnPizzaListView.setId("toppingOnPizzaListView");
+    toppingsOnPizzaListView.setId("toppingOnPizzaListView");
     finishButton.setId("finishButton");
 
+    //add nodes to scene graph
     getChildren().addAll(pizzaSizeLabel, priceLabel, toppingChoiceBox, addToppingButton,
-        toppingOnPizzaListView, finishButton);
+        toppingsOnPizzaListView, finishButton);
 
     //#######DEBUG##########
-    System.out.println(p.getToppings());
+    //System.out.println(p.getToppings());
 
   }
 
@@ -130,6 +143,14 @@ public class EditPizzaScreen extends VBox {
     }
   }
 
+  /**
+   * method to get the pizza object from a pizzaId.
+   *
+   * @param pizzaList list where the pizza is
+   * @param pizzaId pizza id
+   * @return pizza object of requested id
+   * @throws IllegalArgumentException throw if id is not valid
+   */
   public Pizza getPizza(final List<Pizza> pizzaList, final int pizzaId)
       throws IllegalArgumentException {
     if (pizzaId < 1) {

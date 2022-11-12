@@ -27,7 +27,6 @@ public class PizzaOrderLauncher extends Application {
     int pizzaId = service.addPizza(orderId, PizzaSize.EXTRA_LARGE);
     logger.info("PizzaId = {}", pizzaId);
 
-    service.addTopping(pizzaId, Topping.PINEAPPLE);
 
     // The pizza can now be edited
     Tab pizzaDeliveryTab = new Tab("EditPizzaScreen",
