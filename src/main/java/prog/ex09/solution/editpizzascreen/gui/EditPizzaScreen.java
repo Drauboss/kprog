@@ -97,7 +97,7 @@ public class EditPizzaScreen extends VBox {
     priceLabel.setId("priceLabel");
     toppingChoiceBox.setId("toppingChoiceBox");
     addToppingButton.setId("addToppingButton");
-    toppingsOnPizzaListView.setId("toppingOnPizzaListView");
+    toppingsOnPizzaListView.setId("toppingsOnPizzaListView");
     finishButton.setId("finishButton");
 
     //add nodes to scene graph
