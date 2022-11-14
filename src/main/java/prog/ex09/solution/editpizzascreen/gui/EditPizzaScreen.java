@@ -6,6 +6,8 @@ import java.util.List;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -86,6 +88,7 @@ public class EditPizzaScreen extends VBox {
       } catch (TooManyToppingsException e) {
         //throw new RuntimeException(e);
         System.out.println(e.getMessage());
+        raiseExceptionToUI(e, e.getMessage());
       }
     }));
 
@@ -168,4 +171,15 @@ public class EditPizzaScreen extends VBox {
     //if PizzaId not found in any order throw new exception
     throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not found");
   }
+
+  private void raiseExceptionToUI(final Exception e, final String header) {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(header);
+    alert.setContentText("You cant add more than 6 Toppings on one Pizza!");
+    alert.showAndWait();
+
+  }
+
+
 }

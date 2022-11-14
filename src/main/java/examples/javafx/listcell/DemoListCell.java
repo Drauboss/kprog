@@ -27,13 +27,19 @@ public class DemoListCell extends Application {
 
   @Override
   public void start(final Stage primaryStage) throws Exception {
+    Contact contactErna2 = new Contact("Ecacsarna", "07131 / 777 666");
     StackPane rootStackPane = new StackPane();
+    Button addContact = new Button("fsdfsdfgsdfg");
     ListView<Contact> contactListView = new ListView<>();
     ObservableList<Contact> contactObservableList =
             FXCollections.observableList(MockDataGenerator.getContactList());
     contactListView.setItems(contactObservableList);
     contactListView.setCellFactory(list -> new ContactListCell(contactObservableList));
+
+    addContact.setOnAction((event -> MockDataGenerator.getContactList().add(contactErna2)));
+
     rootStackPane.getChildren().add(contactListView);
+    rootStackPane.getChildren().add(addContact);
     primaryStage.setScene(new Scene(rootStackPane, 600, 300));
     primaryStage.show();
   }
