@@ -88,7 +88,7 @@ public class EditPizzaScreen extends VBox {
       } catch (TooManyToppingsException e) {
         //throw new RuntimeException(e);
         System.out.println(e.getMessage());
-        raiseExceptionToUI(e, e.getMessage());
+        raiseExceptionToUi(e, e.getMessage());
       }
     }));
 
@@ -150,7 +150,7 @@ public class EditPizzaScreen extends VBox {
    * method to get the pizza object from a pizzaId.
    *
    * @param pizzaList list where the pizza is
-   * @param pizzaId pizza id
+   * @param pizzaId   pizza id
    * @return pizza object of requested id
    * @throws IllegalArgumentException throw if id is not valid
    */
@@ -172,7 +172,7 @@ public class EditPizzaScreen extends VBox {
     throw new IllegalArgumentException("pizzaId: " + pizzaId + " is not found");
   }
 
-  private void raiseExceptionToUI(final Exception e, final String header) {
+  private void raiseExceptionToUi(final Exception e, final String header) {
     Alert alert = new Alert(AlertType.ERROR);
     alert.setTitle("Error");
     alert.setHeaderText(header);

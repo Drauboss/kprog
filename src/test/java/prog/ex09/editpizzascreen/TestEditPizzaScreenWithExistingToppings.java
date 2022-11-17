@@ -24,7 +24,8 @@ public class TestEditPizzaScreenWithExistingToppings extends BaseTestEditPizzaSc
     logger.info("Setup: Three toppings added.");
   }
 
-  @Test //@Ignore
+
+  @Test @Ignore
   public void checkThatThereAreThreeToppingsOnThePizza() throws InterruptedException {
     Thread.sleep(1000);
     ListView<Topping> listView = lookup("#toppingsOnPizzaListView").queryListView();
@@ -35,7 +36,7 @@ public class TestEditPizzaScreenWithExistingToppings extends BaseTestEditPizzaSc
   }
 
 
-  @Test //@Ignore
+  @Test @Ignore
   public void tryToRemoveTheHamTopping() throws InterruptedException {
     Thread.sleep(1000);
     logger.info("Try removing the HAM.");
