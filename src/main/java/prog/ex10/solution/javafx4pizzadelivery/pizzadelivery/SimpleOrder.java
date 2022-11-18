@@ -1,5 +1,6 @@
 package prog.ex10.solution.javafx4pizzadelivery.pizzadelivery;
 
+import java.util.ArrayList;
 import java.util.List;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Order;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Pizza;
@@ -8,21 +9,35 @@ import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Pizza;
  * Simple and straight-forward implementation of the Order interface.
  */
 public class SimpleOrder implements Order {
+
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
+      org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
+
+  private int id;
+  private static int idCounter = 0;
+  List<Pizza> pizzaList = new ArrayList<>();
+
+  public SimpleOrder() {
+    id = ++idCounter;
+  }
 
   @Override
   public int getOrderId() {
-    return 0;
+    return id;
   }
 
   @Override
   public List<Pizza> getPizzaList() {
-    return null;
+    return pizzaList;
   }
 
   @Override
   public int getValue() {
-    return 0;
+    int value = 0;
+    for (Pizza p : pizzaList) {
+      value = value + p.getPrice();
+    }
+    return value;
   }
+
 }

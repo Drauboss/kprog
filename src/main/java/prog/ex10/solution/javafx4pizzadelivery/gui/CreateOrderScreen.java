@@ -12,5 +12,6 @@ public class CreateOrderScreen extends VBox {
   public static final String SCREEN_NAME = "CreateOrderScreen";
 
   public CreateOrderScreen(PizzaDeliveryScreenController screenController) {
+
   }
 }
