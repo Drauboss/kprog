@@ -1,7 +1,6 @@
 package livesession.snake.provider;
 
-import static livesession.snake.Board.MINIMAL_BOARD_SIZE;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import livesession.snake.Board;
@@ -16,16 +15,15 @@ import livesession.snake.SnakeListener;
 import livesession.snake.SnakeService;
 
 /**
- * SimpleSnakeService.
+ * Simple and straight-forward implementation of the ExtendedSnakeService interface.
  */
 public class SimpleSnakeService implements ExtendedSnakeService {
-
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleSnakeService.class);
   private GameConfiguration gameConfiguration;
   private InternalBoard board;
   private SimpleSnake snake;
-  private SimpleGameLoop simpleGameLoop;
+  private GameLoop simpleGameLoop;
   private FoodGenerator foodGenerator;
 
   private GameState gameState;
@@ -34,66 +32,19 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   private List<SnakeListener> listeners;
 
   /**
-   * Default constructor. The game uses then default values for configuration. The default values
-   * are defined in the SnakeService interface.
+   * Default constructor. The game uses then default values for configuration.
+   * The default values are defined in the SnakeService interface.
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
-
-    gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
-        DEFAULT_NUMBER_OF_FOOD);
-    try {
-      configure(gameConfiguration);
-    } catch (IllegalConfigurationException e) {
-      throw new RuntimeException(e);
-    }
-
-    reset();
-
-  }
-
-  @Override
-  public void configure(final GameConfiguration configuration) throws
-      IllegalConfigurationException {
-    // TODO: check and save the configuration info.
-
-    board = new InternalBoard(gameConfiguration.getSize());
-
-    if (configuration == null) {
-      throw new IllegalConfigurationException("Config is null");
-    }
-
-    if (configuration.getNumberOfFood() < 1) {
-      throw new IllegalConfigurationException("number of food has to be 1 at minimum");
-    }
-
-    if (configuration.getSize() < MINIMAL_BOARD_SIZE) {
-      throw new IllegalConfigurationException("size has to be 4 at minimum");
-    }
-
-    if (configuration.getVelocityInMilliSeconds() < 1) {
-      throw new IllegalConfigurationException("velocity has to be 1 at minimum");
-    }
-
-    //foodGenerator = new FoodGenerator(this);
-    //for (int i = 0; i < configuration.getNumberOfFood(); i++) {
-      foodGenerator.placeFood();
-    //}
-
-    this.gameConfiguration = configuration;
-  }
-
-  @Override
-  public GameConfiguration getConfiguration() {
-    return gameConfiguration;
+    // TODO: end.
   }
 
   @Override
   public void reset() {
+    logger.debug("reset:");
     // TODO: reset for a new game
-    snake = new SimpleSnake(this);
-    score = 0;
-    gameState = GameState.PREPARED;
+    // TODO: end.
   }
 
   @Override
@@ -102,6 +53,15 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
+  }
+
+  @Override
+  public void abort() {
+    logger.debug("abort:");
+    simpleGameLoop.stopGame();
+    gameState = GameState.ABORTED;
+    notifyListeners((SnakeListener listener) -> listener.newGameState(gameState));
+    notifyListeners((SnakeListener listener) -> listener.gameEnded(new Reason("Game aborted")));
   }
 
   @Override
@@ -118,24 +78,6 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     simpleGameLoop.resumeGame();
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
-  }
-
-  @Override
-  public void abort() {
-    logger.debug("abort:");
-    simpleGameLoop.stopGame();
-    gameState = GameState.ABORTED;
-    notifyListeners((SnakeListener listener) -> listener.newGameState(gameState));
-    notifyListeners((SnakeListener listener) -> listener.gameEnded(new Reason("Game aborted")));
-  }
-
-  @Override
-  public void failed(Reason reason) {
-    logger.debug("failed: " + reason);
-    simpleGameLoop.stopGame();
-    gameState = GameState.ABORTED;
-    notifyListeners((SnakeListener listener) -> listener.newGameState(gameState));
-    notifyListeners((l) -> l.gameEnded(reason));
   }
 
   @Override
@@ -171,6 +113,27 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     return listeners.remove(listener);
   }
 
+  @Override
+  public void configure(final GameConfiguration configuration) throws
+      IllegalConfigurationException {
+    // TODO: check and save the configuration info
+    // TODO: end.
+  }
+
+  @Override
+  public GameConfiguration getConfiguration() {
+    return gameConfiguration;
+  }
+
+  @Override
+  public Snake getSnake() {
+    return snake;
+  }
+
+  public Board getBoard() {
+    return getExternalBoard();
+  }
+
   /**
    * Notifies all listeners by executing the consumer accept method. The accept method
    * implementation is in our case a lambda expression.
@@ -181,6 +144,21 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     for (SnakeListener listener : listeners) {
       consumer.accept(listener);
     }
+  }
+
+  @Override
+  public Board getExternalBoard() {
+    ExternalBoard externalBoard = new ExternalBoard(board, snake);
+    return externalBoard;
+  }
+
+  @Override
+  public void failed(Reason reason) {
+    logger.debug("failed: " + reason);
+    simpleGameLoop.stopGame();
+    gameState = GameState.ABORTED;
+    notifyListeners((SnakeListener listener) -> listener.newGameState(gameState));
+    notifyListeners((l) -> l.gameEnded(reason));
   }
 
   @Override
@@ -202,6 +180,9 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void addFood(final Coordinate coordinate) {
     logger.debug("addFood: " + coordinate);
+    if (board.getStateFromPosition(coordinate).equals(BoardState.FOOD)) {
+      throw new IllegalArgumentException("There is already food at this position: " + coordinate);
+    }
     board.addFood(coordinate);
     notifyListeners((l) -> l.updateBoard(getExternalBoard()));
   }
@@ -209,31 +190,19 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
-    //TODO: CHECKED what has to be done when one food has been eaten?
-
+    // TODO: what has to be done when one food has been eaten?
+    // TODO: end.
   }
 
   @Override
   public void updateScore(final BoardState state) {
     logger.debug("updateScore: " + state);
-    switch (state) {
-      case FOOD:
-        score += 10;
-        break;
-      default:
-        throw new IllegalArgumentException("Unknown state in updateScore: " + state);
+    if (state == BoardState.FOOD) {
+      score += 10;
+    } else {
+      throw new IllegalArgumentException("Unknown state in updateScore: " + state);
     }
-  }
-
-  @Override
-  public Snake getSnake() {
-    return snake;
-  }
-
-  @Override
-  public Board getExternalBoard() {
-    ExternalBoard externalBoard = new ExternalBoard(board, snake);
-    return externalBoard;
+    notifyListeners((l) -> l.updateScore(score));
   }
 
   @Override
@@ -241,7 +210,4 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     return board;
   }
 
-  public Board getBoard() {
-    return getExternalBoard();
-  }
 }

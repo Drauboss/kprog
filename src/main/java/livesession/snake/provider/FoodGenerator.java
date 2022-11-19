@@ -4,17 +4,19 @@ import java.util.Random;
 import livesession.snake.Coordinate;
 
 /**
- * Generate Food at random position.
+ * Simple FoodGenerator class for the snake game.
  */
 public class FoodGenerator {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(FoodGenerator.class);
 
-  private SimpleSnakeService service;
-  private Random random;
+  private final SimpleSnakeService service;
+  private final Random random;
 
   /**
-   * Generate random number.
+   * Constructor.
+   *
+   * @param service SnakeService the FoodGenerator is assigned to
    */
   public FoodGenerator(final SimpleSnakeService service) {
     this.service = service;
@@ -23,10 +25,8 @@ public class FoodGenerator {
   }
 
   Coordinate placeFood() {
-    // TODO: CHECKED place the food randomly.
-
-    Coordinate coordinate = getRandomCoordinate();
-    service.addFood(coordinate);
+    Coordinate coordinate = null;
+    // TODO: place the food randomly.
 
     // TODO: end.
     return coordinate;

@@ -20,51 +20,9 @@ public class InternalBoard extends BaseBoard {
   public InternalBoard(final int size) {
     super(size);
 
-    // TODO: CHECKED Init board with GRASS and WALLs
+    // TODO: Init board with GRASS and WALLs
 
-    /*
-       grid layout:
-       x = wall
-       g = grass
-       size = 4
-
-         0 1 2 3  j = column
-       0 x x x x
-       1 x g g x
-       2 x g g x
-       3 x x x x
-       i
-       =
-       row
-     */
-
-    // place grass on the complete field
-    for (int i = 0; i < size; i++) {    // i = row
-      for (int j = 0; j < size; j++) {  // j = column
-        board[i][j] = BoardState.GRASS;
-      }
-    }
-
-    // place walls on the top row of the field
-    for (int j = 0; j < size; j++) {  // j = column
-      board[0][j] = BoardState.WALL;
-    }
-
-    // place walls on the bottom row of the field
-    for (int j = 0; j < size; j++) {  // j = column
-      board[size - 1][j] = BoardState.WALL;
-    }
-
-    // place walls on the most left column of the field
-    for (int i = 0; i < size; i++) {  // i = row
-      board[i][0] = BoardState.WALL;
-    }
-
-    // place walls on the most right column of the field
-    for (int i = 0; i < size; i++) {  // i = row
-      board[i][size - 1] = BoardState.WALL;
-    }
-
+    // TODO: end
   }
 
   /**

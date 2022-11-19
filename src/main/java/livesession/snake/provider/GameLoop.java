@@ -1,7 +1,7 @@
 package livesession.snake.provider;
 
 /**
- * GameLoop.
+ * Generic GameLoop interface.
  */
 public interface GameLoop extends Runnable {
   @Override

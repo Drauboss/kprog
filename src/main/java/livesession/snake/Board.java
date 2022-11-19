@@ -4,7 +4,6 @@ package livesession.snake;
  * Represents the board of the game snake.
  */
 public interface Board {
-
   /**
    * Minimal board size. Smaller boards don't make any sense.
    */
@@ -29,7 +28,7 @@ public interface Board {
   /**
    * Returns the BoardState at the given coordinate.
    *
-   * @param row    requested row
+   * @param row requested row
    * @param column requested column
    * @return state at this coordinate
    * @throws IllegalArgumentException if the coordinate is either null or not on the board.

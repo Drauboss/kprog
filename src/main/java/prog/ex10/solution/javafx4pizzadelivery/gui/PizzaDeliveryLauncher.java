@@ -11,6 +11,9 @@ import prog.ex10.exercise.javafx4pizzadelivery.gui.ScreenController;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.PizzaDeliveryService;
 import prog.ex10.solution.javafx4pizzadelivery.pizzadelivery.SimplePizzaDeliveryService;
 
+/**
+ * Launches the PizzaDeliveryService order application.
+ */
 public class PizzaDeliveryLauncher extends Application {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(PizzaDeliveryLauncher.class);
