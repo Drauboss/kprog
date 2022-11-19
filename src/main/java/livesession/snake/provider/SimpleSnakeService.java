@@ -1,5 +1,7 @@
 package livesession.snake.provider;
 
+import static livesession.snake.Board.MINIMAL_BOARD_SIZE;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -37,14 +39,26 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
+    gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
+        DEFAULT_NUMBER_OF_FOOD);
+    try {
+      configure(gameConfiguration);
+    } catch (IllegalConfigurationException e) {
+      throw new RuntimeException(e);
+    }
+
+    reset();
     // TODO: end.
   }
 
   @Override
   public void reset() {
     logger.debug("reset:");
-    // TODO: reset for a new game
-    // TODO: end.
+    //TODO: reset for a new game
+    snake = new SimpleSnake(this);
+    score = 0;
+    gameState = GameState.PREPARED;
+    //TODO: end.
   }
 
   @Override
@@ -116,8 +130,32 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void configure(final GameConfiguration configuration) throws
       IllegalConfigurationException {
-    // TODO: check and save the configuration info
-    // TODO: end.
+    //TODO: check and save the configuration info
+    board = new InternalBoard(gameConfiguration.getSize());
+
+    if (configuration == null) {
+      throw new IllegalConfigurationException("Config is null");
+    }
+
+    if (configuration.getNumberOfFood() < 1) {
+      throw new IllegalConfigurationException("number of food has to be 1 at minimum");
+    }
+
+    if (configuration.getSize() < MINIMAL_BOARD_SIZE) {
+      throw new IllegalConfigurationException("size has to be 4 at minimum");
+    }
+
+    if (configuration.getVelocityInMilliSeconds() < 1) {
+      throw new IllegalConfigurationException("velocity has to be 1 at minimum");
+    }
+
+    //foodGenerator = new FoodGenerator(this);
+    //for (int i = 0; i < configuration.getNumberOfFood(); i++) {
+    foodGenerator.placeFood();
+    //}
+
+    this.gameConfiguration = configuration;
+    //TODO: end.
   }
 
   @Override
@@ -190,8 +228,8 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
-    // TODO: what has to be done when one food has been eaten?
-    // TODO: end.
+    //TODO: what has to be done when one food has been eaten?
+    //TODO: end.
   }
 
   @Override

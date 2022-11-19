@@ -32,7 +32,7 @@ public class ExternalBoard extends BaseBoard {
    */
   private void copyContents(final InternalBoard internalBoard) {
     // TODO: Copy the contents of the internal board
-
+    this.board = internalBoard.board;
     // TODO: end
   }
 
@@ -43,6 +43,11 @@ public class ExternalBoard extends BaseBoard {
    */
   private void addSnake(Snake snake) {
     // TODO: Add the snake to the board
+    List<Coordinate> snakeCoords = snake.getPosition();
+    for (int i = 0; i < snakeCoords.size(); i++) {
+
+      board[snakeCoords.get(i).getRow()][snakeCoords.get(i).getColumn()] = BoardState.SNAKE;
+    }
 
     // TODO: end
   }

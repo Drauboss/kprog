@@ -1,14 +1,27 @@
 package prog.ex10.solution.javafx4pizzadelivery.gui;
 
+import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import prog.ex09.exercise.editpizzascreen.pizzadelivery.Pizza;
-import prog.ex09.exercise.editpizzascreen.pizzadelivery.Topping;
+import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Pizza;
+import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.TooManyToppingsException;
+import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Topping;
+import prog.ex10.solution.javafx4pizzadelivery.pizzadelivery.SimplePizzaDeliveryService;
+
 
 /**
  * Screen to edit the toppings on a pizza of the PizzaDeliveryService.
@@ -34,11 +47,14 @@ public class EditPizzaScreen extends VBox {
 
   /**
    *
-   *dasd
+   *
    */
   public EditPizzaScreen(PizzaDeliveryScreenController screenController) {
 
 
+    SimplePizzaDeliveryService service = null;
+    int orderId = 0;
+    int pizzaId = 0;
 
 
     //get the pizza object with id=pizzaId

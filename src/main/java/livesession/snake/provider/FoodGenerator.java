@@ -27,7 +27,8 @@ public class FoodGenerator {
   Coordinate placeFood() {
     Coordinate coordinate = null;
     // TODO: place the food randomly.
-
+    coordinate = getRandomCoordinate();
+    service.addFood(coordinate);
     // TODO: end.
     return coordinate;
 
