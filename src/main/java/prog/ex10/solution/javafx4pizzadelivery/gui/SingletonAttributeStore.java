@@ -1,5 +1,7 @@
 package prog.ex10.solution.javafx4pizzadelivery.gui;
 
+import java.util.HashMap;
+import java.util.Map;
 import prog.ex10.exercise.javafx4pizzadelivery.gui.AttributeStore;
 
 /**
@@ -15,21 +17,24 @@ public class SingletonAttributeStore implements AttributeStore {
     return self;
   }
 
+
+  Map<String, Object> SingletonAttributeMap = new HashMap<>();
+
   private SingletonAttributeStore() {
   }
 
   @Override
   public void setAttribute(final String name, final Object object) throws IllegalArgumentException {
-
+    SingletonAttributeMap.put(name, object);
   }
 
   @Override
   public Object getAttribute(final String name) throws IllegalArgumentException {
-    return null;
+    return SingletonAttributeMap.get(name);
   }
 
   @Override
   public void removeAttribute(final String name) {
-
+    SingletonAttributeMap.remove(name);
   }
 }

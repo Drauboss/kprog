@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import prog.ex10.exercise.javafx4pizzadelivery.gui.UnknownTransitionException;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Pizza;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.TooManyToppingsException;
 import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Topping;
@@ -43,6 +44,7 @@ public class EditPizzaScreen extends VBox {
   ListView<Topping> toppingsOnPizzaListView = new ListView<>();
   Button finishButton = new Button();
   Label priceLabel = new Label();
+  SingletonAttributeStore attributeStore = SingletonAttributeStore.getInstance();
 
 
   /**
@@ -52,7 +54,8 @@ public class EditPizzaScreen extends VBox {
   public EditPizzaScreen(PizzaDeliveryScreenController screenController) {
 
 
-    SimplePizzaDeliveryService service = null;
+    SimplePizzaDeliveryService service = (SimplePizzaDeliveryService) attributeStore.getAttribute("PizzaDeliveryService");
+
     int orderId = 0;
     int pizzaId = 0;
 
@@ -100,6 +103,13 @@ public class EditPizzaScreen extends VBox {
 
     //finishButton
     finishButton.setText("Finish Order");
+    finishButton.setOnAction(event -> {
+      try {
+        screenController.switchTo(SCREEN_NAME, ShowOrderScreen.SCREEN_NAME);
+      } catch (UnknownTransitionException e) {
+        e.getMessage();
+      }
+    });
 
     //set IDs
     pizzaSizeLabel.setId("pizzaSizeLabel");

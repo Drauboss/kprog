@@ -8,52 +8,63 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<fx:root fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="VBox"
+  xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <BorderPane prefHeight="38.0" prefWidth="600.0">
+      <right>
+        <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER">
+          <BorderPane.margin>
+            <Insets right="10.0"/>
+          </BorderPane.margin>
+        </Button>
+      </right>
+      <left>
+        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+          <children>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="66.0" text="Label"/>
+            <Label alignment="CENTER" prefHeight="40.0" prefWidth="66.0" text="Label"/>
+          </children>
+        </HBox>
+      </left>
+    </BorderPane>
+    <HBox layoutY="41.0" prefHeight="0.0" prefWidth="600.0">
+      <children>
+        <ChoiceBox prefWidth="150.0">
+          <HBox.margin>
+            <Insets left="10.0"/>
+          </HBox.margin>
+        </ChoiceBox>
+        <Button mnemonicParsing="false" text="Button">
+          <HBox.margin>
+            <Insets left="10.0"/>
+          </HBox.margin>
+        </Button>
+      </children>
+      <VBox.margin>
+        <Insets bottom="10.0"/>
+      </VBox.margin>
+    </HBox>
+    <BorderPane layoutX="-18.0" layoutY="71.0" prefHeight="329.0" prefWidth="600.0"
+      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+      AnchorPane.topAnchor="71.0">
+      <left>
+        <ListView prefHeight="328.0" prefWidth="527.0" BorderPane.alignment="CENTER">
+          <BorderPane.margin>
+            <Insets/>
+          </BorderPane.margin>
+        </ListView>
+      </left>
+      <right>
+        <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER">
+          <BorderPane.margin>
+            <Insets right="10.0"/>
+          </BorderPane.margin>
+        </Button>
+      </right>
+    </BorderPane>
+  </children>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="prog.ex10.solution.javafx4pizzadelivery.gui.PizzaDeliveryScreenController">
-   <children>
-      <BorderPane layoutX="-18.0" layoutY="71.0" prefHeight="329.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="71.0">
-         <left>
-            <ListView prefHeight="330.0" prefWidth="539.0" BorderPane.alignment="CENTER" />
-         </left>
-         <right>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets right="10.0" />
-               </BorderPane.margin>
-            </Button>
-         </right>
-      </BorderPane>
-      <BorderPane prefHeight="38.0" prefWidth="600.0">
-         <right>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER">
-               <BorderPane.margin>
-                  <Insets right="10.0" />
-               </BorderPane.margin>
-            </Button>
-         </right>
-         <left>
-            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="66.0" text="Label" />
-                  <Label alignment="CENTER" prefHeight="40.0" prefWidth="66.0" text="Label" />
-               </children>
-            </HBox>
-         </left>
-      </BorderPane>
-      <HBox layoutY="41.0" prefHeight="0.0" prefWidth="600.0">
-         <children>
-            <ChoiceBox prefWidth="150.0">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </ChoiceBox>
-            <Button mnemonicParsing="false" text="Button">
-               <HBox.margin>
-                  <Insets left="10.0" />
-               </HBox.margin>
-            </Button>
-         </children>
-      </HBox>
-   </children>
-</AnchorPane>
+</fx:root>

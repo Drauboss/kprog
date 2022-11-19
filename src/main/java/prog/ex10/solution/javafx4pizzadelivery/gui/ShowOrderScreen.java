@@ -17,7 +17,7 @@ public class ShowOrderScreen extends VBox {
   public ShowOrderScreen(PizzaDeliveryScreenController screenController) {
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ShowOrderScreenFXML.fxml"));
     loader.setRoot(this);
-    loader.setController(screenController);
+    loader.setController("prog.ex10.solution.javafx4pizzadelivery.gui.PizzaDeliveryScreenController");
 
     try {
       loader.load();

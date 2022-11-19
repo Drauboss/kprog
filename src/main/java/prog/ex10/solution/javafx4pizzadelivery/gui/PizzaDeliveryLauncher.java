@@ -30,7 +30,7 @@ public class PizzaDeliveryLauncher extends Application {
     PizzaDeliveryService service = new SimplePizzaDeliveryService();
     attributeStore.setAttribute("PizzaDeliveryService", service);
     Pane paneToBeFilled = new Pane();
-    paneToBeFilled.getChildren().add(new Label("Your advertisement could be here ..."));
+    //paneToBeFilled.getChildren().add(new Label("Your advertisement could be here ..."));
     Tab pizzaDeliveryTab = new Tab("PizzaDeliveryService", paneToBeFilled);
     ScreenController controller = new PizzaDeliveryScreenController(paneToBeFilled);
     controller.switchTo(null, CreateOrderScreen.SCREEN_NAME);
