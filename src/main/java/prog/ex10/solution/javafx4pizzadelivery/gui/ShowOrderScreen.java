@@ -42,7 +42,7 @@ public class ShowOrderScreen extends VBox {
   SingletonAttributeStore attributeStore = SingletonAttributeStore.getInstance();
   SimplePizzaDeliveryService pizzaDeliveryService;
   PizzaDeliveryScreenController screenController;
-  SimpleIntegerProperty simplePizzaPrice;
+  static SimpleIntegerProperty simplePizzaPrice;
 
   //für listview mit pizzaEntry als elemente
   ObservableList<PizzaEntry> myPizzaEntrysObservableList;
@@ -85,10 +85,14 @@ public class ShowOrderScreen extends VBox {
       e.printStackTrace();
     }
 
+    simplePizzaPrice = new SimpleIntegerProperty(0);
+    costLabel.textProperty().bind(simplePizzaPrice.asString());
+
+
     //set orderId Label
     orderIdLabel.setText(attributeStore.getAttribute("orderId").toString());
     //set costlabel to initial 0 cost
-    costLabel.setText("0");
+    //costLabel.setText("0");
 
     //available Pizzasizes for choice-box
     List<PizzaSize> availablePizzaSizes = new ArrayList<>(EnumSet.allOf(
@@ -110,7 +114,7 @@ public class ShowOrderScreen extends VBox {
         simplePizzaList);
     listViewId.setItems(mySimplePizzaObservableList);
     listViewId.setCellFactory(
-        list -> new SimplePizzaListCell(mySimplePizzaObservableList, screenController));
+        list -> new SimplePizzaListCell(mySimplePizzaObservableList, screenController, attributeStore));
 
 
   }
@@ -162,11 +166,13 @@ public class ShowOrderScreen extends VBox {
 
     private final ObservableList<Pizza> simplePizzaObservableList;
     private final ScreenController screenController;
+    private final SingletonAttributeStore attributeStore;
 
     public SimplePizzaListCell(final ObservableList<Pizza> simplePizzaObservableList, final
-    ScreenController screenController) {
+    ScreenController screenController, final SingletonAttributeStore attributeStore) {
       this.simplePizzaObservableList = simplePizzaObservableList;
       this.screenController = screenController;
+      this.attributeStore = attributeStore;
     }
 
     @Override
@@ -183,6 +189,9 @@ public class ShowOrderScreen extends VBox {
         Button removeButton = new Button("remove");
         //removeButton.setId("remove-" + item.toString());
         changeButton.setOnAction((event -> {
+
+          //TODO: give EditPizzaScreen the pizza id
+          attributeStore.setAttribute("pizzaId", item.getPizzaId());
           try {
             screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
           } catch (UnknownTransitionException e) {
@@ -191,6 +200,7 @@ public class ShowOrderScreen extends VBox {
         }));
         removeButton.setOnAction((event -> {
           simplePizzaObservableList.remove(item);
+          //TODO: update price
         }));
         Pane spacer = new Pane();
         spacer.setMinSize(10, 1);
@@ -208,8 +218,9 @@ public class ShowOrderScreen extends VBox {
 
 
     //set priceLabel
-    simplePizzaPrice = new SimpleIntegerProperty(pizzaDeliveryService.getOrder(orderId).getValue());
-    costLabel.textProperty().bind(simplePizzaPrice.asString());
+
+
+
 
     //add a pizza entry mit PizzaEntry als Elemente
     //PizzaEntry entry = new PizzaEntry(pizzaDeliveryService.getPizza(pizzaId).getSize().toString(),
@@ -232,12 +243,16 @@ public class ShowOrderScreen extends VBox {
     listViewId.setItems(mySimplePizzaObservableList);
 
 
+    simplePizzaPrice.set(pizzaDeliveryService.getOrder(orderId).getValue());
+    //simplePizzaPrice = new SimpleIntegerProperty(pizzaDeliveryService.getOrder(orderId).getValue());
+    //costLabel.textProperty().bind(simplePizzaPrice.asString());
+    //TODO: put price in attributeStore
 
-    try {
-      screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
-    } catch (UnknownTransitionException e) {
-      throw new RuntimeException(e);
-    }
+    //try {
+    //  screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
+    //} catch (UnknownTransitionException e) {
+    //  throw new RuntimeException(e);
+    //}
 
 
     //System.out.println(pizzaEntrysList);
