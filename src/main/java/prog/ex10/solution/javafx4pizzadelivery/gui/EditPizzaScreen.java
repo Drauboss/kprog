@@ -56,8 +56,10 @@ public class EditPizzaScreen extends VBox {
 
     SimplePizzaDeliveryService service = (SimplePizzaDeliveryService) attributeStore.getAttribute("PizzaDeliveryService");
 
-    int orderId = 0;
-    int pizzaId = 0;
+
+    int orderId = (int) attributeStore.getAttribute("orderId");
+    System.out.println(orderId);
+    int pizzaId = (int) attributeStore.getAttribute("pizzaId");
 
 
     //get the pizza object with id=pizzaId
@@ -120,8 +122,10 @@ public class EditPizzaScreen extends VBox {
     finishButton.setId("finishButton");
 
     //add nodes to scene graph
+    HBox hBox = new HBox();
+    hBox.getChildren().addAll(toppingsOnPizzaListView, finishButton);
     getChildren().addAll(pizzaSizeLabel, priceLabel, toppingChoiceBox, addToppingButton,
-        toppingsOnPizzaListView, finishButton);
+        hBox);
 
     //#######DEBUG##########
     //System.out.println(p.getToppings());

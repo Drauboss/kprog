@@ -16,7 +16,7 @@ import prog.ex10.exercise.javafx4pizzadelivery.pizzadelivery.Topping;
  */
 public class SimplePizzaDeliveryService implements PizzaDeliveryService {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(SimplePizzaDeliveryService.class);
+      org.slf4j.LoggerFactory.getLogger(SimplePizzaDeliveryService.class);
 
   /**
    * Constructor for {@link SimplePizzaDeliveryService}. Setting the prices for the size and

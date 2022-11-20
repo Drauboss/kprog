@@ -1,11 +1,11 @@
 package prog.ex10.solution.javafx4pizzadelivery.gui;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import prog.ex10.exercise.javafx4pizzadelivery.gui.UnknownTransitionException;
+import prog.ex10.solution.javafx4pizzadelivery.pizzadelivery.SimplePizzaDeliveryService;
 
 /**
  * Screen to create an order in the PizzaDeliveryService.
@@ -17,18 +17,22 @@ public class CreateOrderScreen extends VBox {
 
   public static final String SCREEN_NAME = "CreateOrderScreen";
 
-  @FXML
-  VBox vbox;
+  //attribute store for service
+  SingletonAttributeStore attributeStore = SingletonAttributeStore.getInstance();
+  SimplePizzaDeliveryService pizzaDeliveryService;
+  PizzaDeliveryScreenController screenController;
 
-  @FXML
-  Button createOrder;
 
   public CreateOrderScreen(PizzaDeliveryScreenController screenController) {
 
+    this.screenController = screenController;
+
+    pizzaDeliveryService = (SimplePizzaDeliveryService) attributeStore.getAttribute(
+        "PizzaDeliveryService");
+
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreateOrderScreenFXML.fxml"));
     loader.setRoot(this);
-    loader.setController("prog.ex10.solution.javafx4pizzadelivery.gui.PizzaDeliveryScreenController");
-
+    loader.setController(this);
 
     try {
       loader.load();
@@ -36,15 +40,22 @@ public class CreateOrderScreen extends VBox {
       e.printStackTrace();
     }
 
+
   }
 
-  @FXML
-  public void createOrder(ActionEvent event) {
-    //SimplePizzaDeliveryService pizzaDeliveryService = (SimplePizzaDeliveryService) attributeStore.getAttribute(
-    //    "PizzaDeliveryService");
-    //pizzaDeliveryService.createOrder();
-    System.out.println("order created");
 
+  @FXML
+  public void createOrderAction() {
+
+    Integer orderId = pizzaDeliveryService.createOrder();
+    attributeStore.setAttribute("orderId", orderId);
+    try {
+      screenController.switchTo(SCREEN_NAME, ShowOrderScreen.SCREEN_NAME);
+    } catch (UnknownTransitionException e) {
+      e.printStackTrace();
+    }
+
+    System.out.println("order created");
   }
 
 }

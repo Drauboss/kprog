@@ -5,13 +5,12 @@
 <?import javafx.scene.layout.VBox?>
 <fx:root fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
   minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="VBox"
-  xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-    <AnchorPane prefHeight="412.0" prefWidth="600.0">
-      <children>
-        <Button fx:id="createOrder" layoutX="258.0" layoutY="188.0" mnemonicParsing="false"
-          text="Create Order"/>
-      </children>
-    </AnchorPane>
-  </children>
+  xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
+  <AnchorPane prefHeight="412.0" prefWidth="600.0">
+    <children>
+      <Button fx:id="createOrder" layoutX="258.0" layoutY="188.0" mnemonicParsing="false"
+        onAction="#createOrderAction" text="Create Order">
+      </Button>
+    </children>
+  </AnchorPane>
 </fx:root>
