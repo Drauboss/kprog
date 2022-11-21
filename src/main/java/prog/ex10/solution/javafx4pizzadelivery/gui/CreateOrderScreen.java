@@ -23,6 +23,11 @@ public class CreateOrderScreen extends VBox {
   PizzaDeliveryScreenController screenController;
 
 
+  /**
+   * Create the order Screen.
+   *
+   * @param screenController screenController.
+   */
   public CreateOrderScreen(PizzaDeliveryScreenController screenController) {
 
     this.screenController = screenController;
@@ -30,6 +35,7 @@ public class CreateOrderScreen extends VBox {
     pizzaDeliveryService = (SimplePizzaDeliveryService) attributeStore.getAttribute(
         "PizzaDeliveryService");
 
+    //load FXML
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/CreateOrderScreenFXML.fxml"));
     loader.setRoot(this);
     loader.setController(this);
@@ -40,10 +46,12 @@ public class CreateOrderScreen extends VBox {
       e.printStackTrace();
     }
 
-
   }
 
 
+  /**
+   * onAction Method from FXML. Create an Order and switch to ShowOrderScreen.
+   */
   @FXML
   public void createOrderAction() {
 
@@ -52,10 +60,7 @@ public class CreateOrderScreen extends VBox {
     try {
       screenController.switchTo(SCREEN_NAME, ShowOrderScreen.SCREEN_NAME);
     } catch (UnknownTransitionException e) {
-      e.printStackTrace();
+      e.getMessage();
     }
-
-    System.out.println("order created");
   }
-
 }
