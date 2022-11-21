@@ -1,16 +1,16 @@
-package examples.ch14.newsfeedv1t;
+package examples.ch14.addressbookv1g;
 
 /**
  * Provide a simple demonstration of the AddressBook class.
  * Sample data is added to the address book,
- * and a text interface is provided.
+ * and a GUI view is provided.
  *
  * @author David J. Barnes and Michael Kölling.
  * @version 2016.02.29
  */
 public class AddressBookDemo {
   private final AddressBook book;
-  private final AddressBookTextInterface interaction;
+  private final AddressBookGui interact;
 
   /**
    * Setup an AddressBook with sample data.
@@ -32,14 +32,16 @@ public class AddressBookDemo {
     for (ContactDetails details : sampleDetails) {
       book.addDetails(details);
     }
-    interaction = new AddressBookTextInterface(book);
+
+    // Provide a GUI view of the address book.
+    interact = new AddressBookGui(book);
   }
 
   /**
    * Allow the user to interact with the address book.
    */
   public void showInterface() {
-    interaction.run();
+    interact.setVisible(true);
   }
 
   /**
