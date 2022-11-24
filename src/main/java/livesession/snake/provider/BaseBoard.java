@@ -62,7 +62,10 @@ public class BaseBoard implements Board {
   }
 
   protected void assertPositionIsOnBoard(int row, int column) {
-    // TODO implement it throwing an IllegalArgumentException with the position.
-    // TODO end
+    //TODO implement it throwing an IllegalArgumentException with the position.
+    if (row < 0 || column < 0 || row >= size || column >= size) {
+      throw new IllegalArgumentException("Position: " + row + " or " + column + " is not valid");
+    }
+    //TODO end
   }
 }

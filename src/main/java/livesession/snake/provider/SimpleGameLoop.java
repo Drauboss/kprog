@@ -6,6 +6,9 @@ package livesession.snake.provider;
 public class SimpleGameLoop extends Thread implements GameLoop {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleGameLoop.class);
+  private boolean running;
+  private ExtendedSnakeService service;
+  private int sleepTime;
 
   /**
    * Constructor.
@@ -15,25 +18,48 @@ public class SimpleGameLoop extends Thread implements GameLoop {
    */
   public SimpleGameLoop(final ExtendedSnakeService service,
                         final int sleepTime) {
+    this.service = service;
+    this.sleepTime = sleepTime;
+    running = true;
   }
 
   @Override
   public void run() {
+    while (running) {
+      service.triggeredByGameLoop();
+      try {
+        wait(sleepTime);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
+      }
+
+    }
 
   }
 
   @Override
   public void pauseGame() {
 
+    running = false;
+    try {
+      this.wait();
+    } catch (InterruptedException e) {
+      throw new RuntimeException(e);
+    }
+
   }
 
   @Override
   public void resumeGame() {
 
+    this.notify();
+    running = true;
+
   }
 
   @Override
   public void stopGame() {
+    running = false;
 
   }
 }
