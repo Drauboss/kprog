@@ -1,4 +1,4 @@
-package examples.ch14.newsfeedv1t;
+package examples.ch14.addressbookv1t;
 
 /**
  * This class holds an enumeration of all command words known

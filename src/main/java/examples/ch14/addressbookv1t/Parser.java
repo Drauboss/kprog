@@ -1,4 +1,4 @@
-package examples.ch14.newsfeedv1t;
+package examples.ch14.addressbookv1t;
 
 import java.util.Scanner;
 
