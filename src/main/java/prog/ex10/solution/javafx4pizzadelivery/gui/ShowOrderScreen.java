@@ -40,19 +40,17 @@ public class ShowOrderScreen extends VBox {
 
   //attribute store for service
   SingletonAttributeStore attributeStore = SingletonAttributeStore.getInstance();
+
   SimplePizzaDeliveryService pizzaDeliveryService;
   PizzaDeliveryScreenController screenController;
   static SimpleIntegerProperty simplePizzaPrice;
 
-  //für listview mit pizzaEntry als elemente
-  ObservableList<PizzaEntry> myPizzaEntrysObservableList;
-  List<PizzaEntry> pizzaEntrysList = new ArrayList<>();
-
 
   //für listview mit simplePizza als elemente
   ObservableList<Pizza> mySimplePizzaObservableList;
-  List<Pizza> simplePizzaList = new ArrayList<>();
+  List<Pizza> simplePizzaList;
 
+  //FXML injections
   @FXML
   public Label orderIdLabel;
   @FXML
@@ -63,9 +61,11 @@ public class ShowOrderScreen extends VBox {
   public ListView listViewId;
 
 
-
-
-
+  /**
+   * Create the ShowOrderScreen.
+   *
+   * @param screenController screencontroller.
+   */
   public ShowOrderScreen(PizzaDeliveryScreenController screenController) {
 
     this.screenController = screenController;
@@ -73,8 +73,7 @@ public class ShowOrderScreen extends VBox {
     pizzaDeliveryService = (SimplePizzaDeliveryService) attributeStore.getAttribute(
         "PizzaDeliveryService");
 
-
-
+    //FXML loader
     FXMLLoader loader = new FXMLLoader(getClass().getResource("/ShowOrderScreenFXML.fxml"));
     loader.setRoot(this);
     loader.setController(this);
@@ -85,14 +84,15 @@ public class ShowOrderScreen extends VBox {
       e.printStackTrace();
     }
 
-    simplePizzaPrice = new SimpleIntegerProperty(0);
+    int orderId = (int) attributeStore.getAttribute("orderId");
+    //set pizza price
+    simplePizzaPrice = new SimpleIntegerProperty();
     costLabel.textProperty().bind(simplePizzaPrice.asString());
-
+    simplePizzaPrice.set(pizzaDeliveryService.getOrder(orderId).getValue());
+    attributeStore.setAttribute("price", simplePizzaPrice);
 
     //set orderId Label
     orderIdLabel.setText(attributeStore.getAttribute("orderId").toString());
-    //set costlabel to initial 0 cost
-    //costLabel.setText("0");
 
     //available Pizzasizes for choice-box
     List<PizzaSize> availablePizzaSizes = new ArrayList<>(EnumSet.allOf(
@@ -102,66 +102,17 @@ public class ShowOrderScreen extends VBox {
     choiceBoxId.setItems(myObservableAvailablePizzaSizeList);
     choiceBoxId.getSelectionModel().selectFirst();
 
-    //Listview für pizzaList mit cell mit PizzaEntry
-    //myPizzaEntrysObservableList = FXCollections.observableList(
-    //    pizzaEntrysList);
-    //listViewId.setItems(myPizzaEntrysObservableList);
-    //listViewId.setCellFactory(
-    //    list -> new PizzaListCell(myPizzaEntrysObservableList, screenController));
-
     //Listview für pizzaList mit cell mit SimplePizza
+    simplePizzaList = pizzaDeliveryService.getOrder(orderId).getPizzaList();
     mySimplePizzaObservableList = FXCollections.observableList(
         simplePizzaList);
     listViewId.setItems(mySimplePizzaObservableList);
     listViewId.setCellFactory(
-        list -> new SimplePizzaListCell(mySimplePizzaObservableList, screenController, attributeStore));
-
+        list -> new SimplePizzaListCell(mySimplePizzaObservableList, screenController,
+            attributeStore));
 
   }
 
-  static class PizzaListCell extends ListCell<PizzaEntry> {
-
-    private final ObservableList<PizzaEntry> pizzaObservableList;
-    private final ScreenController screenController;
-
-    public PizzaListCell(final ObservableList<PizzaEntry> pizzaObservableList, final
-        ScreenController screenController) {
-      this.pizzaObservableList = pizzaObservableList;
-      this.screenController = screenController;
-    }
-
-    @Override
-    protected void updateItem(final PizzaEntry item, final boolean empty) {
-      super.updateItem(item, empty);
-      if (empty || item == null) {
-        textProperty().setValue(null);
-        setGraphic(null);
-      } else {
-        VBox verticalBox = new VBox();
-        Label entry = new Label(item.toString() + ",");
-        verticalBox.getChildren().addAll(entry);
-        Button changeButton = new Button("change");
-        Button removeButton = new Button("remove");
-        //removeButton.setId("remove-" + item.toString());
-        changeButton.setOnAction((event -> {
-          try {
-            screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
-          } catch (UnknownTransitionException e) {
-            throw new RuntimeException(e);
-          }
-        }));
-        removeButton.setOnAction((event -> {
-          pizzaObservableList.remove(item);
-        }));
-        Pane spacer = new Pane();
-        spacer.setMinSize(10, 1);
-        HBox horizontalBox = new HBox();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        horizontalBox.getChildren().addAll(verticalBox, spacer, changeButton, removeButton);
-        setGraphic(horizontalBox);
-      }
-    }
-  }
   static class SimplePizzaListCell extends ListCell<Pizza> {
 
     private final ObservableList<Pizza> simplePizzaObservableList;
@@ -169,7 +120,7 @@ public class ShowOrderScreen extends VBox {
     private final SingletonAttributeStore attributeStore;
 
     public SimplePizzaListCell(final ObservableList<Pizza> simplePizzaObservableList, final
-    ScreenController screenController, final SingletonAttributeStore attributeStore) {
+          ScreenController screenController, final SingletonAttributeStore attributeStore) {
       this.simplePizzaObservableList = simplePizzaObservableList;
       this.screenController = screenController;
       this.attributeStore = attributeStore;
@@ -183,24 +134,26 @@ public class ShowOrderScreen extends VBox {
         setGraphic(null);
       } else {
         VBox verticalBox = new VBox();
-        Label entry = new Label(item.getSize().toString() + ", " + item.getToppings().size() + " toppings");
+        Label entry = new Label(
+            item.getSize().toString() + ", " + item.getToppings().size() + " toppings");
         verticalBox.getChildren().addAll(entry);
         Button changeButton = new Button("change");
         Button removeButton = new Button("remove");
-        //removeButton.setId("remove-" + item.toString());
         changeButton.setOnAction((event -> {
-
-          //TODO: give EditPizzaScreen the pizza id
           attributeStore.setAttribute("pizzaId", item.getPizzaId());
           try {
             screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
           } catch (UnknownTransitionException e) {
-            throw new RuntimeException(e);
+            e.getMessage();
           }
         }));
         removeButton.setOnAction((event -> {
           simplePizzaObservableList.remove(item);
-          //TODO: update price
+          int orderId = (int) attributeStore.getAttribute("orderId");
+          SimpleIntegerProperty simpleIntegerProperty = (SimpleIntegerProperty) attributeStore.getAttribute(
+              "price");
+          simpleIntegerProperty.set(((SimplePizzaDeliveryService) attributeStore.getAttribute(
+              "PizzaDeliveryService")).getOrder(orderId).getValue());
         }));
         Pane spacer = new Pane();
         spacer.setMinSize(10, 1);
@@ -211,54 +164,35 @@ public class ShowOrderScreen extends VBox {
       }
     }
   }
+
+  /**
+   * onAction Method from FXML. Add an pizza to the order.
+   */
   @FXML
   public void addPizzaAction() {
 
     int orderId = (int) attributeStore.getAttribute("orderId");
 
-
-    //set priceLabel
-
-
-
-
-    //add a pizza entry mit PizzaEntry als Elemente
-    //PizzaEntry entry = new PizzaEntry(pizzaDeliveryService.getPizza(pizzaId).getSize().toString(),
-    //    pizzaDeliveryService.getPizza(pizzaId).getToppings().size());
-    //pizzaEntrysList.add(entry);
-
-    //myPizzaEntrysObservableList = FXCollections.observableList(
-    //    pizzaEntrysList);
-    //listViewId.setItems(myPizzaEntrysObservableList);
-
     //add a pizza entry mit SimplePizza als Elemente
-    int pizzaId = pizzaDeliveryService.addPizza(orderId, (PizzaSize) choiceBoxId.getSelectionModel().getSelectedItem());
+    int pizzaId = pizzaDeliveryService.addPizza(orderId,
+        (PizzaSize) choiceBoxId.getSelectionModel().getSelectedItem());
 
     attributeStore.setAttribute("pizzaId", pizzaId);
 
     simplePizzaList = pizzaDeliveryService.getOrder(orderId).getPizzaList();
-
     mySimplePizzaObservableList = FXCollections.observableList(
         simplePizzaList);
     listViewId.setItems(mySimplePizzaObservableList);
 
-
+    //update price
     simplePizzaPrice.set(pizzaDeliveryService.getOrder(orderId).getValue());
-    //simplePizzaPrice = new SimpleIntegerProperty(pizzaDeliveryService.getOrder(orderId).getValue());
-    //costLabel.textProperty().bind(simplePizzaPrice.asString());
-    //TODO: put price in attributeStore
-
-    //try {
-    //  screenController.switchTo(SCREEN_NAME, EditPizzaScreen.SCREEN_NAME);
-    //} catch (UnknownTransitionException e) {
-    //  throw new RuntimeException(e);
-    //}
-
-
-    //System.out.println(pizzaEntrysList);
+    attributeStore.setAttribute("price", simplePizzaPrice);
 
   }
 
+  /**
+   * onAction Method from FXML. Send order and return to CreateOrderScreen.
+   */
   @FXML
   public void sendOrderAction() {
     try {
@@ -267,6 +201,10 @@ public class ShowOrderScreen extends VBox {
       throw new RuntimeException(e);
     }
   }
+
+  /**
+   * onAction Method from FXML. Cancel Order and return to CreateOrderScreen.
+   */
   @FXML
   public void cancelOrderAction() {
     try {
