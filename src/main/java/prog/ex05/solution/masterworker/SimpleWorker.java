@@ -13,16 +13,9 @@ public class SimpleWorker extends Thread implements Worker {
   private static final org.slf4j.Logger logger =
           org.slf4j.LoggerFactory.getLogger(SimpleWorker.class);
 
-
-
-
   ConcurrentLinkedQueue<Task> tasks;
   Task currentTask;
   //String name;
-
-
-
-
 
   boolean isShutdown = false;
 
