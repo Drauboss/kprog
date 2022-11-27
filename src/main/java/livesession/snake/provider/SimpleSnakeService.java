@@ -229,6 +229,12 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void foodEaten(final Coordinate coordinate) {
     logger.debug("foodEaten: " + coordinate);
     //TODO: what has to be done when one food has been eaten?
+    board.removeFood(coordinate);
+    updateScore(BoardState.FOOD);
+    Board externalBoard = getExternalBoard();
+    Coordinate coordinate1 = foodGenerator.placeFood();
+    //TODO: check if food is placed on grass field
+    addFood(coordinate1);
     //TODO: end.
   }
 

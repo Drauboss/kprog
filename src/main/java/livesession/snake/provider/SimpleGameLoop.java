@@ -32,9 +32,7 @@ public class SimpleGameLoop extends Thread implements GameLoop {
       } catch (InterruptedException e) {
         throw new RuntimeException(e);
       }
-
     }
-
   }
 
   @Override
