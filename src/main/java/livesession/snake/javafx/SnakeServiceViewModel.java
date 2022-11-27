@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import livesession.snake.Board;
+import livesession.snake.Coordinate;
 import livesession.snake.GameState;
 import livesession.snake.Reason;
 import livesession.snake.SnakeListener;
@@ -13,7 +14,8 @@ import livesession.snake.SnakeService;
 import livesession.snake.provider.SimpleSnakeService;
 
 public class SnakeServiceViewModel implements SnakeListener {
-
+  private static final org.slf4j.Logger logger =
+      org.slf4j.LoggerFactory.getLogger(Coordinate.class);
 
 
   private IntegerProperty score;
@@ -22,7 +24,7 @@ public class SnakeServiceViewModel implements SnakeListener {
   private SnakeService service;
 
 
-  public SnakeServiceViewModel(SimpleSnakeService service) {
+  public SnakeServiceViewModel(final SnakeService service) {
     this.service = service;
     service.addListener(this);
     score = new SimpleIntegerProperty(0);
@@ -37,6 +39,7 @@ public class SnakeServiceViewModel implements SnakeListener {
    */
   @Override
   public void updateBoard(Board board) {
+
 
   }
 

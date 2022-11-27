@@ -38,7 +38,7 @@ public class PalindromeCheckerGui extends FlowPane {
     btn = new Button();
     txtField = new TextField();
     redBackground = new Background(
-        new BackgroundFill(Color.rgb(255, 0, 0, 1), null, null));
+        new BackgroundFill(Color.BEIGE, null, null));
     greenBackground = new Background(
         new BackgroundFill(Color.rgb(0, 255, 0, 1), null, null));
 

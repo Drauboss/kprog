@@ -39,6 +39,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
+    listeners = new ArrayList<>();
     gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
         DEFAULT_NUMBER_OF_FOOD);
     try {
@@ -48,6 +49,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     }
 
     reset();
+
     // TODO: end.
   }
 
@@ -151,7 +153,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
 
     //foodGenerator = new FoodGenerator(this);
     //for (int i = 0; i < configuration.getNumberOfFood(); i++) {
-    foodGenerator.placeFood();
+    //foodGenerator.placeFood();
     //}
 
     this.gameConfiguration = configuration;
