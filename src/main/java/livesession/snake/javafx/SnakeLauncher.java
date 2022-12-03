@@ -23,6 +23,8 @@ public class SnakeLauncher extends Application {
 
 
 
+
+
     VBox outerBox = new VBox();
     outerBox.getChildren().addAll(display, board);
     //outerBox.getChildren().addAll(new Label("dasda"));

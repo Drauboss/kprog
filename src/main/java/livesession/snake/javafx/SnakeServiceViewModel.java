@@ -1,5 +1,6 @@
 package livesession.snake.javafx;
 
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -41,6 +42,8 @@ public class SnakeServiceViewModel implements SnakeListener {
   public void updateBoard(Board board) {
 
 
+
+
   }
 
   /**
@@ -50,6 +53,7 @@ public class SnakeServiceViewModel implements SnakeListener {
    */
   @Override
   public void newGameState(GameState state) {
+    System.out.println("new game state");
 
   }
 
@@ -70,6 +74,7 @@ public class SnakeServiceViewModel implements SnakeListener {
    */
   @Override
   public void updateScore(int score) {
+
 
   }
 

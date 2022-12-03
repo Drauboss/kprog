@@ -27,10 +27,14 @@ public class SimpleGameLoop extends Thread implements GameLoop {
   public void run() {
     while (running) {
       service.triggeredByGameLoop();
-      try {
-        wait(sleepTime);
-      } catch (InterruptedException e) {
-        throw new RuntimeException(e);
+      logger.info("triggered");
+      System.out.println(Thread.currentThread());
+      synchronized (this) {
+        try {
+          wait(sleepTime);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
       }
     }
   }

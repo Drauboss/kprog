@@ -50,6 +50,8 @@ public class SimpleSnakeService implements ExtendedSnakeService {
 
     reset();
 
+
+
     // TODO: end.
   }
 
@@ -67,6 +69,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void start() {
     logger.debug("start:");
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
+    simpleGameLoop.run();
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
   }
@@ -223,6 +226,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     if (board.getStateFromPosition(coordinate).equals(BoardState.FOOD)) {
       throw new IllegalArgumentException("There is already food at this position: " + coordinate);
     }
+
     board.addFood(coordinate);
     notifyListeners((l) -> l.updateBoard(getExternalBoard()));
   }
