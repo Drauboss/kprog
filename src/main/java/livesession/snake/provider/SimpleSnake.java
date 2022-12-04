@@ -30,7 +30,7 @@ public class SimpleSnake implements Snake {
     board = service.getInternalBoard();
     position = new LinkedList<>();
     position.addFirst(board.getStartPosition());
-    direction = Direction.EAST;
+    direction = Direction.WEST; //TODO: change back to EAST
   }
 
   /**

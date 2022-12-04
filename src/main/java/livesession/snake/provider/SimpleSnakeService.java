@@ -40,6 +40,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public SimpleSnakeService() {
     // TODO: What to initialize?
     listeners = new ArrayList<>();
+    foodGenerator = new FoodGenerator(this);
     gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
         DEFAULT_NUMBER_OF_FOOD);
     try {
@@ -50,8 +51,6 @@ public class SimpleSnakeService implements ExtendedSnakeService {
 
     reset();
 
-
-
     // TODO: end.
   }
 
@@ -60,6 +59,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     logger.debug("reset:");
     //TODO: reset for a new game
     snake = new SimpleSnake(this);
+    foodGenerator.placeFood();
     score = 0;
     gameState = GameState.PREPARED;
     //TODO: end.
@@ -69,7 +69,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void start() {
     logger.debug("start:");
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
-    simpleGameLoop.run();
+    (new Thread(simpleGameLoop)).start();
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
   }
@@ -240,7 +240,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     Board externalBoard = getExternalBoard();
     Coordinate coordinate1 = foodGenerator.placeFood();
     //TODO: check if food is placed on grass field
-    addFood(coordinate1);
+    //addFood(coordinate1);
     //TODO: end.
   }
 

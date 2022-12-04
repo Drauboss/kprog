@@ -31,6 +31,7 @@ public class SnakeServiceViewModel implements SnakeListener {
     score = new SimpleIntegerProperty(0);
     gamestate = new SimpleObjectProperty<>(GameState.PREPARED);
     board = new SimpleObjectProperty<>(service.getBoard());
+
   }
 
   /**
@@ -41,9 +42,10 @@ public class SnakeServiceViewModel implements SnakeListener {
   @Override
   public void updateBoard(Board board) {
 
-
-
-
+    System.out.println("updateBoard");
+    SnakeBoard snakeBoard = new SnakeBoard(this);
+    this.board.setValue(board);
+    snakeBoard.updateBoardColors(board);
   }
 
   /**
@@ -64,7 +66,7 @@ public class SnakeServiceViewModel implements SnakeListener {
    */
   @Override
   public void gameEnded(Reason reason) {
-
+    System.out.println("gameEnded");
   }
 
   /**
@@ -75,15 +77,16 @@ public class SnakeServiceViewModel implements SnakeListener {
   @Override
   public void updateScore(int score) {
 
+    getScoreIntegerProperty().setValue(score);
 
   }
 
 
-  public int getScoreIntegerProperty() {
+  public int getScore() {
     return score.get();
   }
 
-  public IntegerProperty scoreIntegerPropertyProperty() {
+  public IntegerProperty getScoreIntegerProperty() {
     return score;
   }
 
@@ -91,7 +94,7 @@ public class SnakeServiceViewModel implements SnakeListener {
     return gamestate.get();
   }
 
-  public ObjectProperty<GameState> gamestateProperty() {
+  public ObjectProperty<GameState> getGamestateProperty() {
     return gamestate;
   }
 

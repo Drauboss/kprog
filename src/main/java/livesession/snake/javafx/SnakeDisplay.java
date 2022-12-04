@@ -1,12 +1,16 @@
 package livesession.snake.javafx;
 
 import java.io.IOException;
+import javafx.beans.property.Property;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
 public class SnakeDisplay extends VBox {
 
+  @FXML
+  public Label scoreLabel;
   private SnakeServiceViewModel model;
 
   public SnakeDisplay(SnakeServiceViewModel model) {
@@ -22,6 +26,9 @@ public class SnakeDisplay extends VBox {
     } catch (IOException e) {
       e.printStackTrace();
     }
+
+    //scoreLabel.textProperty().bind(model.getScoreIntegerProperty().asString());
+
 
   }
 

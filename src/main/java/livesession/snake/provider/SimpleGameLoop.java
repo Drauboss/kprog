@@ -1,5 +1,7 @@
 package livesession.snake.provider;
 
+import javafx.application.Platform;
+
 /**
  * Simple implementation of the GameLoop interface for the game snake.
  */
@@ -27,6 +29,8 @@ public class SimpleGameLoop extends Thread implements GameLoop {
   public void run() {
     while (running) {
       service.triggeredByGameLoop();
+
+      Platform.runLater(this);
       logger.info("triggered");
       System.out.println(Thread.currentThread());
       synchronized (this) {
