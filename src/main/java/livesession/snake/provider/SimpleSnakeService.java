@@ -68,6 +68,11 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void start() {
     logger.debug("start:");
+    try {
+      configure(gameConfiguration);
+    } catch (IllegalConfigurationException e) {
+      throw new RuntimeException(e);
+    }
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
