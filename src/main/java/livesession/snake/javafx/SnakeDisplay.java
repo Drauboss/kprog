@@ -36,5 +36,6 @@ public class SnakeDisplay extends VBox {
   public void startGameButtonAction() {
     System.out.println("fsd");
     model.getService().start();
+    //TODO: set visibilty of elements with "uielemenr".setVisible.(true)
   }
 }

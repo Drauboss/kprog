@@ -36,14 +36,14 @@ public class SnakeLauncher extends Application {
       }
       if (key.getCode() == KeyCode.A) {
         System.out.println("a");
-        service.moveLeft();
+        service.moveRight();
       }
       if (key.getCode() == KeyCode.S) {
         System.out.println("s");
       }
       if (key.getCode() == KeyCode.D) {
         System.out.println("d");
-        service.moveRight();
+        service.moveLeft();
       }
 
     });

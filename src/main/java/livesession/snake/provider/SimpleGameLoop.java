@@ -23,14 +23,13 @@ public class SimpleGameLoop extends Thread implements GameLoop {
     this.service = service;
     this.sleepTime = sleepTime;
     running = true;
+    this.start();
   }
 
   @Override
   public void run() {
     while (running) {
       service.triggeredByGameLoop();
-
-      Platform.runLater(this);
       logger.info("triggered");
       System.out.println(Thread.currentThread());
       synchronized (this) {

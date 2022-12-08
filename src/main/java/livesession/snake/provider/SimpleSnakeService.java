@@ -69,7 +69,6 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void start() {
     logger.debug("start:");
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
-    (new Thread(simpleGameLoop)).start();
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
   }
