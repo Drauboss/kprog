@@ -38,7 +38,7 @@ public class TestPlainTextPersistenceFactoryGoodCases {
     service = new SimplePizzaDeliveryService();
     classLoader = getClass().getClassLoader();
   }
-  @Test @Ignore
+  @Test //@Ignore
   public void testWithGoodOrder() throws TooManyToppingsException, IOException, WrongOrderFormatException {
 int orderId = service.createOrder();
 int pizzaId1 = service.addPizza(orderId, PizzaSize.EXTRA_LARGE);
@@ -90,7 +90,7 @@ checkPizzaLine(orderLines[2]);
     }
   }
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testLoadAGoodOrderFile() throws IOException, WrongOrderFormatException {
     Order order = factory.load(new File("testfiles/test-order-1.txt"));
     assertEquals("Expect order id to be 23 but was "+order.getOrderId()+".", 23, order.getOrderId());
