@@ -16,6 +16,8 @@ public class SimplePizza implements Pizza {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
 
+
+
   int price = 0;
 
 
@@ -24,17 +26,35 @@ public class SimplePizza implements Pizza {
   private static int idCounter = 0;
   PizzaSize size;
   List<Topping> toppings = new ArrayList<>();
-  Map<PizzaSize, Integer> pizzaSizeCostMap;
-  Map<Topping, Integer> pizzaToppingsCostMap;
+
+
+  Map<PizzaSize, Integer> pizzaSizeCostMap; // = new HashMap<>();
+  Map<Topping, Integer> pizzaToppingsCostMap; // = new HashMap<>();
 
   public SimplePizza(PizzaSize size) {
     this.size = size;
     id = ++idCounter;
+
+    //pizzaSizeCostMap.put(PizzaSize.EXTRA_LARGE, 1100);
+    //pizzaSizeCostMap.put(PizzaSize.LARGE, 900);
+    //pizzaSizeCostMap.put(PizzaSize.MEDIUM, 700);
+    //pizzaSizeCostMap.put(PizzaSize.SMALL, 500);
+//
+    //pizzaToppingsCostMap.put(Topping.CHEESE, 60);
+    //pizzaToppingsCostMap.put(Topping.TOMATO, 30);
+    //pizzaToppingsCostMap.put(Topping.PINEAPPLE, 90);
+    //pizzaToppingsCostMap.put(Topping.SEAFOOD, 150);
+    //pizzaToppingsCostMap.put(Topping.HAM, 70);
+    //pizzaToppingsCostMap.put(Topping.VEGETABLES, 20);
+    //pizzaToppingsCostMap.put(Topping.SALAMI, 50);
   }
 
   @Override
   public int getPizzaId() {
     return id;
+  }
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
@@ -47,8 +67,11 @@ public class SimplePizza implements Pizza {
     return size;
   }
 
-  @Override
-  public int getPrice() {
+  public void setPrice(int price) {
+    this.price = price;
+  }
+
+  public int calculatePrice() {
 
     int pizzaSizeCost = 0;
 
@@ -107,6 +130,11 @@ public class SimplePizza implements Pizza {
       }
     }
     price = pizzaSizeCost + pizzaToppingsCost;
+    return price;
+  }
+
+  @Override
+  public int getPrice() {
     return price;
   }
 

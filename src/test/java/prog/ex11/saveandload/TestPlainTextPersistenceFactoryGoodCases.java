@@ -118,7 +118,7 @@ checkPizzaLine(orderLines[2]);
   }
 
 
-  @Test @Ignore
+  @Test //@Ignore
   public void testLoadAGoodOrderFile2() throws IOException, WrongOrderFormatException {
     Order order = factory.load(new File("testfiles/test-order-2.txt"));
     assertNotNull(order);

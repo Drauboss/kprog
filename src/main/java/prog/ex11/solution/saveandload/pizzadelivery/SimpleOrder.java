@@ -17,6 +17,10 @@ public class SimpleOrder implements Order {
 
   private int id;
   private static int idCounter = 0;
+
+
+
+  private int value = 0;
   List<Pizza> pizzaList = new ArrayList<>();
 
   public SimpleOrder() {
@@ -38,12 +42,18 @@ public class SimpleOrder implements Order {
     return pizzaList;
   }
 
-  @Override
-  public int getValue() {
-    int value = 0;
+  public void setValue(int value) {
+    this.value = value;
+  }
+
+  public int calculateValue() {
     for (Pizza p : pizzaList) {
       value = value + p.getPrice();
     }
+    return value;
+  }
+  @Override
+  public int getValue() {
     return value;
   }
 
