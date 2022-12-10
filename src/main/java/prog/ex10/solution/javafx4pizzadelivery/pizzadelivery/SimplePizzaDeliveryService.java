@@ -18,6 +18,9 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimplePizzaDeliveryService.class);
 
+
+  //int id = 1;
+  //int pizzaId = 1;
   /**
    * Constructor for {@link SimplePizzaDeliveryService}. Setting the prices for the size and
    * toppings pricelists
@@ -54,6 +57,7 @@ public class SimplePizzaDeliveryService implements PizzaDeliveryService {
     if (orderId < 1) {
       throw new IllegalArgumentException("id has to be  bigger than 0");
     }
+
 
     SimplePizza pizza = new SimplePizza(size);
     pizza.pizzaSizeCostMap = pizzaSizeCostMap;

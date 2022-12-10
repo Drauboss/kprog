@@ -15,6 +15,8 @@ public class SimplePizza implements Pizza {
           org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
 
   int price = 0;
+
+
   private int id;
   private static int idCounter = 0;
   PizzaSize size;
@@ -24,12 +26,17 @@ public class SimplePizza implements Pizza {
 
   public SimplePizza(PizzaSize size) {
     this.size = size;
+    //this.id = id;
     id = ++idCounter;
   }
 
   @Override
   public int getPizzaId() {
     return id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override

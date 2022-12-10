@@ -12,7 +12,10 @@ import java.util.StringTokenizer;
 import prog.ex11.exercise.saveandload.factory.PersistenceFactory;
 import prog.ex11.exercise.saveandload.factory.WrongOrderFormatException;
 import prog.ex11.exercise.saveandload.pizzadelivery.Order;
+import prog.ex11.exercise.saveandload.pizzadelivery.Topping;
 import prog.ex11.solution.saveandload.pizzadelivery.SimpleOrder;
+import prog.ex11.solution.saveandload.pizzadelivery.SimplePizza;
+import prog.ex11.solution.saveandload.pizzadelivery.SimplePizzaDeliveryService;
 
 
 /**
@@ -91,6 +94,7 @@ public class PlainTextPersistenceFactory implements PersistenceFactory {
 
       List<String> orderTokens = new ArrayList<>();
       List<String> pizzaTokens = new ArrayList<>();
+      List toppings = new ArrayList<>();
 
       String line = reader.readLine();
       StringTokenizer tokenizer = new StringTokenizer(line, ";");
@@ -105,12 +109,35 @@ public class PlainTextPersistenceFactory implements PersistenceFactory {
       String ordervalue = orderTokens.get(1);
       String numOfPizzas = orderTokens.get(2);
 
+      for (int i = 0; i < Integer.parseInt(numOfPizzas); i++) {
 
-      for (int i = 0; i < 22; i++) {
-        Order order = new SimpleOrder();
-        //TODO: Frage set Id methode in interface hinzufügen
+        String linePizza = reader.readLine();
+        while (tokenizer.hasMoreElements()) {
+          pizzaTokens.add(tokenizer.nextToken());
+        }
 
+        int toppingsSize = pizzaTokens.size() - 3;
+
+        String pizzaId = pizzaTokens.get(0);
+        String pizzaPrice = pizzaTokens.get(1);
+        String pizzaSize = pizzaTokens.get(2);
+
+        for (int j = 3; j < toppingsSize + 3; j++) {
+          toppings.add(Topping.valueOf(pizzaTokens.get(i)));
+        }
+        pizzaTokens.clear();
       }
+
+      SimplePizzaDeliveryService service = new SimplePizzaDeliveryService();
+      SimpleOrder order = new SimpleOrder();
+      order.setOrderId(Integer.parseInt(orderId));
+      order.getPizzaList().add(new SimplePizza());
+
+      for (int i = 0; i < Integer.parseInt(numOfPizzas); i++) {
+        order.getPizzaList().add(new SimplePizza())
+      }
+
+
 
 
     }

@@ -77,6 +77,7 @@ public class SnakeBoard extends GridPane implements ChangeListener<Board> {
   @Override
   public void changed(ObservableValue<? extends Board> observable, Board oldValue, Board newValue) {
 
+    //TODO: wenn gamesstate nicht running change nicht
     System.out.println("changed");
     if (Platform.isFxApplicationThread()) {
       updateBoardColors(newValue);

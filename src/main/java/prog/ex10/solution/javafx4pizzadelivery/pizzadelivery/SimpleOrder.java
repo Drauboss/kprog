@@ -13,12 +13,19 @@ public class SimpleOrder implements Order {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
 
+
+
   private int id;
   private static int idCounter = 0;
   List<Pizza> pizzaList = new ArrayList<>();
 
   public SimpleOrder() {
     id = ++idCounter;
+    this.id = id;
+  }
+
+  public void setId(int id) {
+    this.id = id;
   }
 
   @Override
