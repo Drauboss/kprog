@@ -1,5 +1,6 @@
 package prog.ex11.solution.saveandload.pizzadelivery;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +13,7 @@ import prog.ex11.exercise.saveandload.pizzadelivery.Topping;
 /**
  * Simple and straight-forward implementation of the Pizza interface.
  */
-public class SimplePizza implements Pizza {
+public class SimplePizza implements Pizza, Serializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
 
@@ -21,6 +22,7 @@ public class SimplePizza implements Pizza {
   int price = 0;
 
 
+  int setPriceFlag = 0;
 
   private int id;
   private static int idCounter = 0;
@@ -69,6 +71,7 @@ public class SimplePizza implements Pizza {
 
   public void setPrice(int price) {
     this.price = price;
+    setPriceFlag = 1;
   }
 
   public int calculatePrice() {
@@ -135,6 +138,9 @@ public class SimplePizza implements Pizza {
 
   @Override
   public int getPrice() {
+    if (setPriceFlag == 0) {
+      return calculatePrice();
+    }
     return price;
   }
 

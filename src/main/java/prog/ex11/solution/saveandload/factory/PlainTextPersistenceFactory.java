@@ -86,7 +86,7 @@ public class PlainTextPersistenceFactory implements PersistenceFactory {
   /**
    * checks if @param topping is listed in Topping enum.
    *
-   * @param topping
+   * @param topping topping to check.
    * @return true if it contains, false if not.
    */
   public boolean contains(String topping) {
@@ -98,12 +98,14 @@ public class PlainTextPersistenceFactory implements PersistenceFactory {
     return false;
   }
 
+  SimpleOrder order;
+
   @Override
   public Order load(final File file) throws IOException, WrongOrderFormatException {
 
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
-      SimpleOrder order = new SimpleOrder();
+      order = new SimpleOrder();
       StringTokenizer tokenizer;
       List<String> orderTokens = new ArrayList<>();
       List<String> pizzaTokens = new ArrayList<>();
@@ -129,8 +131,8 @@ public class PlainTextPersistenceFactory implements PersistenceFactory {
       String ordervalue = orderTokens.get(1);
       String numOfPizzas = orderTokens.get(2);
 
-
-      if (!orderId.matches("^[0-9]+$") || !ordervalue.matches("^[0-9]+$") || !numOfPizzas.matches("^[0-9]+$")) {
+      if (!orderId.matches("^[0-9]+$") || !ordervalue.matches("^[0-9]+$") || !numOfPizzas.matches(
+          "^[0-9]+$")) {
         throw new WrongOrderFormatException();
       }
 

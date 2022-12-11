@@ -1,7 +1,10 @@
 package prog.ex11.solution.saveandload.pizzadelivery;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
+import livesession.snake.GameConfiguration;
 import prog.ex11.exercise.saveandload.pizzadelivery.Order;
 import prog.ex11.exercise.saveandload.pizzadelivery.Pizza;
 
@@ -9,7 +12,7 @@ import prog.ex11.exercise.saveandload.pizzadelivery.Pizza;
 /**
  * Simple and straight-forward implementation of the Order interface.
  */
-public class SimpleOrder implements Order {
+public class SimpleOrder implements Order, Serializable {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
 
@@ -18,6 +21,7 @@ public class SimpleOrder implements Order {
   private int id;
   private static int idCounter = 0;
 
+  int setValueFlag = 0;
 
 
   private int value = 0;
@@ -44,9 +48,12 @@ public class SimpleOrder implements Order {
 
   public void setValue(int value) {
     this.value = value;
+    setValueFlag = 1;
+
   }
 
   public int calculateValue() {
+    int value = 0;
     for (Pizza p : pizzaList) {
       value = value + p.getPrice();
     }
@@ -54,7 +61,19 @@ public class SimpleOrder implements Order {
   }
   @Override
   public int getValue() {
+    if (setValueFlag == 0) {
+      return calculateValue();
+    }
+
     return value;
   }
 
+  @Override
+  public String toString() {
+    return new StringJoiner(", ", "[", "]")
+        .add("OrderId=" + getOrderId())
+        .add("numOfPizzas=" + pizzaList.size())
+        .add("value=" + getValue())
+        .toString();
+  }
 }
