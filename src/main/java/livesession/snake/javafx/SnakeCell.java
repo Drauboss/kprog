@@ -27,6 +27,23 @@ public class SnakeCell extends VBox {
     getChildren().add(vBox);
 
   }
+
+  public SnakeCell(BoardState state) {
+
+    VBox vBox = new VBox();
+    Rectangle rec = new Rectangle();
+    rec.setWidth(25);
+    rec.setHeight(25);
+    rec.setStroke(Color.BLACK);
+
+    //TODO: change color to boardstate
+    //rec.setFill(colorProperty.getValue());
+    rec.setFill(boardStateToColor(state));
+
+    vBox.getChildren().add(rec);
+    getChildren().add(vBox);
+
+  }
   public Color boardStateToColor(ObjectProperty<BoardState> boardProperty) {
     ObjectProperty<Color> color = new SimpleObjectProperty<>();
 
@@ -45,6 +62,29 @@ public class SnakeCell extends VBox {
         break;
       default:
         throw new IllegalStateException("Unexpected value: " + boardProperty);
+    }
+
+    return color.getValue();
+  }
+
+  public Color boardStateToColor(BoardState state) {
+    ObjectProperty<Color> color = new SimpleObjectProperty<>();
+
+    switch (state) {
+      case GRASS:
+        color.setValue(Color.GREEN);
+        break;
+      case SNAKE:
+        color.setValue(Color.BLUE);
+        break;
+      case WALL:
+        color.setValue(Color.GREY);
+        break;
+      case FOOD:
+        color.setValue(Color.RED);
+        break;
+      default:
+        throw new IllegalStateException("Unexpected value: " + state);
     }
 
     return color.getValue();

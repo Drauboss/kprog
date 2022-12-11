@@ -62,7 +62,7 @@ public class SimpleSnake implements Snake {
         break;
     }
 
-    BoardState headState =  board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
+    BoardState headState = board.getStateFromPosition(newHead.getRow(), newHead.getColumn());
 
 
     assertNewPositionIsPossible(newHead);

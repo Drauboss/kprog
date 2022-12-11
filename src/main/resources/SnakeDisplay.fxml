@@ -5,23 +5,31 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
-<fx:root fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="151.0" prefWidth="600.0" type="VBox" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+  minWidth="-Infinity" prefHeight="151.0" prefWidth="600.0" type="VBox"
+  xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1">
   <children>
-      <HBox fx:id="startDisplayId" prefHeight="84.0" prefWidth="600.0">
-         <children>
-          <Button mnemonicParsing="false" onAction="#startGameButtonAction" text="Start game" />
-            <Label text="Choose Boardsize" />
-            <ChoiceBox fx:id="boardSizeChoiceBox" prefWidth="150.0" />
-            <Label text="Choose Velocity" />
-            <ChoiceBox fx:id="velocityChoiceBox" prefWidth="150.0" />
-         </children>
-      </HBox>
-      <HBox fx:id="gameDispayId" prefHeight="53.0" prefWidth="600.0">
-         <children>
-          <Label fx:id="scoreLabel" text="Score" />
-         </children>
-      </HBox>
+    <HBox fx:id="startDisplayId" prefHeight="84.0" prefWidth="600.0">
+      <children>
+        <Button mnemonicParsing="false" onAction="#startGameButtonAction" text="Start game"/>
+        <Label text="Choose Boardsize"/>
+        <ChoiceBox fx:id="boardSizeChoiceBox" prefWidth="150.0"/>
+        <Label text="Choose Velocity"/>
+        <ChoiceBox fx:id="velocityChoiceBox" prefWidth="150.0"/>
+      </children>
+    </HBox>
+    <HBox fx:id="gameDispayId" prefHeight="53.0" prefWidth="600.0">
+      <children>
+        <Label text="Score: "/>
+        <Label fx:id="scoreLabel" text="Score"/>
+        <Button fx:id="pauseGameAction" mnemonicParsing="false" onAction="#pauseGameAction"
+          text="Pause"/>
+        <Button fx:id="resumeGameAction" mnemonicParsing="false" onAction="#resumeGameAction"
+          text="Resume"/>
+        <Button fx:id="abortGameAction" mnemonicParsing="false" onAction="#abortGameAction"
+          text="Abort Game"/>
+      </children>
+    </HBox>
   </children>
 
 </fx:root>

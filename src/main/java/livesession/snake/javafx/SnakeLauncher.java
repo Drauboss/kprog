@@ -20,34 +20,21 @@ public class SnakeLauncher extends Application {
   public void start(Stage primaryStage) throws Exception {
     SnakeService service = new SimpleSnakeService();
     SnakeServiceViewModel model = new SnakeServiceViewModel(service);
+
     SnakeDisplay display = new SnakeDisplay(model);
     SnakeBoard board = new SnakeBoard(model);
 
-    System.out.println(Thread.currentThread());
+    //System.out.println(Thread.currentThread());
 
     HBox outerBox = new HBox();
     outerBox.getChildren().addAll(board, display);
 
     Scene scene = new Scene(outerBox);
 
-    scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
-      if (key.getCode() == KeyCode.W) {
 
-      }
-      if (key.getCode() == KeyCode.A) {
-        System.out.println("a");
-        service.moveRight();
-      }
-      if (key.getCode() == KeyCode.S) {
-        System.out.println("s");
-      }
-      if (key.getCode() == KeyCode.D) {
-        System.out.println("d");
-        service.moveLeft();
-      }
 
-    });
-
+    //primaryStage.setFullScreen(true);
+    primaryStage.setMaximized(true);
     primaryStage.setScene(scene);
     primaryStage.setTitle("Snake");
     primaryStage.show();

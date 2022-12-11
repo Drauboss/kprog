@@ -16,6 +16,8 @@ import livesession.snake.Board;
 import livesession.snake.BoardState;
 import livesession.snake.GameState;
 import livesession.snake.SnakeListener;
+import livesession.snake.SnakeService;
+import livesession.snake.provider.SimpleSnakeService;
 
 public class SnakeBoard extends GridPane implements ChangeListener<Board> {
 
@@ -24,10 +26,12 @@ public class SnakeBoard extends GridPane implements ChangeListener<Board> {
 
   int boardSize;
   private SnakeServiceViewModel model;
+  SnakeService service;
   GridPane gridPane;
 
   public SnakeBoard(SnakeServiceViewModel model) {
     this.model = model;
+    service = model.getService();
     gridPane = new GridPane();
     boardSize = model.getService().getConfiguration().getSize();
 
@@ -42,8 +46,26 @@ public class SnakeBoard extends GridPane implements ChangeListener<Board> {
     this.autosize();
 
 
-    this.addEventFilter(KeyEvent.KEY_PRESSED,
-        event -> System.out.println("Pressed: " + event.getCode()));
+
+
+
+    this.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
+      if (key.getCode() == KeyCode.W) {
+
+      }
+      if (key.getCode() == KeyCode.A) {
+        System.out.println("a");
+        service.moveRight();
+      }
+      if (key.getCode() == KeyCode.S) {
+        System.out.println("s");
+      }
+      if (key.getCode() == KeyCode.D) {
+        System.out.println("d");
+        service.moveLeft();
+      }
+
+    });
 
 
   }
@@ -52,16 +74,20 @@ public class SnakeBoard extends GridPane implements ChangeListener<Board> {
 
   public void updateBoardColors(Board board) {
 
-    getChildren().clear();
+    boardSize = board.size();
+    this.requestFocus();
+    this.getChildren().clear();
+    gridPane.getChildren().clear();
     // add snakecells to the grid
     for (int i = 0; i < boardSize; i++) {    // i = row
       for (int j = 0; j < boardSize; j++) {  // j = column
         boardStateProperty.setValue(board.getStateFromPosition(i,j));
-        SnakeCell snakeCell = new SnakeCell(boardStateProperty);
-        gridPane.add(snakeCell, j, i);
+        BoardState state = board.getStateFromPosition(i,j);
+        SnakeCell snakeCell = new SnakeCell(state);
+        this.add(snakeCell, j, i);
       }
     }
-    getChildren().addAll(gridPane);
+    //getChildren().addAll(gridPane);
   }
 
 
@@ -78,7 +104,8 @@ public class SnakeBoard extends GridPane implements ChangeListener<Board> {
   public void changed(ObservableValue<? extends Board> observable, Board oldValue, Board newValue) {
 
     //TODO: wenn gamesstate nicht running change nicht
-    System.out.println("changed");
+
+    this.boardSize = newValue.size();
     if (Platform.isFxApplicationThread()) {
       updateBoardColors(newValue);
     } else {

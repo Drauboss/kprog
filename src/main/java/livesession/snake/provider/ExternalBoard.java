@@ -46,6 +46,7 @@ public class ExternalBoard extends BaseBoard {
     List<Coordinate> snakeCoords = snake.getPosition();
     for (int i = 0; i < snakeCoords.size(); i++) {
 
+      //System.out.println(snakeCoords);
       board[snakeCoords.get(i).getRow()][snakeCoords.get(i).getColumn()] = BoardState.SNAKE;
     }
 

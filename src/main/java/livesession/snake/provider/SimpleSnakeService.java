@@ -2,6 +2,7 @@ package livesession.snake.provider;
 
 import static livesession.snake.Board.MINIMAL_BOARD_SIZE;
 
+import java.lang.module.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -39,17 +40,28 @@ public class SimpleSnakeService implements ExtendedSnakeService {
    */
   public SimpleSnakeService() {
     // TODO: What to initialize?
-    listeners = new ArrayList<>();
-    foodGenerator = new FoodGenerator(this);
-    gameConfiguration = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
+
+    GameConfiguration defaultConfig = new GameConfiguration(DEFAULT_SIZE, DEFAULT_VELOCITY,
         DEFAULT_NUMBER_OF_FOOD);
     try {
-      configure(gameConfiguration);
+      configure(defaultConfig);
     } catch (IllegalConfigurationException e) {
       throw new RuntimeException(e);
     }
 
-    reset();
+    listeners = new ArrayList<>();
+    board = new InternalBoard(gameConfiguration.getSize());
+    snake = new SimpleSnake(this);
+    foodGenerator = new FoodGenerator(this);
+    foodGenerator.placeFood();
+    score = 0;
+    gameState = GameState.PREPARED;
+
+    notifyListeners((l) -> {
+      l.newGameState(gameState);
+      l.updateScore(score);
+    });
+    //reset();
 
     // TODO: end.
   }
@@ -58,9 +70,9 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void reset() {
     logger.debug("reset:");
     //TODO: reset for a new game
-    snake = new SimpleSnake(this);
-    foodGenerator.placeFood();
-    score = 0;
+
+    simpleGameLoop.stopGame();
+
     gameState = GameState.PREPARED;
     //TODO: end.
   }
@@ -68,11 +80,15 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   @Override
   public void start() {
     logger.debug("start:");
+
     try {
       configure(gameConfiguration);
     } catch (IllegalConfigurationException e) {
       throw new RuntimeException(e);
     }
+    board = new InternalBoard(gameConfiguration.getSize());
+    snake = new SimpleSnake(this);
+    foodGenerator.placeFood();
     simpleGameLoop = new SimpleGameLoop(this, gameConfiguration.getVelocityInMilliSeconds());
     gameState = GameState.RUNNING;
     notifyListeners((l) -> l.newGameState(gameState));
@@ -140,7 +156,8 @@ public class SimpleSnakeService implements ExtendedSnakeService {
   public void configure(final GameConfiguration configuration) throws
       IllegalConfigurationException {
     //TODO: check and save the configuration info
-    board = new InternalBoard(gameConfiguration.getSize());
+
+    //board = new InternalBoard(configuration.getSize());
 
     if (configuration == null) {
       throw new IllegalConfigurationException("Config is null");
@@ -230,7 +247,6 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     if (board.getStateFromPosition(coordinate).equals(BoardState.FOOD)) {
       throw new IllegalArgumentException("There is already food at this position: " + coordinate);
     }
-
     board.addFood(coordinate);
     notifyListeners((l) -> l.updateBoard(getExternalBoard()));
   }
@@ -243,6 +259,7 @@ public class SimpleSnakeService implements ExtendedSnakeService {
     updateScore(BoardState.FOOD);
     Board externalBoard = getExternalBoard();
     Coordinate coordinate1 = foodGenerator.placeFood();
+
     //TODO: check if food is placed on grass field
     //addFood(coordinate1);
     //TODO: end.

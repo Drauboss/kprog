@@ -6,6 +6,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import livesession.snake.Board;
 import livesession.snake.Coordinate;
 import livesession.snake.GameState;
@@ -43,8 +45,8 @@ public class SnakeServiceViewModel implements SnakeListener {
   public void updateBoard(Board board) {
 
     System.out.println("updateBoard");
-    SnakeBoard snakeBoard = new SnakeBoard(this);
     this.board.setValue(board);
+    SnakeBoard snakeBoard = new SnakeBoard(this);
     snakeBoard.updateBoardColors(board);
   }
 
@@ -59,6 +61,15 @@ public class SnakeServiceViewModel implements SnakeListener {
 
   }
 
+  private void raiseExceptionToUi(final String header) {
+    Alert alert = new Alert(AlertType.INFORMATION);
+    alert.setTitle("Game ended");
+    alert.setHeaderText(header);
+    alert.setContentText("You Died!!!!!");
+    alert.showAndWait();
+
+  }
+
   /**
    * Informs the user that the game has ended.
    *
@@ -67,6 +78,7 @@ public class SnakeServiceViewModel implements SnakeListener {
   @Override
   public void gameEnded(Reason reason) {
     System.out.println("gameEnded");
+    raiseExceptionToUi("Game Ended");
   }
 
   /**
@@ -78,6 +90,7 @@ public class SnakeServiceViewModel implements SnakeListener {
   public void updateScore(int score) {
 
     getScoreIntegerProperty().setValue(score);
+    //this.score.setValue(score);
 
   }
 

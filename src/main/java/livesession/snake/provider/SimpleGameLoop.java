@@ -9,6 +9,7 @@ public class SimpleGameLoop extends Thread implements GameLoop {
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleGameLoop.class);
   private boolean running;
+  private boolean paused;
   private ExtendedSnakeService service;
   private int sleepTime;
 
@@ -29,37 +30,54 @@ public class SimpleGameLoop extends Thread implements GameLoop {
   @Override
   public void run() {
     while (running) {
-      service.triggeredByGameLoop();
+      //service.triggeredByGameLoop();
       logger.info("triggered");
-      System.out.println(Thread.currentThread());
-      synchronized (this) {
-        try {
-          wait(sleepTime);
-        } catch (InterruptedException e) {
-          throw new RuntimeException(e);
+
+      if (paused) {
+        synchronized (this) {
+          try {
+            this.wait();
+          } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+          }
         }
+      }
+
+      if (Platform.isFxApplicationThread()) {
+        service.triggeredByGameLoop();
+      } else {
+        Platform.runLater(() -> service.triggeredByGameLoop());
+      }
+
+
+      try {
+        sleep(sleepTime);
+      } catch (InterruptedException e) {
+        throw new RuntimeException(e);
       }
     }
   }
-
   @Override
   public void pauseGame() {
 
-    running = false;
-    try {
-      this.wait();
-    } catch (InterruptedException e) {
-      throw new RuntimeException(e);
-    }
-
+    //running = false;
+    paused = true;
+    //synchronized (this) {
+    //  try {
+    //    this.wait();
+    //  } catch (InterruptedException e) {
+    //    throw new RuntimeException(e);
+    //  }
+    //}
   }
-
   @Override
   public void resumeGame() {
-
-    this.notify();
-    running = true;
-
+    paused = false;
+    //running = true;
+    System.out.println("resume");
+    synchronized (this) {
+      this.notifyAll();
+    }
   }
 
   @Override

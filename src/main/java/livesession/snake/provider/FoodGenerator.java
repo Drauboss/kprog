@@ -1,12 +1,14 @@
 package livesession.snake.provider;
 
 import java.util.Random;
+import livesession.snake.BoardState;
 import livesession.snake.Coordinate;
 
 /**
  * Simple FoodGenerator class for the snake game.
  */
 public class FoodGenerator {
+
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(FoodGenerator.class);
 
@@ -28,14 +30,19 @@ public class FoodGenerator {
     Coordinate coordinate = null;
     // TODO: place the food randomly.
     coordinate = getRandomCoordinate();
-    service.addFood(coordinate);
+
+    if (service.getBoard().getStateFromPosition(coordinate).equals(BoardState.GRASS)) {
+      service.addFood(coordinate);
+    } else {
+      placeFood();
+    }
     // TODO: end.
     return coordinate;
 
   }
 
   private Coordinate getRandomCoordinate() {
-    int size = service.getBoard().size();
+    int size = service.getConfiguration().getSize();
 
     int row = random.nextInt(size);
     int column = random.nextInt(size);

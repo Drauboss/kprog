@@ -77,6 +77,7 @@ public class BinaryPersistenceFactory implements PersistenceFactory {
   }
 
   SimpleOrder order;
+
   @Override
   public Order load(final File file) throws IOException, WrongOrderFormatException {
 
@@ -138,8 +139,8 @@ public class BinaryPersistenceFactory implements PersistenceFactory {
       }
 
     } catch (EOFException e) {
-      //System.out.println("eof");
-      //System.out.println(order.toString());
+      System.out.println("eof");
+
     }
     return order;
   }
