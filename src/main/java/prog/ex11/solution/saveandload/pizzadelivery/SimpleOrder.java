@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
-import livesession.snake.GameConfiguration;
 import prog.ex11.exercise.saveandload.pizzadelivery.Order;
 import prog.ex11.exercise.saveandload.pizzadelivery.Pizza;
 
@@ -13,9 +12,9 @@ import prog.ex11.exercise.saveandload.pizzadelivery.Pizza;
  * Simple and straight-forward implementation of the Order interface.
  */
 public class SimpleOrder implements Order, Serializable {
+
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimpleOrder.class);
-
 
 
   private int id;
@@ -46,12 +45,22 @@ public class SimpleOrder implements Order, Serializable {
     return pizzaList;
   }
 
+  /**
+   * set the value of the order.
+   *
+   * @param value value
+   */
   public void setValue(int value) {
     this.value = value;
     setValueFlag = 1;
 
   }
 
+  /**
+   * calculate the value.
+   *
+   * @return value
+   */
   public int calculateValue() {
     int value = 0;
     for (Pizza p : pizzaList) {
@@ -59,6 +68,7 @@ public class SimpleOrder implements Order, Serializable {
     }
     return value;
   }
+
   @Override
   public int getValue() {
     if (setValueFlag == 0) {

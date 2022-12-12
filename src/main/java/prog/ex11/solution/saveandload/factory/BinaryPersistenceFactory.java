@@ -140,7 +140,6 @@ public class BinaryPersistenceFactory implements PersistenceFactory {
 
     } catch (EOFException e) {
       System.out.println("eof");
-
     }
     return order;
   }

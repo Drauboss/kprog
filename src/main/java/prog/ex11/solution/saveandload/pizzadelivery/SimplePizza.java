@@ -2,7 +2,6 @@ package prog.ex11.solution.saveandload.pizzadelivery;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import prog.ex11.exercise.saveandload.pizzadelivery.Pizza;
@@ -14,9 +13,9 @@ import prog.ex11.exercise.saveandload.pizzadelivery.Topping;
  * Simple and straight-forward implementation of the Pizza interface.
  */
 public class SimplePizza implements Pizza, Serializable {
+
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SimplePizza.class);
-
 
 
   int price = 0;
@@ -33,28 +32,21 @@ public class SimplePizza implements Pizza, Serializable {
   Map<PizzaSize, Integer> pizzaSizeCostMap; // = new HashMap<>();
   Map<Topping, Integer> pizzaToppingsCostMap; // = new HashMap<>();
 
+  /**
+   * SimplePizza constructor.
+   *
+   * @param size size
+   */
   public SimplePizza(PizzaSize size) {
     this.size = size;
     id = ++idCounter;
-
-    //pizzaSizeCostMap.put(PizzaSize.EXTRA_LARGE, 1100);
-    //pizzaSizeCostMap.put(PizzaSize.LARGE, 900);
-    //pizzaSizeCostMap.put(PizzaSize.MEDIUM, 700);
-    //pizzaSizeCostMap.put(PizzaSize.SMALL, 500);
-//
-    //pizzaToppingsCostMap.put(Topping.CHEESE, 60);
-    //pizzaToppingsCostMap.put(Topping.TOMATO, 30);
-    //pizzaToppingsCostMap.put(Topping.PINEAPPLE, 90);
-    //pizzaToppingsCostMap.put(Topping.SEAFOOD, 150);
-    //pizzaToppingsCostMap.put(Topping.HAM, 70);
-    //pizzaToppingsCostMap.put(Topping.VEGETABLES, 20);
-    //pizzaToppingsCostMap.put(Topping.SALAMI, 50);
   }
 
   @Override
   public int getPizzaId() {
     return id;
   }
+
   public void setId(int id) {
     this.id = id;
   }
@@ -74,6 +66,11 @@ public class SimplePizza implements Pizza, Serializable {
     setPriceFlag = 1;
   }
 
+  /**
+   * calculate pizza price.
+   *
+   * @return price
+   */
   public int calculatePrice() {
 
     int pizzaSizeCost = 0;
@@ -97,7 +94,6 @@ public class SimplePizza implements Pizza, Serializable {
       default:
         throw new IllegalStateException("Unexpected value: " + size);
     }
-
 
     int pizzaToppingsCost = 0;
 
