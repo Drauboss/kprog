@@ -141,3 +141,9 @@ zipAgainSnake.doLast {
     println "Resulting zip file should be ${rootDir}/zipfiles/ltsSnakeWithResources.zip"
     assert file("${rootDir}/zipfiles/ltsSnakeWithResources.zip").exists()
 }
+
+task copyAllDependencies(type: Copy) {
+    //referring to the 'compileClasspath' configuration
+    from configurations.compileClasspath
+    into 'allLibs'
+}
