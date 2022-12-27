@@ -20,6 +20,7 @@ module kprog.main {
   exports examples.designpattern.singleton;
   exports prog.javafx.main;
   exports prog.ex10.solution.javafx4pizzadelivery.gui;
+  exports prog.ex15.monolingual.gui;
   opens examples.javafx.fxml to javafx.fxml;
   opens prog.ex10.solution.javafx4pizzadelivery.gui to javafx.fxml;
   exports livesession.snake.javafx;
