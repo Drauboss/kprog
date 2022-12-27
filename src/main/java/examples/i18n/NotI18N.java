@@ -1,5 +1,8 @@
 package examples.i18n;
 
+/**
+ * Monolingual version of WithI18N.
+ */
 public class NotI18N {
 
   /**

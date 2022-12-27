@@ -35,29 +35,22 @@ package examples.i18n.listresourcebundles;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Simple demo of the ListResourceBundle technique.
+ */
 public class ListResourceBundleExample {
 
-  static void displayValues(Locale currentLocale) {
-
-    ResourceBundle stats =
-            ResourceBundle.getBundle("examples.i18n.listresourcebundles.StatsBundle",
-                    currentLocale);
-
-    Integer gdp = (Integer) stats.getObject("GDP");
-    System.out.println("GDP = " + gdp.toString());
-    Integer pop = (Integer) stats.getObject("Population");
-    System.out.println("Population = " + pop.toString());
-    Double lit = (Double) stats.getObject("Literacy");
-    System.out.println("Literacy = " + lit.toString());
-
-  } // displayValues
-
-  static public void main(String[] args) {
+  /**
+   * Main.
+   *
+   * @param args no args expected
+   */
+  public static void main(String[] args) {
 
     Locale[] supportedLocales = {
-            new Locale("en", "CA"),
-            new Locale("ja", "JP"),
-            new Locale("fr", "FR")
+        new Locale("en", "CA"),
+        new Locale("ja", "JP"),
+        new Locale("fr", "FR")
     };
 
     for (int i = 0; i < supportedLocales.length; i++) {
@@ -67,5 +60,25 @@ public class ListResourceBundleExample {
     }
 
   } // main
+
+  /**
+   * Prints the values for the given Locale.
+   *
+   * @param currentLocale Locale selecting the ResourceBundle
+   */
+  static void displayValues(Locale currentLocale) {
+
+    ResourceBundle stats =
+        ResourceBundle.getBundle("examples.i18n.listresourcebundles.StatsBundle",
+            currentLocale);
+
+    Integer gdp = (Integer) stats.getObject("GDP");
+    System.out.println("GDP = " + gdp);
+    Integer pop = (Integer) stats.getObject("Population");
+    System.out.println("Population = " + pop);
+    Double lit = (Double) stats.getObject("Literacy");
+    System.out.println("Literacy = " + lit);
+
+  } // displayValues
 
 } // class

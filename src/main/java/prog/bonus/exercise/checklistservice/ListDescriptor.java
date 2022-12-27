@@ -41,4 +41,8 @@ public final class ListDescriptor  implements Serializable {
   public String getName() {
     return name;
   }
+
+  public int getNumberOfEntries() {
+    return numberOfEntries;
+  }
 }

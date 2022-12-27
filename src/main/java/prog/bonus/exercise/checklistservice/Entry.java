@@ -41,6 +41,10 @@ public final class Entry  implements Serializable {
     this.tagList = tagList;
   }
 
+  public long getListId() {
+    return listId;
+  }
+
   public long getId() {
     return id;
   }
@@ -55,6 +59,10 @@ public final class Entry  implements Serializable {
 
   public List<Long> getTagList() {
     return tagList;
+  }
+
+  public boolean isChecked() {
+    return checked;
   }
 
   @Override

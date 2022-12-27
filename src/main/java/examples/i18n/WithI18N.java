@@ -3,6 +3,9 @@ package examples.i18n;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Simple example to demonstrate the PropertyResourceBundle technique.
+ */
 public class WithI18N {
 
   /**

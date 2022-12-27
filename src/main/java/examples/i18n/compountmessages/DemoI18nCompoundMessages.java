@@ -11,9 +11,9 @@ import java.util.ResourceBundle;
 /**
  * Demonstrates compound messages in I18N.
  */
-public class DemoI18NCompoundMessages {
+public class DemoI18nCompoundMessages {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(DemoI18NCompoundMessages.class);
+          org.slf4j.LoggerFactory.getLogger(DemoI18nCompoundMessages.class);
 
   private final NumberFormat numberFormat;
   private final DateTimeFormatter dateTimeFormatter;
@@ -24,7 +24,7 @@ public class DemoI18NCompoundMessages {
    *
    * @param locale locale of the preferred language / country to control the generation of messages
    */
-  public DemoI18NCompoundMessages(Locale locale) {
+  public DemoI18nCompoundMessages(Locale locale) {
     bundle = ResourceBundle.getBundle("bundles/compoundMessages", locale);
     numberFormat = NumberFormat.getNumberInstance(locale);
     dateTimeFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale);
@@ -47,13 +47,13 @@ public class DemoI18NCompoundMessages {
     LocalDate date = LocalDate.of(2009, 1, 1);
 
 
-    DemoI18NCompoundMessages demoDE = new DemoI18NCompoundMessages(Locale.GERMANY);
-    DemoI18NCompoundMessages demoUS = new DemoI18NCompoundMessages(Locale.US);
+    DemoI18nCompoundMessages demoDe = new DemoI18nCompoundMessages(Locale.GERMANY);
+    DemoI18nCompoundMessages demoUs = new DemoI18nCompoundMessages(Locale.US);
 
     System.out.println("US: "
-            + demoUS.printMessage("people.have.seen.our.website.since", noPeople, date));
+            + demoUs.printMessage("people.have.seen.our.website.since", noPeople, date));
     System.out.println("Germany: "
-            + demoDE.printMessage("people.have.seen.our.website.since", noPeople, date));
+            + demoDe.printMessage("people.have.seen.our.website.since", noPeople, date));
   }
 }
 

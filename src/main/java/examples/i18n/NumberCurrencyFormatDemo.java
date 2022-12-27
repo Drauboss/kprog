@@ -3,9 +3,40 @@ package examples.i18n;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+/**
+ * Demonstrates formatting of numbers and percentages with regard to the conventions of the
+ * countries identified by a Locale.
+ */
 public class NumberCurrencyFormatDemo {
 
-  static public void displayInteger(Locale currentLocale) {
+  /**
+   * Main.
+   *
+   * @param args no args expected.
+   */
+  public static void main(String[] args) {
+
+    Locale[] locales = {
+        new Locale("en", "US"),
+        new Locale("de", "DE"),
+        new Locale("fr", "FR")
+    };
+
+    for (Locale locale : locales) {
+      System.out.println();
+      displayInteger(locale);
+      displayNumber(locale);
+      displayCurrency(locale);
+      displayPercent(locale);
+    }
+  }
+
+  /**
+   * Prints an integer and a double with an integer formatter.
+   *
+   * @param currentLocale locale defining the formatter.
+   */
+  public static void displayInteger(Locale currentLocale) {
 
     Integer quantity = 123456;
     Double amount = 345987.246;
@@ -14,11 +45,15 @@ public class NumberCurrencyFormatDemo {
     String quantityFormatted = numberFormatter.format(quantity);
     String amountFormatted = numberFormatter.format(amount);
     System.out.println(quantityFormatted + "   " + currentLocale.toString());
-    System.out.println(amountFormatted + "   " + currentLocale.toString());
+    System.out.println(amountFormatted + "   " + currentLocale);
   }
 
-
-  static public void displayNumber(Locale currentLocale) {
+  /**
+   * Prints an integer and a double with an number formatter.
+   *
+   * @param currentLocale locale defining the formatter.
+   */
+  public static void displayNumber(Locale currentLocale) {
 
     Integer quantity = 123456;
     Double amount = 345987.246;
@@ -27,10 +62,16 @@ public class NumberCurrencyFormatDemo {
     String quantityFormatted = numberFormatter.format(quantity);
     String amountFormatted = numberFormatter.format(amount);
     System.out.println(quantityFormatted + "   " + currentLocale.toString());
-    System.out.println(amountFormatted + "   " + currentLocale.toString());
+    System.out.println(amountFormatted + "   " + currentLocale);
   }
 
-  static public void displayCurrency(Locale currentLocale) {
+  /**
+   * Prints a value with a currency formatter.
+   *
+   * @param currentLocale locale defining the formatter.
+   */
+
+  public static void displayCurrency(Locale currentLocale) {
 
     Double currency = 9876543.21;
 
@@ -39,30 +80,19 @@ public class NumberCurrencyFormatDemo {
     System.out.println(currencyFormatted + "   " + currentLocale.toString());
   }
 
-  static public void displayPercent(Locale currentLocale) {
+  /**
+   * Prints a double percentage as percent value using a percent formatter.
+   *
+   * @param currentLocale locale defining the formatter.
+   */
+
+  public static void displayPercent(Locale currentLocale) {
 
     Double percent = 0.75;
 
     NumberFormat percentFormatter = NumberFormat.getPercentInstance(currentLocale);
     String percentFormatted = percentFormatter.format(percent);
     System.out.println(percentFormatted + "   " + currentLocale.toString());
-  }
-
-  static public void main(String[] args) {
-
-    Locale[] locales = {
-            new Locale("en", "US"),
-            new Locale("de", "DE"),
-            new Locale("fr", "FR")
-    };
-
-    for (int i = 0; i < locales.length; i++) {
-      System.out.println();
-      displayInteger(locales[i]);
-      displayNumber(locales[i]);
-      displayCurrency(locales[i]);
-      displayPercent(locales[i]);
-    }
   }
 
 }
