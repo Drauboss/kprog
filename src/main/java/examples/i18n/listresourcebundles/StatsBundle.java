@@ -13,7 +13,9 @@ public class StatsBundle extends ListResourceBundle {
           {"Literacy", 0.97},
   };
 
+
   public Object[][] getContents() {
+
     return contents;
   }
 }

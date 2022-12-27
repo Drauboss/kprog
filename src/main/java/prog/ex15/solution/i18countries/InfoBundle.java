@@ -1,0 +1,111 @@
+package prog.ex15.solution.i18countries;
+
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ListResourceBundle;
+import java.util.Locale;
+import prog.ex15.exercise.i18ncountries.TypicalCountry;
+
+public class InfoBundle extends ListResourceBundle implements TypicalCountry {
+
+
+  private int velocity;
+  private String velocityUnit;
+  private String population;
+  private String mostImportantHolidayDate;
+  private String mostImportantHolidayName;
+  private String mostFamousMeal;
+  Object[][] contents;
+
+  public InfoBundle() {
+    setVelocity(70, "mph");
+    setPopulation(66500000);
+    setMostFamousMeal("fish and chips");
+    setMostImportantHoliday(LocalDate.ofEpochDay(2022-01-31), "Brexit Day (Joke)");
+
+    Object[][] contents = {
+        {VELOCITY, velocity},
+        {VELOCITY_UNIT, velocityUnit},
+        {POPULATION, population},
+        {MOST_IMPORTANT_HOLIDAY_DATE, mostImportantHolidayDate},
+        {MOST_IMPORTANT_HOLIDAY_NAME, mostImportantHolidayName},
+        {MOST_FAMOUS_MEAL, mostFamousMeal}
+    };
+
+  }
+
+
+  /**
+   * Setter for the maximum velocity on streets.
+   *
+   * @param velocity maximum allowed speed. If there is no maximum, the recommended velocity should
+   *                 be used.
+   * @param unit     unit for the velocity, e.g. "km/h" in Europe, "mph" in USA
+   */
+  @Override
+  public void setVelocity(int velocity, String unit) {
+    this.velocity = velocity;
+    velocityUnit = unit;
+  }
+
+  /**
+   * Number of people living in this country.
+   *
+   * @param population number of people
+   */
+  @Override
+  public void setPopulation(int population) {
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+    this.population = numberFormat.format(population);
+
+  }
+
+  /**
+   * Most famous meal the country is known for.
+   *
+   * @param mostFamousMeal Name of the most famous meal
+   */
+  @Override
+  public void setMostFamousMeal(String mostFamousMeal) {
+    this.mostFamousMeal = mostFamousMeal;
+  }
+
+  /**
+   * Most important holiday in this country.
+   *
+   * @param date        date of the current year the holiday takes place
+   * @param holidayName Name of the holiday
+   */
+  @Override
+  public void setMostImportantHoliday(LocalDate date, String holidayName) {
+
+    DateTimeFormatter dtf =
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new
+            Locale("en","US"));
+
+    mostImportantHolidayDate = dtf.format(date);
+    mostImportantHolidayName = holidayName;
+
+
+  }
+
+
+
+
+
+
+  /**
+   * Returns an array in which each item is a pair of objects in an
+   * <code>Object</code> array. The first element of each pair is
+   * the key, which must be a <code>String</code>, and the second element is the value associated
+   * with that key.  See the class description for details.
+   *
+   * @return an array of an <code>Object</code> array representing a key-value pair.
+   */
+  @Override
+   public Object[][] getContents() {
+    return contents;
+  }
+}
