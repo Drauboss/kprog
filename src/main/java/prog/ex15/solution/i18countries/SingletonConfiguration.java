@@ -2,6 +2,7 @@ package prog.ex15.solution.i18countries;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeListenerProxy;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -24,6 +25,7 @@ public class SingletonConfiguration implements Configuration {
 
   Map<Country, Locale> countryLocaleMap = new HashMap<>();
   Locale locale;
+  PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
   @Override
   public Locale getLocale() {
@@ -32,21 +34,28 @@ public class SingletonConfiguration implements Configuration {
 
   @Override
   public void setLocale(final Locale locale) {
-
+    Locale oldLocal = this.locale;
     this.locale = locale;
+    logger.info("proberty changed to " + locale.toString());
+    propertyChangeSupport.firePropertyChange("locale", oldLocal, locale);
+    //System.out.println("proberty changed to " + locale.toString());
   }
 
   @Override
   public ResourceBundle getTypicalBundle() {
 
+
     ResourceBundle infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getLocale());
+    System.out.println(infos);
     return infos;
   }
 
   @Override
   public ResourceBundle getMessageBundle() {
 
-    return null;
+    ResourceBundle messages = ResourceBundle.getBundle("bundles/i18ncountries", getLocale());
+
+    return messages;
   }
 
   @Override
@@ -60,10 +69,11 @@ public class SingletonConfiguration implements Configuration {
 
   @Override
   public void addPropertyChangeListener(final PropertyChangeListener listener) {
-
+    propertyChangeSupport.addPropertyChangeListener(listener);
   }
 
   @Override
   public void removePropertyChangeListener(final PropertyChangeListener listener) {
+    propertyChangeSupport.removePropertyChangeListener(listener);
   }
 }

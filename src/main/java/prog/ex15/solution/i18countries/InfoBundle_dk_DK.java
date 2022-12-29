@@ -1,9 +1,57 @@
 package prog.ex15.solution.i18countries;
 
+import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ListResourceBundle;
+import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
-public class InfoBundle_dk_DK implements TypicalCountry {
+public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCountry {
+
+
+  private int velocity;
+  private String velocityUnit;
+  private String population;
+  private String mostImportantHolidayDate;
+  private String mostImportantHolidayName;
+  private String mostFamousMeal;
+  //Object[][] contents;
+  Locale locale;
+
+
+
+
+  Object[][] contents = {
+      {VELOCITY, velocity},
+      {VELOCITY_UNIT, velocityUnit},
+      {POPULATION, population},
+      {MOST_IMPORTANT_HOLIDAY_DATE, mostImportantHolidayDate},
+      {MOST_IMPORTANT_HOLIDAY_NAME, mostImportantHolidayName},
+      {MOST_FAMOUS_MEAL, mostFamousMeal}
+  };
+
+
+
+
+
+  public InfoBundle_dk_DK() {
+    setVelocity(130, "km/h");
+    setPopulation(5840000);
+    setMostFamousMeal("knækbrød");
+    setMostImportantHoliday(LocalDate.parse("2022-06-05"), "Grundlovsdag");
+    System.out.println("infobundle wird geprintet");
+    locale = new Locale("dk", "DK");
+
+    //getContents()[0][0] = 70;
+
+  }
+
+  @Override
+  public Locale getLocale() {
+    return locale;
+  }
 
   /**
    * Setter for the maximum velocity on streets.
@@ -14,7 +62,11 @@ public class InfoBundle_dk_DK implements TypicalCountry {
    */
   @Override
   public void setVelocity(int velocity, String unit) {
+    this.velocity = velocity;
+    velocityUnit = unit;
 
+    getContents()[0][1] = String.valueOf(this.velocity);
+    getContents()[1][1] = unit;
   }
 
   /**
@@ -24,6 +76,10 @@ public class InfoBundle_dk_DK implements TypicalCountry {
    */
   @Override
   public void setPopulation(int population) {
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+    this.population = numberFormat.format(population);
+
+    getContents()[2][1] = this.population;
 
   }
 
@@ -35,6 +91,8 @@ public class InfoBundle_dk_DK implements TypicalCountry {
   @Override
   public void setMostFamousMeal(String mostFamousMeal) {
 
+    this.mostFamousMeal = mostFamousMeal;
+    getContents()[5][1] = this.mostFamousMeal;
   }
 
   /**
@@ -46,5 +104,33 @@ public class InfoBundle_dk_DK implements TypicalCountry {
   @Override
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
+    DateTimeFormatter dtf =
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("dk", "DK"));
+
+    mostImportantHolidayDate = dtf.format(date);
+    mostImportantHolidayName = holidayName;
+
+    getContents()[3][1] = mostImportantHolidayDate;
+    getContents()[4][1] = mostImportantHolidayName;
+
+
+  }
+
+
+
+
+
+
+  /**
+   * Returns an array in which each item is a pair of objects in an
+   * <code>Object</code> array. The first element of each pair is
+   * the key, which must be a <code>String</code>, and the second element is the value associated
+   * with that key.  See the class description for details.
+   *
+   * @return an array of an <code>Object</code> array representing a key-value pair.
+   */
+  @Override
+  public Object[][] getContents() {
+    return contents;
   }
 }

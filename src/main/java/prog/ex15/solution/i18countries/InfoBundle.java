@@ -17,25 +17,39 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
   private String mostImportantHolidayDate;
   private String mostImportantHolidayName;
   private String mostFamousMeal;
-  Object[][] contents;
+
+  Locale locale;
+
+
+
+
+  Object[][] contents = {
+      {VELOCITY, velocity},
+      {VELOCITY_UNIT, velocityUnit},
+      {POPULATION, population},
+      {MOST_IMPORTANT_HOLIDAY_DATE, mostImportantHolidayDate},
+      {MOST_IMPORTANT_HOLIDAY_NAME, mostImportantHolidayName},
+      {MOST_FAMOUS_MEAL, mostFamousMeal}
+  };
+
+
+
+
 
   public InfoBundle() {
     setVelocity(70, "mph");
     setPopulation(66500000);
     setMostFamousMeal("fish and chips");
-    setMostImportantHoliday(LocalDate.ofEpochDay(2022-01-31), "Brexit Day (Joke)");
+    setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
+    locale = Locale.UK;
 
-    Object[][] contents = {
-        {VELOCITY, velocity},
-        {VELOCITY_UNIT, velocityUnit},
-        {POPULATION, population},
-        {MOST_IMPORTANT_HOLIDAY_DATE, mostImportantHolidayDate},
-        {MOST_IMPORTANT_HOLIDAY_NAME, mostImportantHolidayName},
-        {MOST_FAMOUS_MEAL, mostFamousMeal}
-    };
 
   }
 
+  @Override
+  public Locale getLocale() {
+    return locale;
+  }
 
   /**
    * Setter for the maximum velocity on streets.
@@ -48,6 +62,9 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
   public void setVelocity(int velocity, String unit) {
     this.velocity = velocity;
     velocityUnit = unit;
+
+    getContents()[0][1] = String.valueOf(this.velocity);
+    getContents()[1][1] = unit;
   }
 
   /**
@@ -57,8 +74,10 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
    */
   @Override
   public void setPopulation(int population) {
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     this.population = numberFormat.format(population);
+
+    getContents()[2][1] = this.population;
 
   }
 
@@ -69,7 +88,9 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
    */
   @Override
   public void setMostFamousMeal(String mostFamousMeal) {
+
     this.mostFamousMeal = mostFamousMeal;
+    getContents()[5][1] = this.mostFamousMeal;
   }
 
   /**
@@ -82,11 +103,13 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new
-            Locale("en","US"));
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale);
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;
+
+    getContents()[3][1] = mostImportantHolidayDate;
+    getContents()[4][1] = mostImportantHolidayName;
 
 
   }
@@ -105,7 +128,7 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
    * @return an array of an <code>Object</code> array representing a key-value pair.
    */
   @Override
-   public Object[][] getContents() {
+  public Object[][] getContents() {
     return contents;
   }
 }

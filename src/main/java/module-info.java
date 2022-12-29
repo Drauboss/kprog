@@ -22,6 +22,7 @@ module kprog.main {
   exports prog.ex10.solution.javafx4pizzadelivery.gui;
   exports prog.ex15.monolingual.gui;
   exports prog.ex15.solution.i18countries.gui;
+  exports prog.ex15.solution.i18countries;
   opens examples.javafx.fxml to javafx.fxml;
   opens prog.ex10.solution.javafx4pizzadelivery.gui to javafx.fxml;
   exports livesession.snake.javafx;
