@@ -23,6 +23,7 @@ module kprog.main {
   exports prog.ex15.monolingual.gui;
   exports prog.ex15.solution.i18countries.gui;
   exports prog.ex15.solution.i18countries;
+  exports prog.ex15.exercise.i18ncountries;
   opens examples.javafx.fxml to javafx.fxml;
   opens prog.ex10.solution.javafx4pizzadelivery.gui to javafx.fxml;
   exports livesession.snake.javafx;

@@ -25,7 +25,7 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
   I18nKnowledgeGenerator generator;
   public FxKnowledgePresenter(final CountryKnowledgeContainer countryKnowledgeContainer) {
     this.countryKnowledgeContainer = countryKnowledgeContainer;
-    singletonConfiguration.addPropertyChangeListener(this::propertyChange);
+    singletonConfiguration.addPropertyChangeListener(this);
 
     generator = new I18nKnowledgeGenerator();
     fillAccordion();
@@ -57,7 +57,8 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
   public void propertyChange(PropertyChangeEvent evt) {
     System.out.println("fillAccordion()");
 
-
+    String loc = evt.getNewValue().toString();
+    logger.info(loc);
     this.countryKnowledgeContainer = generator.changeContainerTo((Locale) evt.getNewValue());
     fillAccordion();
   }

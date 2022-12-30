@@ -1,13 +1,11 @@
 package prog.ex15.solution.i18countries;
 
 import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeListenerProxy;
 import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
-import prog.ex10.solution.javafx4pizzadelivery.gui.SingletonAttributeStore;
 import prog.ex15.exercise.i18ncountries.Configuration;
 import prog.ex15.exercise.i18ncountries.Country;
 
@@ -27,6 +25,7 @@ public class SingletonConfiguration implements Configuration {
   Locale locale;
   PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
+  ResourceBundle infos;
   @Override
   public Locale getLocale() {
     return locale;
@@ -35,9 +34,10 @@ public class SingletonConfiguration implements Configuration {
   @Override
   public void setLocale(final Locale locale) {
     Locale oldLocal = this.locale;
+    Locale newLocale = locale;
     this.locale = locale;
     logger.info("proberty changed to " + locale.toString());
-    propertyChangeSupport.firePropertyChange("locale", oldLocal, locale);
+    propertyChangeSupport.firePropertyChange("newLocale", oldLocal, locale);
     //System.out.println("proberty changed to " + locale.toString());
   }
 
@@ -45,7 +45,27 @@ public class SingletonConfiguration implements Configuration {
   public ResourceBundle getTypicalBundle() {
 
 
-    ResourceBundle infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getLocale());
+
+    switch (getLocale().getLanguage()) {
+      case "en":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.UK);
+        break;
+      case "de":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.GERMANY);
+        break;
+      case "dk":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.DENMARK));
+        break;
+      case "nl":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.NETHERLANDS));
+        break;
+
+      default:
+        logger.info("fgasgdasgdsafgasggdsaqg");
+    }
+    //ResourceBundle infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.GERMANY);
+    //ResourceBundle infos = ResourceBundle.getBundle("prog/ex15/solution/i18countries/InfoBundle", Locale.UK);
+    //ResourceBundle infos = ResourceBundle.getBundle("src/main/java/prog/ex15/solution/i18countries/infoBundle2.java", Locale.UK);
     System.out.println(infos);
     return infos;
   }
@@ -54,6 +74,7 @@ public class SingletonConfiguration implements Configuration {
   public ResourceBundle getMessageBundle() {
 
     ResourceBundle messages = ResourceBundle.getBundle("bundles/i18ncountries", getLocale());
+    logger.info(String.valueOf(messages));
 
     return messages;
   }

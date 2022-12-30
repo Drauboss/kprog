@@ -17,7 +17,7 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
   private String mostImportantHolidayDate;
   private String mostImportantHolidayName;
   private String mostFamousMeal;
-
+  //Object[][] contents;
   Locale locale;
 
 
@@ -43,6 +43,7 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
     setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
     locale = Locale.UK;
 
+    //getContents()[0][0] = 70;
 
   }
 
@@ -107,6 +108,7 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;
+
 
     getContents()[3][1] = mostImportantHolidayDate;
     getContents()[4][1] = mostImportantHolidayName;

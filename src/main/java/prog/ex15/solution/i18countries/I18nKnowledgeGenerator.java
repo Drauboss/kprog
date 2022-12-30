@@ -36,7 +36,11 @@ public class I18nKnowledgeGenerator implements KnowledgeGenerator {
   public void addUkKnowledge() {
 
     System.out.println("add uk knowledge");
-    System.out.println(singletonConfiguration.getLocale());
+    //System.out.println(singletonConfiguration.getLocale());
+    //System.out.println(Locale.getDefault());
+    //Locale.setDefault(Locale.US);
+    //System.out.println(Locale.getDefault());
+    logger.info(String.valueOf(singletonConfiguration.getLocale()));
     String velocity = singletonConfiguration.getTypicalBundle().getString(TypicalCountry.VELOCITY);
     String velocityUnit = singletonConfiguration.getTypicalBundle()
         .getString(TypicalCountry.VELOCITY_UNIT);
@@ -132,6 +136,8 @@ public class I18nKnowledgeGenerator implements KnowledgeGenerator {
   public CountryKnowledgeContainer changeContainerTo(Locale locale) {
 
     container.clear();
+    logger.info(String.valueOf(locale));
+    logger.info(String.valueOf(locale.getCountry()));
     switch (locale.getCountry()) {
       case "GB":
         addUkKnowledge();
@@ -146,7 +152,8 @@ public class I18nKnowledgeGenerator implements KnowledgeGenerator {
         addDenmarkKnowledge();
         break;
       default:
-        System.out.println("wrong locale switch case");
+        logger.info("wrong locale switch case");
+
     }
 
     return container;

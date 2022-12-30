@@ -50,7 +50,7 @@ public class ListResourceBundleExample {
     Locale[] supportedLocales = {
         new Locale("en", "CA"),
         new Locale("ja", "JP"),
-        new Locale("fr", "FR")
+        new Locale("fr", "FR"),
     };
 
     for (int i = 0; i < supportedLocales.length; i++) {
