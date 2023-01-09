@@ -1,7 +1,6 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.text.MessageFormat;
-import java.time.LocalDate;
 import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.Category;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;

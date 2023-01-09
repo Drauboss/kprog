@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;

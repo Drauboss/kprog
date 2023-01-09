@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
-public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCountry {
+public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCountry {
 
 
   private int velocity;
@@ -36,13 +36,12 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
 
 
 
-  public InfoBundle_dk_DK() {
+  public InfoBundle_de_DE() {
     setVelocity(130, "km/h");
-    setPopulation(5840000);
-    setMostFamousMeal("knækbrød");
-    setMostImportantHoliday(LocalDate.parse("2022-06-05"), "Grundlovsdag");
-    System.out.println("infobundle wird geprintet");
-    locale = new Locale("dk", "DK");
+    setPopulation(83200000);
+    setMostFamousMeal("Eisbein mit Sauerkraut");
+    setMostImportantHoliday(LocalDate.parse("2022-10-03"), "Tag der Deutschen Einheit");
+    locale = Locale.GERMANY;
 
     //getContents()[0][0] = 70;
 
@@ -105,10 +104,11 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("dk", "DK"));
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(Locale.GERMANY);
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;
+
 
     getContents()[3][1] = mostImportantHolidayDate;
     getContents()[4][1] = mostImportantHolidayName;

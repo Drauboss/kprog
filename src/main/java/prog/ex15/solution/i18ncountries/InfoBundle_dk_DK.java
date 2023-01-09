@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
-public class InfoBundle extends ListResourceBundle implements TypicalCountry {
+public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCountry {
 
 
   private int velocity;
@@ -36,12 +36,13 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
 
 
 
-  public InfoBundle() {
-    setVelocity(70, "mph");
-    setPopulation(66500000);
-    setMostFamousMeal("fish and chips");
-    setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
-    locale = Locale.UK;
+  public InfoBundle_dk_DK() {
+    setVelocity(130, "km/h");
+    setPopulation(5840000);
+    setMostFamousMeal("knækbrød");
+    setMostImportantHoliday(LocalDate.parse("2022-06-05"), "Grundlovsdag");
+    System.out.println("infobundle wird geprintet");
+    locale = new Locale("dk", "DK");
 
     //getContents()[0][0] = 70;
 
@@ -75,7 +76,7 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
    */
   @Override
   public void setPopulation(int population) {
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
     this.population = numberFormat.format(population);
 
     getContents()[2][1] = this.population;
@@ -104,11 +105,10 @@ public class InfoBundle extends ListResourceBundle implements TypicalCountry {
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale);
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("dk", "DK"));
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;
-
 
     getContents()[3][1] = mostImportantHolidayDate;
     getContents()[4][1] = mostImportantHolidayName;

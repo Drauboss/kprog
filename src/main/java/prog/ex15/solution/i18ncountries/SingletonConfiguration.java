@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -48,16 +48,16 @@ public class SingletonConfiguration implements Configuration {
 
     switch (getLocale().getLanguage()) {
       case "en":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.UK);
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", Locale.UK);
         break;
       case "de":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.GERMANY);
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", Locale.GERMANY);
         break;
       case "dk":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.DENMARK));
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", getCountry2LocaleMap().get(Country.DENMARK));
         break;
       case "nl":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.NETHERLANDS));
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", getCountry2LocaleMap().get(Country.NETHERLANDS));
         break;
 
       default:

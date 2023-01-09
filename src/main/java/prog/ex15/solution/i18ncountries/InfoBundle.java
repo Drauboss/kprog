@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -8,7 +8,7 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
-public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCountry {
+public class InfoBundle extends ListResourceBundle implements TypicalCountry {
 
 
   private int velocity;
@@ -36,12 +36,12 @@ public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCount
 
 
 
-  public InfoBundle_de_DE() {
-    setVelocity(130, "km/h");
-    setPopulation(83200000);
-    setMostFamousMeal("Eisbein mit Sauerkraut");
-    setMostImportantHoliday(LocalDate.parse("2022-10-03"), "Tag der Deutschen Einheit");
-    locale = Locale.GERMANY;
+  public InfoBundle() {
+    setVelocity(70, "mph");
+    setPopulation(66500000);
+    setMostFamousMeal("fish and chips");
+    setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
+    locale = Locale.UK;
 
     //getContents()[0][0] = 70;
 
@@ -75,7 +75,7 @@ public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCount
    */
   @Override
   public void setPopulation(int population) {
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     this.population = numberFormat.format(population);
 
     getContents()[2][1] = this.population;
@@ -104,7 +104,7 @@ public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCount
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(Locale.GERMANY);
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale);
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;
