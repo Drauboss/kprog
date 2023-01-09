@@ -10,8 +10,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import prog.ex15.exercise.i18ncountries.Category;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
-import prog.ex15.solution.i18ncountries.I18nKnowledgeGeneratorBerkay;
-import prog.ex15.solution.i18ncountries.SingletonConfigurationBerkay;
+import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
+import prog.ex15.solution.i18ncountries.SingletonConfiguration;
 
 /**
  * JavaFX component presenting the content of a CountryKnowledgeContainer.
@@ -21,13 +21,13 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
           org.slf4j.LoggerFactory.getLogger(FxKnowledgePresenter.class);
 
   CountryKnowledgeContainer countryKnowledgeContainer;
-  SingletonConfigurationBerkay singletonConfiguration = SingletonConfigurationBerkay.getInstance();
-  I18nKnowledgeGeneratorBerkay generator;
+  SingletonConfiguration singletonConfiguration = SingletonConfiguration.getInstance();
+  I18nKnowledgeGenerator generator;
   public FxKnowledgePresenter(final CountryKnowledgeContainer countryKnowledgeContainer) {
     this.countryKnowledgeContainer = countryKnowledgeContainer;
     singletonConfiguration.addPropertyChangeListener(this);
 
-    generator = new I18nKnowledgeGeneratorBerkay();
+    generator = new I18nKnowledgeGenerator();
     fillAccordion();
   }
 

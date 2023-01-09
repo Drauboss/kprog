@@ -15,8 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import prog.ex15.exercise.i18ncountries.Country;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
-import prog.ex15.solution.i18ncountries.I18nKnowledgeGeneratorBerkay;
-import prog.ex15.solution.i18ncountries.SingletonConfigurationBerkay;
+import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
+import prog.ex15.solution.i18ncountries.SingletonConfiguration;
 
 /**
  * Main to launch the WelcomeToMyCountry content in a separate application.
@@ -31,7 +31,7 @@ public class MultilingualWelcomeLauncher extends Application implements Property
   //ObservableList<Country> countriesObservable;
   ObservableList<String> countriesObservable;
   ObservableList<Country> countriesObservableCountry;
-  SingletonConfigurationBerkay singletonConfiguration;
+  SingletonConfiguration singletonConfiguration;
 
   public void changeChoiceBoxLanguage() {
     choiceBox = new ChoiceBox<>();
@@ -79,7 +79,7 @@ public class MultilingualWelcomeLauncher extends Application implements Property
   public void start(final Stage stage) throws Exception {
 
     Locale.setDefault(Locale.UK);
-    singletonConfiguration = SingletonConfigurationBerkay.getInstance();
+    singletonConfiguration = SingletonConfiguration.getInstance();
     //default locale
     singletonConfiguration.setLocale(singletonConfiguration.getCountry2LocaleMap().get(Country.GERMANY));
     System.out.println(singletonConfiguration.getMessageBundle().getString("country.GERMANY"));
@@ -88,7 +88,7 @@ public class MultilingualWelcomeLauncher extends Application implements Property
 
     singletonConfiguration.addPropertyChangeListener(this);
 
-    CountryKnowledgeContainer container = new I18nKnowledgeGeneratorBerkay().fillContainer();
+    CountryKnowledgeContainer container = new I18nKnowledgeGenerator().fillContainer();
     FxKnowledgePresenter presenter = new FxKnowledgePresenter(container);
     VBox vBox = new VBox();
 
