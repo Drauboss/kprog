@@ -16,6 +16,10 @@ public class SingletonConfiguration implements Configuration {
 
   private static final org.slf4j.Logger logger =
       org.slf4j.LoggerFactory.getLogger(SingletonConfiguration.class);
+<<<<<<< HEAD
+=======
+
+>>>>>>> d5d50a3192d7b103eb2036422e6be285303a1560
 
   private static final SingletonConfiguration self = new SingletonConfiguration();
 
@@ -46,6 +50,7 @@ public class SingletonConfiguration implements Configuration {
 
   @Override
   public ResourceBundle getTypicalBundle() {
+<<<<<<< HEAD
 
     switch (getLocale().getLanguage()) {
       case "en":
@@ -62,6 +67,20 @@ public class SingletonConfiguration implements Configuration {
       case "nl":
         infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle",
             getCountry2LocaleMap().get(Country.NETHERLANDS));
+=======
+    switch (getLocale().getLanguage()) {
+      case "en":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", Locale.UK);
+        break;
+      case "de":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", Locale.GERMANY);
+        break;
+      case "dk":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", getCountry2LocaleMap().get(Country.DENMARK));
+        break;
+      case "nl":
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", getCountry2LocaleMap().get(Country.NETHERLANDS));
+>>>>>>> d5d50a3192d7b103eb2036422e6be285303a1560
         break;
 
       default:
@@ -74,7 +93,6 @@ public class SingletonConfiguration implements Configuration {
 
   @Override
   public ResourceBundle getMessageBundle() {
-
     ResourceBundle messages = ResourceBundle.getBundle("bundles/i18ncountries", getLocale());
     logger.info(String.valueOf(messages));
 
