@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries.gui;
+package prog.ex15.solution.i18ncountries.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -7,8 +7,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Locale;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -17,8 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import prog.ex15.exercise.i18ncountries.Country;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
-import prog.ex15.solution.i18countries.I18nKnowledgeGenerator;
-import prog.ex15.solution.i18countries.SingletonConfiguration;
+import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
+import prog.ex15.solution.i18ncountries.SingletonConfiguration;
 
 /**
  * Main to launch the WelcomeToMyCountry content in a separate application.
@@ -83,7 +81,8 @@ public class MultilingualWelcomeLauncher extends Application implements Property
     Locale.setDefault(Locale.UK);
     singletonConfiguration = SingletonConfiguration.getInstance();
     //default locale
-    singletonConfiguration.setLocale(singletonConfiguration.getCountry2LocaleMap().get(Country.GERMANY));
+    singletonConfiguration.setLocale(
+        singletonConfiguration.getCountry2LocaleMap().get(Country.GERMANY));
     System.out.println(singletonConfiguration.getMessageBundle().getString("country.GERMANY"));
 
     //countries = new ArrayList<>();
@@ -100,7 +99,6 @@ public class MultilingualWelcomeLauncher extends Application implements Property
     //System.out.println(singletonConfiguration.getTypicalBundle().getString(TypicalCountry.MOST_FAMOUS_MEAL));
     //System.out.println(singletonConfiguration.getTypicalBundle().getString(TypicalCountry.MOST_IMPORTANT_HOLIDAY_DATE));
     //System.out.println(singletonConfiguration.getTypicalBundle().getString(TypicalCountry.MOST_IMPORTANT_HOLIDAY_NAME));
-
 
     //changeChoiceBoxLanguage();
 
@@ -152,7 +150,6 @@ public class MultilingualWelcomeLauncher extends Application implements Property
 
         }
     );
-
 
     vBox.getChildren().addAll(choiceBox, presenter);
     stage.setScene(new Scene(vBox, 400, 300));

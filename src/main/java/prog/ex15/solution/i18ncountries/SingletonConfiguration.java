@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries;
+package prog.ex15.solution.i18ncountries;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -13,10 +13,12 @@ import prog.ex15.exercise.i18ncountries.Country;
  * Singleton-based implementation of the Configuration interface.
  */
 public class SingletonConfiguration implements Configuration {
+
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(SingletonConfiguration.class);
+      org.slf4j.LoggerFactory.getLogger(SingletonConfiguration.class);
 
   private static final SingletonConfiguration self = new SingletonConfiguration();
+
   public static SingletonConfiguration getInstance() {
     return self;
   }
@@ -26,6 +28,7 @@ public class SingletonConfiguration implements Configuration {
   PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
   ResourceBundle infos;
+
   @Override
   public Locale getLocale() {
     return locale;
@@ -44,28 +47,27 @@ public class SingletonConfiguration implements Configuration {
   @Override
   public ResourceBundle getTypicalBundle() {
 
-
-
     switch (getLocale().getLanguage()) {
       case "en":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.UK);
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle", Locale.ENGLISH);
         break;
       case "de":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.GERMANY);
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle",
+            Locale.GERMANY);
         break;
       case "dk":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.DENMARK));
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle",
+            getCountry2LocaleMap().get(Country.DENMARK));
         break;
       case "nl":
-        infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", getCountry2LocaleMap().get(Country.NETHERLANDS));
+        infos = ResourceBundle.getBundle("prog.ex15.solution.i18ncountries.InfoBundle",
+            getCountry2LocaleMap().get(Country.NETHERLANDS));
         break;
 
       default:
         logger.info("fgasgdasgdsafgasggdsaqg");
     }
-    //ResourceBundle infos = ResourceBundle.getBundle("prog.ex15.solution.i18countries.InfoBundle", Locale.GERMANY);
-    //ResourceBundle infos = ResourceBundle.getBundle("prog/ex15/solution/i18countries/InfoBundle", Locale.UK);
-    //ResourceBundle infos = ResourceBundle.getBundle("src/main/java/prog/ex15/solution/i18countries/infoBundle2.java", Locale.UK);
+
     System.out.println(infos);
     return infos;
   }

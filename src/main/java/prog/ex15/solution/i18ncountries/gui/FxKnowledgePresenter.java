@@ -1,4 +1,4 @@
-package prog.ex15.solution.i18countries.gui;
+package prog.ex15.solution.i18ncountries.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -10,19 +10,26 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import prog.ex15.exercise.i18ncountries.Category;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
-import prog.ex15.solution.i18countries.I18nKnowledgeGenerator;
-import prog.ex15.solution.i18countries.SingletonConfiguration;
+import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
+import prog.ex15.solution.i18ncountries.SingletonConfiguration;
 
 /**
  * JavaFX component presenting the content of a CountryKnowledgeContainer.
  */
 public class FxKnowledgePresenter extends Accordion implements PropertyChangeListener {
+
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(FxKnowledgePresenter.class);
+      org.slf4j.LoggerFactory.getLogger(FxKnowledgePresenter.class);
 
   CountryKnowledgeContainer countryKnowledgeContainer;
   SingletonConfiguration singletonConfiguration = SingletonConfiguration.getInstance();
   I18nKnowledgeGenerator generator;
+
+  /**
+   * fxKnowledgePresenter.
+   *
+   * @param countryKnowledgeContainer container.
+   */
   public FxKnowledgePresenter(final CountryKnowledgeContainer countryKnowledgeContainer) {
     this.countryKnowledgeContainer = countryKnowledgeContainer;
     singletonConfiguration.addPropertyChangeListener(this);
