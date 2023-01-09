@@ -11,16 +11,16 @@ import prog.ex15.exercise.i18ncountries.TypicalCountry;
  * Simple, straight-forward implementation of the KnowledgeGenerator interface for multiple
  * countries.
  */
-public class I18nKnowledgeGenerator implements KnowledgeGenerator {
+public class I18nKnowledgeGeneratorBerkay implements KnowledgeGenerator {
 
   private static final org.slf4j.Logger logger =
-      org.slf4j.LoggerFactory.getLogger(I18nKnowledgeGenerator.class);
+      org.slf4j.LoggerFactory.getLogger(I18nKnowledgeGeneratorBerkay.class);
 
-  SingletonConfiguration singletonConfiguration = SingletonConfiguration.getInstance();
+  SingletonConfigurationBerkay singletonConfiguration = SingletonConfigurationBerkay.getInstance();
   Locale locale;
   CountryKnowledgeContainer container = new CountryKnowledgeContainer();
 
-  public I18nKnowledgeGenerator() {
+  public I18nKnowledgeGeneratorBerkay() {
 
 
   }

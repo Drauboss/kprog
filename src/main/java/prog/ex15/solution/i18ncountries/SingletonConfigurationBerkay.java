@@ -12,12 +12,12 @@ import prog.ex15.exercise.i18ncountries.Country;
 /**
  * Singleton-based implementation of the Configuration interface.
  */
-public class SingletonConfiguration implements Configuration {
+public class SingletonConfigurationBerkay implements Configuration {
   private static final org.slf4j.Logger logger =
-          org.slf4j.LoggerFactory.getLogger(SingletonConfiguration.class);
+          org.slf4j.LoggerFactory.getLogger(SingletonConfigurationBerkay.class);
 
-  private static final SingletonConfiguration self = new SingletonConfiguration();
-  public static SingletonConfiguration getInstance() {
+  private static final SingletonConfigurationBerkay self = new SingletonConfigurationBerkay();
+  public static SingletonConfigurationBerkay getInstance() {
     return self;
   }
 
