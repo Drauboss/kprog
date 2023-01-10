@@ -4,13 +4,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import prog.ex15.exercise.i18ncountries.Category;
-import prog.ex15.exercise.i18ncountries.Country;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
 import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
 import prog.ex15.solution.i18ncountries.SingletonConfiguration;
@@ -35,7 +33,6 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
   public FxKnowledgePresenter(final CountryKnowledgeContainer countryKnowledgeContainer) {
     this.countryKnowledgeContainer = countryKnowledgeContainer;
     singletonConfiguration.addPropertyChangeListener(this);
-
     generator = new I18nKnowledgeGenerator();
     fillAccordion();
   }
@@ -47,7 +44,6 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
 
       String categoryString = null;
       switch (category) {
-
         case TRAFFIC:
           categoryString = "categories.TRAFFIC";
           break;
@@ -61,12 +57,11 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
           categoryString = "categories.STATISTICS";
           break;
         default:
-          categoryString = "fehler";
+          logger.info("wrong category");
       }
-      
 
       titledPane.setText(singletonConfiguration.getMessageBundle().getString(categoryString));
-      //titledPane.setText(category.toString());
+
       List<String> knowledgeList = countryKnowledgeContainer.getKnowledge(category);
       VBox box = new VBox();
       for (String string : knowledgeList) {
@@ -79,18 +74,19 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
   }
 
   /**
-   * This method gets called when a bound property is changed.
+   * This method gets called when a bound property is changed. takes the new locale and changes the
+   * container to the corresponding container.
    *
    * @param evt A PropertyChangeEvent object describing the event source and the property that has
    *            changed.
    */
   @Override
   public void propertyChange(PropertyChangeEvent evt) {
-    System.out.println("fillAccordion()");
 
     String loc = evt.getNewValue().toString();
     logger.info(loc);
-    this.countryKnowledgeContainer = generator.changeContainerTo((Locale) evt.getNewValue());
+    //this.countryKnowledgeContainer = generator.changeContainerTo((Locale) evt.getNewValue());
+    this.countryKnowledgeContainer = generator.fillContainer();
     fillAccordion();
   }
 }

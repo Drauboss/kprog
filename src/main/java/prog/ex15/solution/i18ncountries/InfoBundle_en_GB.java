@@ -9,7 +9,7 @@ import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
 /**
- * Info bundle.
+ * Info bundle for Great Britain.
  */
 public class InfoBundle_en_GB extends ListResourceBundle implements TypicalCountry {
 
@@ -20,7 +20,6 @@ public class InfoBundle_en_GB extends ListResourceBundle implements TypicalCount
   private String mostImportantHolidayDate;
   private String mostImportantHolidayName;
   private String mostFamousMeal;
-  //Object[][] contents;
   Locale locale;
 
 
@@ -43,8 +42,6 @@ public class InfoBundle_en_GB extends ListResourceBundle implements TypicalCount
     setPopulation(66500000);
     setMostFamousMeal("fish and chips");
     setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
-
-    //getContents()[0][0] = 70;
 
   }
 

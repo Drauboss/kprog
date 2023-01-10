@@ -9,7 +9,7 @@ import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
 /**
- * Info bundle.
+ * Info bundle for Germany.
  */
 public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCountry {
 
@@ -20,7 +20,6 @@ public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCount
   private String mostImportantHolidayDate;
   private String mostImportantHolidayName;
   private String mostFamousMeal;
-  //Object[][] contents;
   Locale locale;
 
 
@@ -43,8 +42,6 @@ public class InfoBundle_de_DE extends ListResourceBundle implements TypicalCount
     setPopulation(83200000);
     setMostFamousMeal("Eisbein mit Sauerkraut");
     setMostImportantHoliday(LocalDate.parse("2022-10-03"), "Tag der Deutschen Einheit");
-
-    //getContents()[0][0] = 70;
 
   }
 

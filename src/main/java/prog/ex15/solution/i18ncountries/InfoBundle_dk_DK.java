@@ -8,6 +8,9 @@ import java.util.ListResourceBundle;
 import java.util.Locale;
 import prog.ex15.exercise.i18ncountries.TypicalCountry;
 
+/**
+ * Info bundle for Denmark.
+ */
 public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCountry {
 
 
@@ -17,11 +20,7 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
   private String mostImportantHolidayDate;
   private String mostImportantHolidayName;
   private String mostFamousMeal;
-  //Object[][] contents;
   Locale locale;
-
-
-
 
   Object[][] contents = {
       {VELOCITY, velocity},
@@ -35,16 +34,15 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
 
 
 
-
+  /**
+   * InfoBundle constructor.
+   */
   public InfoBundle_dk_DK() {
     locale = new Locale("dk", "DK");
     setVelocity(130, "km/h");
     setPopulation(5840000);
     setMostFamousMeal("knækbrød");
     setMostImportantHoliday(LocalDate.parse("2022-06-05"), "Grundlovsdag");
-    System.out.println("infobundle wird geprintet");
-
-    //getContents()[0][0] = 70;
 
   }
 
@@ -115,11 +113,6 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
 
 
   }
-
-
-
-
-
 
   /**
    * Returns an array in which each item is a pair of objects in an
