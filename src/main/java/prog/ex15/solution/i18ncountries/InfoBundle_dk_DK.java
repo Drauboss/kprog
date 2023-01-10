@@ -37,12 +37,12 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
 
 
   public InfoBundle_dk_DK() {
+    locale = new Locale("dk", "DK");
     setVelocity(130, "km/h");
     setPopulation(5840000);
     setMostFamousMeal("knækbrød");
     setMostImportantHoliday(LocalDate.parse("2022-06-05"), "Grundlovsdag");
     System.out.println("infobundle wird geprintet");
-    locale = new Locale("dk", "DK");
 
     //getContents()[0][0] = 70;
 
@@ -76,7 +76,7 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
    */
   @Override
   public void setPopulation(int population) {
-    NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.UK);
+    NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
     this.population = numberFormat.format(population);
 
     getContents()[2][1] = this.population;
@@ -105,7 +105,7 @@ public class InfoBundle_dk_DK extends ListResourceBundle implements TypicalCount
   public void setMostImportantHoliday(LocalDate date, String holidayName) {
 
     DateTimeFormatter dtf =
-        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("dk", "DK"));
+        DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(locale);
 
     mostImportantHolidayDate = dtf.format(date);
     mostImportantHolidayName = holidayName;

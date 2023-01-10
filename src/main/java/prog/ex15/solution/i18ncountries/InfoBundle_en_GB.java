@@ -38,11 +38,11 @@ public class InfoBundle_en_GB extends ListResourceBundle implements TypicalCount
    * InfoBundle constructor.
    */
   public InfoBundle_en_GB() {
+    locale = Locale.UK;
     setVelocity(70, "mph");
     setPopulation(66500000);
     setMostFamousMeal("fish and chips");
     setMostImportantHoliday(LocalDate.parse("2022-01-31"), "Brexit Day (Joke)");
-    locale = Locale.UK;
 
     //getContents()[0][0] = 70;
 
