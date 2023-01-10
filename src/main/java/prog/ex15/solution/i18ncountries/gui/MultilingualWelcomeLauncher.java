@@ -83,7 +83,7 @@ public class MultilingualWelcomeLauncher extends Application implements Property
     //default locale
     singletonConfiguration.setLocale(
         singletonConfiguration.getCountry2LocaleMap().get(Country.GERMANY));
-    System.out.println(singletonConfiguration.getMessageBundle().getString("country.GERMANY"));
+    //System.out.println(singletonConfiguration.getMessageBundle().getString("country.GERMANY"));
 
     //countries = new ArrayList<>();
 
@@ -106,11 +106,11 @@ public class MultilingualWelcomeLauncher extends Application implements Property
     //countries2.add(singletonConfiguration.getMessageBundle().getString("country.GERMANY"));
     //countries2Observable = FXCollections.observableList(
     //    countries2);
-//
+
     choiceBox = new ChoiceBox();
-//
+
     List<Country> countries = new ArrayList<>(EnumSet.allOf(Country.class));
-//
+
     countriesObservableCountry = FXCollections.observableList(
         countries);
     choiceBox.setItems(countriesObservableCountry);

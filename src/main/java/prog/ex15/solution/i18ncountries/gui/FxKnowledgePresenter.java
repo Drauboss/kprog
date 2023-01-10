@@ -4,11 +4,13 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Locale;
+import java.util.ResourceBundle;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import prog.ex15.exercise.i18ncountries.Category;
+import prog.ex15.exercise.i18ncountries.Country;
 import prog.ex15.exercise.i18ncountries.CountryKnowledgeContainer;
 import prog.ex15.solution.i18ncountries.I18nKnowledgeGenerator;
 import prog.ex15.solution.i18ncountries.SingletonConfiguration;
@@ -42,7 +44,29 @@ public class FxKnowledgePresenter extends Accordion implements PropertyChangeLis
     this.getPanes().clear();
     for (Category category : Category.values()) {
       TitledPane titledPane = new TitledPane();
-      titledPane.setText(category.toString());
+
+      String categoryString = null;
+      switch (category) {
+
+        case TRAFFIC:
+          categoryString = "categories.TRAFFIC";
+          break;
+        case FOOD:
+          categoryString = "categories.FOOD";
+          break;
+        case HOLIDAYS:
+          categoryString = "categories.HOLIDAYS";
+          break;
+        case STATISTICS:
+          categoryString = "categories.STATISTICS";
+          break;
+        default:
+          categoryString = "fehler";
+      }
+      
+
+      titledPane.setText(singletonConfiguration.getMessageBundle().getString(categoryString));
+      //titledPane.setText(category.toString());
       List<String> knowledgeList = countryKnowledgeContainer.getKnowledge(category);
       VBox box = new VBox();
       for (String string : knowledgeList) {
